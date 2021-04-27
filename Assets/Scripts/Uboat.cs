@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "New Suboat", menuName = "Uboat", order = 51)]
+//[CreateAssetMenu(fileName = "New Suboat", menuName = "Uboat", order = 51)]
 public class Uboat : Ship
 {
-  
-    // fatigue system for underwater fatigue which impacts bigger general fatigue system
+    
+
+
+
+
 }

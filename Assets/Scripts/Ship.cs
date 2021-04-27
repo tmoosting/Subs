@@ -4,17 +4,36 @@ using UnityEngine;
 
 
 
-public class Ship : ScriptableObject
+public class Ship : MonoBehaviour
 {
   
-    public enum ShipType { DESTROYER, ESCORT, MERCHANT, UBOAT  }
+    public enum ShipType { DESTROYER, MERCHANT, UBOAT  }
+    public enum Engine { Still, Third, Half, Standard, Flank  }
+    
 
     [SerializeField]
-    ShipType shipType;
+    public ShipType shipType;
+  
+    public Engine engine;
+    public int bearing;
+    bool engineReverse;
 
 
-    Sprite shipSprite;
 
+
+
+    public void SetCourse (int bearing)
+    {
+
+        // rotate around z axis proportional to current speed
+    }
+    public void SetEngineSpeed(float kmperhour)
+    {
+
+
+    }
+
+    
 
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Cinemachine;
 
 public class UIController : MonoBehaviour
 {
@@ -13,16 +14,23 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI engineText;
     public TextMeshProUGUI bearingText;
+    public GameObject followIcon;
+    
+     
 
-   // [HideInInspector]
+    // [HideInInspector]
     public List<ShipBar> shipBarList = new List<ShipBar>();
 
     private void Awake()
     {
         Instance = this;
         nameText.gameObject.SetActive(false);
+        followIcon.gameObject.SetActive(false);
     }
-
+    private void Update()
+    {
+    
+    }
 
 
     public void UpdateSelectedShip(Ship ship)
@@ -36,6 +44,13 @@ public class UIController : MonoBehaviour
 
     }
 
+
+
+    void ZoomToShip()
+    {
+
+
+    }
 
 
     public void LoadShipsIntoShipBars()

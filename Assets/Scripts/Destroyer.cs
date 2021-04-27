@@ -7,6 +7,10 @@ using UnityEngine;
 public class Destroyer : Ship
 {
 
+    Lookout lookout;
+    Radar radar;
+    Sonar sonar;
+
 
     private void Update()
     {

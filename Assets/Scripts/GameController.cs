@@ -55,6 +55,8 @@ public class GameController : MonoBehaviour
         InitializeShips();
         UIController.Instance.LoadShipsIntoShipBars();
 
+        SetSelectedShip(destroyerList[0]);
+
     }
     void InitializeShips()
     {

@@ -15,7 +15,7 @@ public class ShipBar : MonoBehaviour
     [HideInInspector]
     public Ship containedShip;
 
-    private void Start()
+    private void Awake()
     { 
         gameObject.SetActive(false);
     }
@@ -26,9 +26,12 @@ public class ShipBar : MonoBehaviour
         shipName.GetComponent<TextMeshProUGUI>().text = ship.gameObject.name;
         gameObject.SetActive(true); 
         SetSprite(1); 
-        containsShip = true;
+        containsShip = true; 
     }
-
+    private void OnDisable()
+    {
+        Debug.Log("disabling !  " + gameObject.name);
+    }
     private void OnMouseEnter()
     {
         if (GameController.Instance.selectedShip != containedShip)

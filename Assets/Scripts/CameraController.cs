@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
     public static CameraController Instance;
 
 
+    public CinemachineVirtualCamera followCam;
+
+
     Vector3 lastFramePosition;
+    public bool zoomedToShip;
 
-
-    public float maxZoomIn = 2f;
+    public float maxZoomIn = 4f;
     public float maxZoomOut = 50f;
 
     private void Awake()
     {
         Instance = this;
+        followCam.gameObject.SetActive(false);
+
     }
     void Update()
     {
@@ -32,8 +38,42 @@ public class CameraController : MonoBehaviour
         lastFramePosition.z = 0;
 
         //HANDLE ZOOM
-        Camera.main.orthographicSize -= Camera.main.orthographicSize * Input.GetAxis("Mouse ScrollWheel");
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, maxZoomIn, maxZoomOut);
+       
+        if (zoomedToShip == true)
+        {
+            followCam.m_Lens.OrthographicSize -= followCam.m_Lens.OrthographicSize * Input.GetAxis("Mouse ScrollWheel");
+            followCam.m_Lens.OrthographicSize = Mathf.Clamp(followCam.m_Lens.OrthographicSize, maxZoomIn, maxZoomOut); 
+        }
+        else
+        {
+            Camera.main.orthographicSize -= Camera.main.orthographicSize * Input.GetAxis("Mouse ScrollWheel");
+            Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, maxZoomIn, maxZoomOut);
+        }
+      
 
+        // ZOOM TO SHIP
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            if (zoomedToShip == false)
+                CameraController.Instance.ZoomToShip(GameController.Instance.selectedShip);
+            else
+            {
+                zoomedToShip = false;
+                followCam.gameObject.SetActive(false);
+                Camera.main.orthographicSize = followCam.m_Lens.OrthographicSize;
+                UIController.Instance.followIcon.SetActive(false);
+            }
+        }
+
+    }
+
+    public void ZoomToShip (Ship ship)
+    {
+        zoomedToShip = true;
+        followCam.Follow = ship.transform;
+        Camera.main.orthographicSize = 5;
+       followCam.m_Lens.OrthographicSize = 5; 
+        followCam.gameObject.SetActive(true);
+        UIController.Instance.followIcon.SetActive(true);
     }
 }

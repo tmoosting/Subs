@@ -107,7 +107,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -17.340406, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -118,7 +118,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 102.1, y: 32.5}
+  m_Size: {x: 138.5825, y: 32.5}
   m_EdgeRadius: 0
 --- !u!1 &2067877135168197104
 GameObject:
@@ -154,8 +154,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.2, y: -9.3}
-  m_SizeDelta: {x: 170.929, y: 9.697}
+  m_AnchoredPosition: {x: 30.3, y: -2.1}
+  m_SizeDelta: {x: 112.99, y: 9.697}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5240984422216492023
 CanvasRenderer:
@@ -212,14 +212,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 11
+  m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -279,7 +279,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2593803378317198515}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.443, y: 5.5, z: -1508.848}
+  m_LocalPosition: {x: -55.6, y: 0.2, z: -1508.848}
   m_LocalScale: {x: 33.865837, y: 33.865837, z: 33.865837}
   m_Children: []
   m_Father: {fileID: 1343362825463540601}

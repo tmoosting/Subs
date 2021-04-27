@@ -7,8 +7,7 @@ public class MoveManual : MonoBehaviour
 
     public enum ShipPhysics { RIGID, LOOSE }
     float rotationSpeed = 100f;
-    float accelerationForce = 0.3f;
-    float brakeForce = 0.2f;
+    float accelerationForce = 0.3f; 
     float maxSpeed = 5.0f;
     float liftOffForce = 5f;
     bool crashed;

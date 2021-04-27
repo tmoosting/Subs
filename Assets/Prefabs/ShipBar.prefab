@@ -63,15 +63,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipIcon: {fileID: 2593803378317198515}
   shipName: {fileID: 2067877135168197104}
-  neutralColor:
-    serializedVersion: 2
-    rgba: 0
-  selectedColor:
-    serializedVersion: 2
-    rgba: 0
-  disabledColor:
-    serializedVersion: 2
-    rgba: 0
   containedShip: {fileID: 0}
 --- !u!114 &8985305753442138116
 MonoBehaviour:
@@ -127,7 +118,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 173, y: 29}
+  m_Size: {x: 102.1, y: 32.5}
   m_EdgeRadius: 0
 --- !u!1 &2067877135168197104
 GameObject:

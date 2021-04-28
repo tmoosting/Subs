@@ -55,7 +55,7 @@ public class ShipBar : MonoBehaviour
       
     }
 
-    void SetSprite(int mode)
+    public void SetSprite(int mode)
     {
         
         if (containedShip.shipType == Ship.ShipType.DESTROYER)

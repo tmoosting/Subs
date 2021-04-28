@@ -22,26 +22,20 @@ public class GameController : MonoBehaviour
 
     [Header("General Settings")]
     public float gameSpeed;
+    public float magnitudeThird;
+    public float magnitudeHalf;
+    public float magnitudeStandard;
+    public float magnitudeFlank;
 
     [Header("Destroyer Settings")]
-    public float destroyerFullSpeed;
-    public float destroyerStandardSpeed;
-    public float destroyerHalfSpeed;
-
-
-    public float destroyerAccelerationSpeed; // merchants use same for now
-    public float destroyerDrag;    
-    public float destroyerTurnRate;
-    public int depthChargeStock;
+    public float destroyerEnginePower;
+    public float destroyerTurnSpeed;
+     
 
 
     [Header("Uboat Settings")]
-    public float uboatAccelerationSpeed;  // also  
-    public float uboatResistance;
-    public float uboatMaxSpeed;
-    public float uboatTurnRate;
-    public int torpedoStock;
-    public int maxSubmergeTime;
+    public float uboatEnginePower;  
+
 
     private void Awake()
     {
@@ -57,7 +51,11 @@ public class GameController : MonoBehaviour
         UIController.Instance.LoadShipsIntoShipBars();
 
         SetSelectedShip(destroyerList[0]);
-
+        foreach (ShipBar bar in UIController.Instance.shipBarList)
+        {
+            if (bar.containedShip == GameController.Instance.selectedShip)
+                bar.SetSprite(3);
+        }  
     }
     void InitializeShips()
     {

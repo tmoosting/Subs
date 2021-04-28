@@ -12,10 +12,12 @@ public class UIController : MonoBehaviour
 
     [Header("Assigns")]
     public TextMeshProUGUI nameText;
-    public TextMeshProUGUI engineSpeedText;
-    public TextMeshProUGUI bearingText;
+    public TextMeshProUGUI currentEngineSpeedText;
+    public TextMeshProUGUI targetEngineSpeedText;
+    public TextMeshProUGUI currentBearingText;
+    public TextMeshProUGUI targetBearingText;
     public GameObject followIcon;
-     
+    public TMP_InputField bearingInputField;
     
      
 
@@ -27,6 +29,7 @@ public class UIController : MonoBehaviour
         Instance = this;
         nameText.gameObject.SetActive(false);
         followIcon.gameObject.SetActive(false);
+        bearingInputField.onValueChanged.AddListener(delegate { BearingInputValueChanged(); });
     }
     private void Update()
     {
@@ -43,14 +46,20 @@ public class UIController : MonoBehaviour
     {
         // continuous updates
         Ship selectedShip = GameController.Instance.selectedShip;
-        engineSpeedText.text = selectedShip.GetSpeed().ToString();
-        bearingText.text = selectedShip.GetBearing().ToString();
+        currentEngineSpeedText.text = selectedShip.GetSpeed().ToString();
+        currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
+        targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
 
     }
 
 
 
-    // ------------------ Called from ShipWindow
+
+
+
+
+
+    // ------------------ Called from ShipWindow UI
     public void SetStillEngine( )
     {
         GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Still);
@@ -67,7 +76,7 @@ public class UIController : MonoBehaviour
     }
     public void SetStandardEngine()
     {
-        GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Still);
+        GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Standard);
 
     }
     public void SetFlankEngine()
@@ -75,9 +84,21 @@ public class UIController : MonoBehaviour
         GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Flank);
 
     }
+    public void SetReverse(bool reversed)
+    {
+        GameController.Instance.selectedShip.SetReverse(reversed);
+    }
 
+    void BearingInputValueChanged()
+    {
+        if (int.Parse(bearingInputField.text) > 360)
+            bearingInputField.text = "360";
 
-
+    }
+    public void SetBearing()
+    {
+        GameController.Instance.selectedShip.SetCourse(int.Parse(bearingInputField.text));
+    }
 
 
 

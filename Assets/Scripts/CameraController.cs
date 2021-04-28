@@ -56,8 +56,7 @@ public class CameraController : MonoBehaviour
         {
             if (zoomedToShip == false)
             {
-                CameraController.Instance.ZoomToShip(GameController.Instance.selectedShip); 
-                CameraController.Instance.ZoomToShip(GameController.Instance.selectedShip); 
+                CameraController.Instance.ZoomToShip(GameController.Instance.selectedShip);  
             }
 
             else
@@ -72,6 +71,10 @@ public class CameraController : MonoBehaviour
         {
             Camera.main.orthographicSize = 5;
             followCam.m_Lens.OrthographicSize = 5;
+            if (zoomedToShip == false)
+            {
+                CameraController.Instance.ZoomToShip(GameController.Instance.selectedShip);
+            }
         }
   
 

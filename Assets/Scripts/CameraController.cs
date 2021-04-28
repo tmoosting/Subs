@@ -52,10 +52,14 @@ public class CameraController : MonoBehaviour
       
 
         // ZOOM TO SHIP
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             if (zoomedToShip == false)
-                CameraController.Instance.ZoomToShip(GameController.Instance.selectedShip);
+            {
+                CameraController.Instance.ZoomToShip(GameController.Instance.selectedShip); 
+                CameraController.Instance.ZoomToShip(GameController.Instance.selectedShip); 
+            }
+
             else
             {
                 zoomedToShip = false;
@@ -64,15 +68,20 @@ public class CameraController : MonoBehaviour
                 UIController.Instance.followIcon.SetActive(false);
             }
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Camera.main.orthographicSize = 5;
+            followCam.m_Lens.OrthographicSize = 5;
+        }
+  
 
     }
 
     public void ZoomToShip (Ship ship)
     {
+        followCam.m_Lens.OrthographicSize = Camera.main.orthographicSize;
         zoomedToShip = true;
-        followCam.Follow = ship.transform;
-        Camera.main.orthographicSize = 5;
-       followCam.m_Lens.OrthographicSize = 5; 
+        followCam.Follow = ship.transform; 
         followCam.gameObject.SetActive(true);
         UIController.Instance.followIcon.SetActive(true);
     }

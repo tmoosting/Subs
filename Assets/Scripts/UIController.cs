@@ -12,9 +12,10 @@ public class UIController : MonoBehaviour
 
     [Header("Assigns")]
     public TextMeshProUGUI nameText;
-    public TextMeshProUGUI engineText;
+    public TextMeshProUGUI engineSpeedText;
     public TextMeshProUGUI bearingText;
     public GameObject followIcon;
+     
     
      
 
@@ -29,29 +30,78 @@ public class UIController : MonoBehaviour
     }
     private void Update()
     {
-    
-    }
-
-
-    public void UpdateSelectedShip(Ship ship)
-    {
-       // Debug.Log("Selecting " + ship.name);
+        LeftRightSelection(); 
+        UpdateShipWindow();
+    } 
+    public void LoadShipInShipWindow(Ship ship)
+    { 
         nameText.gameObject.SetActive(true);
         nameText.text = ship.name;
-        engineText.text = ship.engine.ToString();
-        bearingText.text = ship.bearing.ToString();
-
-
+        UpdateShipWindow();
     }
-
-
-
-    void ZoomToShip()
+    void UpdateShipWindow()
     {
-
+        // continuous updates
+        Ship selectedShip = GameController.Instance.selectedShip;
+        engineSpeedText.text = selectedShip.GetSpeed().ToString();
+        bearingText.text = selectedShip.GetBearing().ToString();
 
     }
 
+
+
+    // ------------------ Called from ShipWindow
+    public void SetStillEngine( )
+    {
+        GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Still);
+    }
+    public void SetThirdEngine()
+    {
+        GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Third);
+
+    }
+    public void SetHalfEngine()
+    {
+        GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Half);
+
+    }
+    public void SetStandardEngine()
+    {
+        GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Still);
+
+    }
+    public void SetFlankEngine()
+    {
+        GameController.Instance.selectedShip.SetEngineSpeed(Ship.Engine.Flank);
+
+    }
+
+
+
+
+
+
+
+
+    void LeftRightSelection()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            int index = GameController.Instance.GetAllShips().IndexOf(GameController.Instance.selectedShip);
+            if (index + 1 != GameController.Instance.GetAllShips().Count)
+                GameController.Instance.SetSelectedShip(GameController.Instance.GetAllShips()[index + 1]);
+            else
+                GameController.Instance.SetSelectedShip(GameController.Instance.GetAllShips()[0]);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            int index = GameController.Instance.GetAllShips().IndexOf(GameController.Instance.selectedShip);
+            if (index - 1 > -1)
+                GameController.Instance.SetSelectedShip(GameController.Instance.GetAllShips()[index - 1]);
+            else
+                GameController.Instance.SetSelectedShip(GameController.Instance.GetAllShips()[GameController.Instance.GetAllShips().Count - 1]);
+        }
+    }
 
     public void LoadShipsIntoShipBars()
     {

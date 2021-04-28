@@ -11,10 +11,11 @@ public class GameController : MonoBehaviour
     List<Destroyer> destroyerList = new List<Destroyer>();
     List<Merchant> merchantList = new List<Merchant>();
     List<Uboat> uboatList = new List<Uboat>();
+    List<Ship> shipList = new List<Ship>();
 
 
     [HideInInspector]
-    public Ship selectedShip;
+    public Ship selectedShip { get; private set; }
     
     [Header("Assign Objects")]
     public GameObject shipHolder;
@@ -64,11 +65,19 @@ public class GameController : MonoBehaviour
         {
             if (child.gameObject.GetComponent<Destroyer>() != null)
                 destroyerList.Add(child.gameObject.GetComponent<Destroyer>());
+            else if (child.gameObject.GetComponent<Merchant>() != null)
+                merchantList.Add(child.gameObject.GetComponent<Merchant>());
             else if (child.gameObject.GetComponent<Uboat>() != null)
                 uboatList.Add(child.gameObject.GetComponent<Uboat>());
-            else if (child.gameObject.GetComponent<Merchant>() != null)
-                merchantList.Add(child.gameObject.GetComponent<Merchant>()); 
+          
         }
+        foreach (Ship ship in destroyerList)
+            shipList.Add(ship);
+        foreach (Ship ship in merchantList)
+            shipList.Add(ship);
+        foreach (Ship ship in uboatList)
+            shipList.Add(ship);
+
         Debug.Log("Found  " + destroyerList.Count + " Destroyer, " + merchantList.Count + " Merchant, " + uboatList.Count + " Uboat");
     }
 
@@ -78,7 +87,10 @@ public class GameController : MonoBehaviour
     public void SetSelectedShip(Ship ship)
     {
         selectedShip = ship;
-        UIController.Instance.UpdateSelectedShip(selectedShip);
+        UIController.Instance.LoadShipInShipWindow(selectedShip);
+        if (CameraController.Instance.zoomedToShip == true)
+            CameraController.Instance.ZoomToShip(ship);
+
     }
 
 
@@ -93,5 +105,9 @@ public class GameController : MonoBehaviour
     public List<Uboat> GetUboats()
     {
         return uboatList;
+    }
+    public List<Ship> GetAllShips()
+    {
+        return shipList;
     }
 }

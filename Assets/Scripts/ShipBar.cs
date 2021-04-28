@@ -28,10 +28,7 @@ public class ShipBar : MonoBehaviour
         SetSprite(1); 
         containsShip = true; 
     }
-    private void OnDisable()
-    {
-        Debug.Log("disabling !  " + gameObject.name);
-    }
+    
     private void OnMouseEnter()
     {
         if (GameController.Instance.selectedShip != containedShip)

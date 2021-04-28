@@ -14,27 +14,49 @@ public class Ship : MonoBehaviour
     [SerializeField]
     public ShipType shipType;
   
-    public Engine engine;
-    public int bearing;
+    public Engine currentEngine;
+    public int currentBearing;
     bool engineReverse;
 
+    private void Awake()
+    {
+        currentBearing = GetBearing();
+    }
 
 
-
+    private void OnMouseDown()
+    {
+        GameController.Instance.SetSelectedShip(this);
+    }
 
     public void SetCourse (int bearing)
     {
 
         // rotate around z axis proportional to current speed
     }
-    public void SetEngineSpeed(float kmperhour)
+    public void SetEngineSpeed(Engine engine)
     {
-
-
+        currentEngine = engine;
     }
 
     
 
 
+    public float GetSpeed()
+    {
+        return GetComponent<Rigidbody2D>().velocity.magnitude;
+    }
+    public int GetBearing()
+    { 
+        return (360- Mathf.Abs((int)transform.rotation.eulerAngles.z));
+    }
+
+ 
+
+
+    public void SetEngineSpeed()
+    {
+
+    }
 
 }

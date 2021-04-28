@@ -23,12 +23,10 @@ public class MoveManual : MonoBehaviour
 
     public void InitializeShip()
     {
-        transform.position = new Vector3(-0.5f, Random.Range(-4.7f, -5.3f));
-        transform.localEulerAngles = new Vector3(0f, 0f, 90f);
-        gameObject.SetActive(true);
+     //   transform.position = new Vector3(-0.5f, Random.Range(-4.7f, -5.3f));
+    //    transform.localEulerAngles = new Vector3(0f, 0f, 90f); 
         timeElapsed = 0f;
-        currentSpeed = 0f;
-        crashed = false;
+        currentSpeed = 0f; 
 
 
     }

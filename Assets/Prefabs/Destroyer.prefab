@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1448820835}
   - component: {fileID: 1448820836}
   - component: {fileID: 1448820837}
-  - component: {fileID: 1448820841}
   - component: {fileID: 769464210732139081}
   m_Layer: 0
   m_Name: Destroyer
@@ -102,8 +101,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipType: 0
-  engine: 0
-  bearing: 0
+  currentEngine: 0
+  currentBearing: 0
+  targetBearing: 0
+  speed: 1
+  steerSpeed: 1
+  movementThresold: 10
 --- !u!50 &5159907372696917941
 Rigidbody2D:
   serializedVersion: 4
@@ -118,7 +121,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0.1
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -159,18 +162,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fcfc16cf07ae5a441b080469f3c402b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1448820841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7233641063142974185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69dca0e73d74a324881f5948ded3cd23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &769464210732139081

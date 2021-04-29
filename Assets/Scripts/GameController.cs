@@ -47,18 +47,22 @@ public class GameController : MonoBehaviour
     }
     void InitializeProgram()
     {
-        InitializeShips();
+        FindShips();
+
         UIController.Instance.LoadShipsIntoShipBars();
 
-        SetSelectedShip(destroyerList[0]);
-        foreach (ShipBar bar in UIController.Instance.shipBarList)
-        {
+        // select a ship and highlight it
+        SetSelectedShip(destroyerList[0]); 
+        foreach (ShipBar bar in UIController.Instance.shipBarList)        
             if (bar.containedShip == GameController.Instance.selectedShip)
                 bar.SetSprite(3);
-        }  
+
+        // set ship engines, bearings, specifics
+        InitializeShips(); 
     }
-    void InitializeShips()
+    void FindShips()
     {
+        // Find the ships and add to list
         foreach (Transform child in shipHolder.transform)
         {
             if (child.gameObject.GetComponent<Destroyer>() != null)
@@ -66,8 +70,7 @@ public class GameController : MonoBehaviour
             else if (child.gameObject.GetComponent<Merchant>() != null)
                 merchantList.Add(child.gameObject.GetComponent<Merchant>());
             else if (child.gameObject.GetComponent<Uboat>() != null)
-                uboatList.Add(child.gameObject.GetComponent<Uboat>());
-          
+                uboatList.Add(child.gameObject.GetComponent<Uboat>()); 
         }
         foreach (Ship ship in destroyerList)
             shipList.Add(ship);
@@ -75,11 +78,21 @@ public class GameController : MonoBehaviour
             shipList.Add(ship);
         foreach (Ship ship in uboatList)
             shipList.Add(ship);
-
-        Debug.Log("Found  " + destroyerList.Count + " Destroyer, " + merchantList.Count + " Merchant, " + uboatList.Count + " Uboat");
+        Debug.Log("Found  " + destroyerList.Count + " Destroyer, " + merchantList.Count + " Merchant, " + uboatList.Count + " Uboat"); 
     }
 
-
+    void InitializeShips()
+    {
+        foreach (Ship ship in shipList)
+        {
+            ship.SetCourse(ship.GetCurrentBearing());
+        }
+        foreach (Ship ship in merchantList)
+        {
+            ship.SetCourse(999);
+            ship.SetEngineSpeed(Ship.Engine.Half);
+        }
+    }
 
 
     public void SetSelectedShip(Ship ship)

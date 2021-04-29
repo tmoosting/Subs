@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 
+
 public class Ship : MonoBehaviour
 {
   
@@ -25,11 +26,11 @@ public class Ship : MonoBehaviour
     }
 
 
-
+ 
     private void FixedUpdate()
     {
         // Engine logic
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();        
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (currentEngine == Engine.Third)
             if (rb.velocity.magnitude < GameController.Instance.magnitudeThird)
                 PowerEngine();
@@ -45,36 +46,42 @@ public class Ship : MonoBehaviour
 
 
         // Turning logic
+        if (GetCurrentBearing() < GetTargetBearing())
+        {
+            transform.Rotate(0, 0, -GetTurnSpeed());
+        }
+        else if (GetCurrentBearing() > GetTargetBearing())
+        {
+            transform.Rotate(0, 0, GetTurnSpeed());
+        }
 
-        float turnSpeed = GameController.Instance.destroyerTurnSpeed * rb.velocity.magnitude;
 
-      //  int shipBearing = GetBearing();
-
-        //   if (shipBearing > targetBearing) 
-        Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y, targetBearing);
-
-
-        var newRotation = Quaternion.LookRotation(transform.position - targetPosition, Vector3.forward);
-        newRotation.x = 0f;
-        newRotation.y = 0f; 
-        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * turnSpeed);
     }
 
+    float GetTurnSpeed()
+    {
+        return 0.05f;
+    }
     void PowerEngine()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        
         if (shipType == ShipType.DESTROYER)
             rb.AddForce(transform.up * GameController.Instance.destroyerEnginePower * Time.deltaTime);
         else if (shipType == ShipType.MERCHANT)
             rb.AddForce(transform.up * GameController.Instance.destroyerEnginePower * Time.deltaTime);
         else if (shipType == ShipType.UBOAT)
             rb.AddForce(transform.up * GameController.Instance.uboatEnginePower * Time.deltaTime);
+         
     }
 
 
     public void SetCourse (int bearing)
     {
-        targetBearing = bearing; 
+        if (bearing == 999)
+            targetBearing = currentBearing;
+        else
+          targetBearing = bearing; 
     }
     public void SetEngineSpeed(Engine engine)
     {
@@ -92,8 +99,8 @@ public class Ship : MonoBehaviour
         return GetComponent<Rigidbody2D>().velocity.magnitude;
     }
     public int GetCurrentBearing()
-    { 
-        return (360- Mathf.Abs((int)transform.rotation.eulerAngles.z));
+    {
+         return (360- Mathf.Abs((int)transform.rotation.eulerAngles.z)); 
     }
     public int GetTargetBearing()
     {

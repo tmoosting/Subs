@@ -12,48 +12,48 @@ public class Destroyer : Ship
     Sonar sonar;
 
  
+     
+     
+     
 
-    float signedSqrt(float x)
-    {
-        float r = Mathf.Sqrt(Mathf.Abs(x));
-        if (x < 0)
-        {
-            return -r;
-        }
-        else
-        {
-            return r;
-        }
+    private void Start()
+    { 
     }
-
-    public float speed = 1.0f;
-    public float steerSpeed = 10.0f;
-    public float movementThresold = 10.0f;
-    float verticalInput;
-    float movementFactor;
-    float horizontalInput;
-    float steerFactor ;
-
     private void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        steerFactor = Mathf.Lerp(steerFactor, -horizontalInput, Time.deltaTime);
-        transform.Rotate(0.0f, 0, steerFactor * steerSpeed);
+        //horizontalInput = Input.GetAxis("Horizontal");
+        //steerFactor = Mathf.Lerp(steerFactor, -horizontalInput, Time.deltaTime);
+        //transform.Rotate(0.0f, 0, steerFactor * steerSpeed);
 
 
 
-
-
-
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            if (gameObject.name == "LeadDestroyer")
-            { 
-                transform.Rotate(0, 0, -0.5f);
-                Debug.Log(name + " current.. " + GetCurrentBearing());
-                Debug.Log(name + " target.. " + GetTargetBearing());
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+            if (gameObject.name == "Destroyer (1)")
+            {
+                Debug.Log("rb velo x: " + rb.velocity.x + "    y :   " + rb.velocity.y);
+
             }
-   
+        }
+
+
+            if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (gameObject.name == "Destroyer (1)")
+            {
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+                float magnitude = rb.velocity.magnitude;
+
+                rb.velocity = new Vector2(0, 0);
+                rb.AddForce(transform.up * magnitude);
+                //    transform.Rotate(0, 0, -0.5f); 
+                Debug.Log("velo x: " + GetComponent<Rigidbody2D>().velocity.x);
+                Debug.Log("velo y: " + GetComponent<Rigidbody2D>().velocity.y);
+            }
+    
 
 
             //GetComponent<Rigidbody2D>().AddForce(transform.up * 10 * Time.deltaTime);

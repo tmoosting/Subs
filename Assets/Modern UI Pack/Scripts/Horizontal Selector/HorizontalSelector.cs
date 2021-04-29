@@ -26,7 +26,8 @@ namespace Michsky.UI.ModernUIPack
         public bool invertAnimation;
         public bool loopSelection;
         public int defaultIndex = 0;
-        [HideInInspector] public int index = 0;
+        [HideInInspector] 
+        public int index = 0;
 
         // Items
         public List<Item> itemList = new List<Item>();

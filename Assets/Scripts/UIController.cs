@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Cinemachine;
+using Michsky.UI.ModernUIPack;
 
 public class UIController : MonoBehaviour
 {
@@ -14,12 +15,13 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI currentEngineSpeedText;
     public TextMeshProUGUI targetEngineSpeedText;
+    public TextMeshProUGUI engineSelectorText;
+    public HorizontalSelector engineSelector;
     public TextMeshProUGUI currentBearingText;
     public TextMeshProUGUI targetBearingText;
     public GameObject followIcon;
-    public TMP_InputField bearingInputField;
-    
-     
+    public TMP_InputField bearingInputField; 
+
 
     // [HideInInspector]
     public List<ShipBar> shipBarList = new List<ShipBar>();
@@ -40,13 +42,17 @@ public class UIController : MonoBehaviour
     { 
         nameText.gameObject.SetActive(true);
         nameText.text = ship.name;
+
+
+    //    engineSelector.index = 2;
         UpdateShipWindow();
     }
     void UpdateShipWindow()
-    {
+    { 
         // continuous updates
         Ship selectedShip = GameController.Instance.selectedShip;
         currentEngineSpeedText.text = selectedShip.GetSpeed().ToString();
+        
         currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
         targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
 

@@ -45,15 +45,37 @@ public class Ship : MonoBehaviour
                 PowerEngine();
 
 
-        // Turning logic
-        if (GetCurrentBearing() < GetTargetBearing())
+        // Turning logic   
+        if (GetCurrentBearing() == 0 || GetCurrentBearing() == 360)
         {
-            transform.Rotate(0, 0, -GetTurnSpeed());
+            // pointing straight up 
+            if (GetTargetBearing() < 180 )
+                transform.Rotate(0, 0, -GetTurnSpeed()); // moves clockwise
+            else
+                transform.Rotate(0, 0, GetTurnSpeed()); // moves counterclockwise
         }
-        else if (GetCurrentBearing() > GetTargetBearing())
+        else // bearing is not 0
         {
-            transform.Rotate(0, 0, GetTurnSpeed());
+            if (GetCurrentBearing() < GetTargetBearing())
+            {
+                if (GetTargetBearing() - GetCurrentBearing() < 180 )                
+                    transform.Rotate(0, 0, -GetTurnSpeed()); // moves clockwise                
+                else                
+                    transform.Rotate(0, 0, GetTurnSpeed()); // moves counterclockwise                
+            }
+            else if (GetCurrentBearing() > GetTargetBearing())
+            {
+                if (GetCurrentBearing() - GetTargetBearing() < 180)                
+                    transform.Rotate(0, 0, GetTurnSpeed()); // moves counterclockwise                
+                else                
+                    transform.Rotate(0, 0, -GetTurnSpeed()); // moves clockwise                
+            }  
         }
+     
+
+        // Update current forces
+
+
 
 
     }

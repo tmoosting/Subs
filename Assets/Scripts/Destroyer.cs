@@ -11,13 +11,20 @@ public class Destroyer : Ship
     Radar radar;
     Sonar sonar;
 
- 
-     
-     
-     
 
-    private void Start()
-    { 
+
+
+
+    void RedistributeVelocity()
+    {
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        float previousMagnitude = rb.velocity.magnitude;
+        Vector2 previousVelocity = rb.velocity;
+        rb.velocity = new Vector2(previousVelocity.x * 1.1f, previousVelocity.y * 0.9f); 
+
+
+
     }
     private void Update()
     {
@@ -33,7 +40,8 @@ public class Destroyer : Ship
 
             if (gameObject.name == "Destroyer (1)")
             {
-                Debug.Log("rb velo x: " + rb.velocity.x + "    y :   " + rb.velocity.y);
+                // RedistributeVelocity(); 
+                Debug.Log("rb velo x: " + rb.velocity.x + "    y :   " + rb.velocity.y); 
 
             }
         }

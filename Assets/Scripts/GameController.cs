@@ -26,6 +26,8 @@ public class GameController : MonoBehaviour
     public float magnitudeHalf;
     public float magnitudeStandard;
     public float magnitudeFlank;
+    public float steeringCorrectionMultiplier;
+    public float speedRemnantRemoveAmount;
 
     [Header("Destroyer Settings")]
     public float destroyerEnginePower;
@@ -34,8 +36,8 @@ public class GameController : MonoBehaviour
 
 
     [Header("Uboat Settings")]
-    public float uboatEnginePower;  
-
+    public float uboatEnginePower;
+    public float uboatTurnSpeed;
 
     private void Awake()
     {
@@ -85,11 +87,11 @@ public class GameController : MonoBehaviour
     {
         foreach (Ship ship in shipList)
         {
-            ship.SetCourse(ship.GetCurrentBearing());
+            ship.SetCourse(ship.GetCurrentBearing()); // same as 999
         }
         foreach (Ship ship in merchantList)
         {
-            ship.SetCourse(999);
+            ship.SetCourse(999); // its current bearing becomes its targert
             ship.SetEngineSpeed(Ship.Engine.Half);
         }
     }

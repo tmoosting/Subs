@@ -25,30 +25,77 @@ public class Ship : MonoBehaviour
     private void Awake()
     {
         currentBearing = GetCurrentBearing();
-        captain = new Captain();
+     //   captain = new Captain();
     }
 
 
- 
-    private void FixedUpdate()
+    public void EatTorpedo()
+    { 
+        StartCoroutine(DestroyAfterDelay(0.3f));
+       GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+    }
+   
+    IEnumerator DestroyAfterDelay(float time)
     {
-        // Engine logic
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (currentEngine == Engine.Third)
-            if (rb.velocity.magnitude < GameController.Instance.magnitudeThird)
-                PowerEngine();
-        if (currentEngine == Engine.Half)
-            if (rb.velocity.magnitude < GameController.Instance.magnitudeHalf)
-                PowerEngine();
-        if (currentEngine == Engine.Standard)
-            if (rb.velocity.magnitude < GameController.Instance.magnitudeStandard)
-                PowerEngine();
-        if (currentEngine == Engine.Flank)
-            if (rb.velocity.magnitude < GameController.Instance.magnitudeFlank)
-                PowerEngine();
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
+    }
 
-        // Turning logic   
-        if (Mathf.Abs( GetCurrentBearing() - GetTargetBearing()) > 0.1f)
+
+    private void FixedUpdate()
+    {            
+        PowerEngine();
+        TurnShip();   
+    }
+
+    void PowerEngine()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        float maxMagnitude = 0f;
+
+        if (shipType == ShipType.DESTROYER || shipType == ShipType.MERCHANT)
+        {
+            maxMagnitude = GameController.Instance.destroyerStandardSpeed / GameController.Instance.knotsPerMagnitude;
+        }
+        else if (shipType == ShipType.UBOAT)
+        {
+            if (GetComponent<Uboat>().submerged == true)
+                maxMagnitude = GameController.Instance.uboatStandardSpeedBelow / GameController.Instance.knotsPerMagnitude;
+            else
+                maxMagnitude = GameController.Instance.uboatStandardSpeedAbove / GameController.Instance.knotsPerMagnitude;
+        }
+
+        if (currentEngine == Engine.Still)
+            maxMagnitude *= 0f;
+        if (currentEngine == Engine.Third)        
+            maxMagnitude *= 0.33f;
+        if (currentEngine == Engine.Half)
+            maxMagnitude *= 0.5f;
+        if (currentEngine == Engine.Standard)
+            maxMagnitude *= 1f;
+        if (currentEngine == Engine.Flank)
+            maxMagnitude *= 1.4f;
+
+        if (rb.velocity.magnitude < maxMagnitude)
+            AddEngineForce(); 
+    }
+    void AddEngineForce()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+        if (shipType == ShipType.DESTROYER)
+            rb.AddForce(transform.up * GameController.Instance.destroyerAcceleration * Time.deltaTime);
+        else if (shipType == ShipType.MERCHANT)
+            rb.AddForce(transform.up * GameController.Instance.destroyerAcceleration * Time.deltaTime);
+        else if (shipType == ShipType.UBOAT)
+            rb.AddForce(transform.up * GameController.Instance.uboatAccelerationAbove * Time.deltaTime);
+    }
+
+
+
+    void TurnShip()
+    {
+        if (Mathf.Abs(GetCurrentBearing() - GetTargetBearing()) > 0.1f)
         {
             if (GetCurrentBearing() == 0 || GetCurrentBearing() == 360)
             {
@@ -75,82 +122,56 @@ public class Ship : MonoBehaviour
                         TurnClockwise();
                 }
             }
+        } 
+        if (GameController.Instance.useTurnCorrection == true)
+        {
+            if (GetCurrentBearing() == 90 || GetCurrentBearing() == 270)
+                EliminateYSpeedRemnant();
+            if (GetCurrentBearing() == 360 || GetCurrentBearing() == 0 || GetCurrentBearing() == 180)
+                EliminateXSpeedRemnant();
         }
-
-
-        // manually kill speeds at tiny angles :(
-        //if (( GetCurrentBearing() > 85 && GetCurrentBearing() < 95) || (GetCurrentBearing() > 265 && GetCurrentBearing() < 275))
-        //{
-        //    EliminateYSpeedRemnant();
-        //}
-        //if ( (GetCurrentBearing() > 355  || GetCurrentBearing() < 5) || (GetCurrentBearing() > 175 && GetCurrentBearing() < 185))
-        //{
-        //    EliminateXSpeedRemnant();
-        //}
-        if (GetCurrentBearing() == 90 || GetCurrentBearing() == 270)
-            EliminateYSpeedRemnant();
-        if (GetCurrentBearing() == 360 || GetCurrentBearing() == 0 || GetCurrentBearing() == 180)
-            EliminateXSpeedRemnant();
-
     }
-    void EliminateXSpeedRemnant()
-    {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        Vector2 previousVelocity = rb.velocity;
-        rb.velocity = new Vector2(previousVelocity.x * GameController.Instance.speedRemnantRemoveAmount, previousVelocity.y) ;
 
-    }
-    void EliminateYSpeedRemnant()
-    {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        Vector2 previousVelocity = rb.velocity;
-        rb.velocity = new Vector2(  previousVelocity.x, previousVelocity.y * GameController.Instance.speedRemnantRemoveAmount);
-    }
+   
 
     void TurnClockwise()
     {
         // grab base speed from BaseController
         float baseRotation = -GetTurnSpeed();
         // multiply by current speed to limit turning at slow/nonspeeds
-        float actualRotation = baseRotation * GetSpeed();
+        float actualRotation = baseRotation * GetVelocity();
         // rotate clockwise
          transform.Rotate(0, 0, actualRotation);
 
-        if (GetCurrentBearing() == 360 || GetCurrentBearing() == 0 || GetCurrentBearing() < 90)
-            AdjustTowardsX(actualRotation, true, true);
-        else if (GetCurrentBearing() >= 90 && GetCurrentBearing() < 180)
-            AdjustTowardsY(actualRotation, true, false);
-        else if (GetCurrentBearing() >= 180 && GetCurrentBearing() < 270)
-            AdjustTowardsX(actualRotation, false, false);
-        else if (GetCurrentBearing() >= 270 && GetCurrentBearing() < 360)
-            AdjustTowardsY(actualRotation, false, true);
+        if (GameController.Instance.useTurnCorrection == true)
+        {
+            if (GetCurrentBearing() == 360 || GetCurrentBearing() == 0 || GetCurrentBearing() < 90)
+                AdjustTowardsX(actualRotation, true, true);
+            else if (GetCurrentBearing() >= 90 && GetCurrentBearing() < 180)
+                AdjustTowardsY(actualRotation, true, false);
+            else if (GetCurrentBearing() >= 180 && GetCurrentBearing() < 270)
+                AdjustTowardsX(actualRotation, false, false);
+            else if (GetCurrentBearing() >= 270 && GetCurrentBearing() < 360)
+                AdjustTowardsY(actualRotation, false, true);
+        }
     }
     void TurnAntiClockwise()
     {
         float baseRotation = GetTurnSpeed();
-        float actualRotation = baseRotation * GetSpeed();
+        float actualRotation = baseRotation * GetVelocity();
         transform.Rotate(0, 0, actualRotation);
 
-
-
-        if ( GetCurrentBearing() == 0 || GetCurrentBearing() > 270)
-            AdjustTowardsX(-actualRotation, false, true);
-        else if (GetCurrentBearing() > 180 && GetCurrentBearing() <= 270)
-           AdjustTowardsY(-actualRotation, false, false);
-         else if (GetCurrentBearing() > 90 && GetCurrentBearing() <= 180)
-           AdjustTowardsX(-actualRotation, true, false);
-         else if (GetCurrentBearing() > 0 && GetCurrentBearing() <= 90)
-            AdjustTowardsY(-actualRotation, true, true);
-        //if (GetCurrentBearing() == 360 || GetCurrentBearing() == 0)
-        //    AdjustTowardsX(actualRotation, false, false); 
-        //else if (GetCurrentBearing() > 0 && GetCurrentBearing() <= 90)
-        //    AdjustTowardsY(actualRotation, true, false);
-        //else if (GetCurrentBearing() > 90 && GetCurrentBearing() <= 180)
-        //    AdjustTowardsX(actualRotation, true, false);
-        //else if (GetCurrentBearing() > 180 && GetCurrentBearing() <= 270)
-        //    AdjustTowardsY(actualRotation, false, true);
-        //else if (GetCurrentBearing() > 270 && GetCurrentBearing() < 360)
-        //    AdjustTowardsX(actualRotation, false, true);
+        if (GameController.Instance.useTurnCorrection == true)
+        {
+            if (GetCurrentBearing() == 0 || GetCurrentBearing() > 270)
+                AdjustTowardsX(-actualRotation, false, true);
+            else if (GetCurrentBearing() > 180 && GetCurrentBearing() <= 270)
+                AdjustTowardsY(-actualRotation, false, false);
+            else if (GetCurrentBearing() > 90 && GetCurrentBearing() <= 180)
+                AdjustTowardsX(-actualRotation, true, false);
+            else if (GetCurrentBearing() > 0 && GetCurrentBearing() <= 90)
+                AdjustTowardsY(-actualRotation, true, true);
+        } 
 
     }
     void AdjustTowardsX(float actualRotation, bool positiveXAdjustment, bool positiveYAdjustment)
@@ -187,33 +208,21 @@ public class Ship : MonoBehaviour
         else if (positiveXAdjustment == false && positiveYAdjustment == false)
             rb.velocity = new Vector2(previousVelocity.x + speedSwapped, previousVelocity.y - speedSwapped); 
     }
-
-    float GetTurnSpeed()
-    {
-        if (shipType == ShipType.UBOAT)
-        {
-            return GameController.Instance.uboatTurnSpeed;
-        }
-        else
-        {
-            return GameController.Instance.destroyerTurnSpeed;
-        }
-             
-    }
-    void PowerEngine()
+    void EliminateXSpeedRemnant()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        
-        if (shipType == ShipType.DESTROYER)
-            rb.AddForce(transform.up * GameController.Instance.destroyerEnginePower * Time.deltaTime);
-        else if (shipType == ShipType.MERCHANT)
-            rb.AddForce(transform.up * GameController.Instance.destroyerEnginePower * Time.deltaTime);
-        else if (shipType == ShipType.UBOAT)
-            rb.AddForce(transform.up * GameController.Instance.uboatEnginePower * Time.deltaTime);
+        Vector2 previousVelocity = rb.velocity;
+        rb.velocity = new Vector2(previousVelocity.x * GameController.Instance.speedRemnantRemoveAmount, previousVelocity.y);
 
-        
-         
     }
+    void EliminateYSpeedRemnant()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        Vector2 previousVelocity = rb.velocity;
+        rb.velocity = new Vector2(previousVelocity.x, previousVelocity.y * GameController.Instance.speedRemnantRemoveAmount);
+    }
+
+
 
 
     public void SetCourse (int bearing)
@@ -231,10 +240,13 @@ public class Ship : MonoBehaviour
     {
         engineReverse = reversed;
     }
-    
 
 
-    public float GetSpeed()
+    public float GetspeedInKnots()
+    {
+        return GetComponent<Rigidbody2D>().velocity.magnitude * GameController.Instance.knotsPerMagnitude;
+    }
+    public float GetVelocity()
     {
         return GetComponent<Rigidbody2D>().velocity.magnitude;
     }
@@ -246,7 +258,20 @@ public class Ship : MonoBehaviour
     {
         return targetBearing;
     }
-
+    float GetTurnSpeed()
+    {
+        if (shipType == ShipType.UBOAT)
+        {
+            if (GetComponent<Uboat>().submerged == true)
+                return GameController.Instance.uboatTurnSpeedBelow;
+            else
+                return GameController.Instance.uboatTurnSpeedAbove;
+        }
+        else
+        {
+            return GameController.Instance.destroyerTurnSpeed;
+        }
+    }
 
 
 

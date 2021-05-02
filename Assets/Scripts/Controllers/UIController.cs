@@ -20,7 +20,7 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI currentBearingText;
     public TextMeshProUGUI targetBearingText;
     public GameObject followIcon;
-    public TMP_InputField bearingInputField; 
+    public TMP_InputField bearingInputField;  
 
 
     // [HideInInspector]
@@ -37,25 +37,42 @@ public class UIController : MonoBehaviour
     {
         LeftRightSelection(); 
         UpdateShipWindow();
+
+        if (Input.GetKeyDown(KeyCode.P))
+            GameController.Instance.useTurnCorrection = !GameController.Instance.useTurnCorrection;
+
+        if (Input.GetKeyDown(KeyCode.T))
+            if (GameController.Instance.selectedShip.shipType == Ship.ShipType.UBOAT)
+                GameController.Instance.selectedShip.GetComponent<Uboat>().FireTorpedo();
     } 
     public void LoadShipInShipWindow(Ship ship)
     { 
         nameText.gameObject.SetActive(true);
-        nameText.text = ship.name;
+        nameText.text = ship.name; 
+         
+        if (ship.currentEngine == Ship.Engine.Still)
+            engineSelector.index = 0;
+        if (ship.currentEngine == Ship.Engine.Third)
+            engineSelector.index = 1;
+        if (ship.currentEngine == Ship.Engine.Half)
+            engineSelector.index = 2;
+        if (ship.currentEngine == Ship.Engine.Standard)
+            engineSelector.index = 3;
+        if (ship.currentEngine == Ship.Engine.Flank)
+            engineSelector.index = 4;
+        engineSelector.UpdateUI();
 
+        bearingInputField.text = ship.GetTargetBearing().ToString();
 
-    //    engineSelector.index = 2;
         UpdateShipWindow();
     }
     void UpdateShipWindow()
     { 
-        // continuous updates
+        // for continuous updates
         Ship selectedShip = GameController.Instance.selectedShip;
-        currentEngineSpeedText.text = selectedShip.GetSpeed().ToString();
-        
+        currentEngineSpeedText.text = selectedShip.GetspeedInKnots().ToString("F1") + " knots";        
         currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
         targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
-
     }
 
 

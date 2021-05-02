@@ -19,25 +19,36 @@ public class GameController : MonoBehaviour
     
     [Header("Assign Objects")]
     public GameObject shipHolder;
+    public GameObject torpedoPrefab;
+    public GameObject explosionPrefab;
 
     [Header("General Settings")]
     public float gameSpeed;
-    public float magnitudeThird;
-    public float magnitudeHalf;
-    public float magnitudeStandard;
-    public float magnitudeFlank;
+    public float knotsPerMagnitude;
+
+    [Header("Turn Correction")]
+    public bool useTurnCorrection;
     public float steeringCorrectionMultiplier;
     public float speedRemnantRemoveAmount;
 
     [Header("Destroyer Settings")]
-    public float destroyerEnginePower;
+    public float destroyerAcceleration;
+    public float destroyerStandardSpeed; // in knots
     public float destroyerTurnSpeed;
      
 
 
     [Header("Uboat Settings")]
-    public float uboatEnginePower;
-    public float uboatTurnSpeed;
+    public float uboatStandardSpeedAbove;
+    public float uboatStandardSpeedBelow;
+    public float uboatAccelerationAbove;
+    public float uboatAccelerationBelow;
+    public float uboatTurnSpeedAbove;
+    public float uboatTurnSpeedBelow;
+    public float torpedoInitialForce;
+    public float torpedoMaxSpeed;
+    public float torpedoAccelerationRate;
+
 
     private void Awake()
     {

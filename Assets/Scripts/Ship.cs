@@ -20,15 +20,14 @@ public class Ship : MonoBehaviour
     public int targetBearing;
     bool engineReverse;
 
-
-    Captain captain;
+     
     List<Vector2> logList = new List<Vector2>();
 
 
     private void Awake()
     {
         currentBearing = GetCurrentBearing();
-     //   captain = new Captain();
+       //  captain = new Captain();
     }
 
 
@@ -48,7 +47,8 @@ public class Ship : MonoBehaviour
     IEnumerator DestroyAfterDelay(float time)
     {
         yield return new WaitForSeconds(time);
-        Destroy(gameObject);
+        GameController.Instance.DestroyShip(this);
+        
     }
 
     public void LogPosition()

@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour
         foreach (Ship ship in merchantList)
         {
             ship.SetCourse(999); // its current bearing becomes its targert
-            ship.SetEngineSpeed(Ship.Engine.Half);
+        //    ship.SetEngineSpeed(Ship.Engine.Half);
         }
 
         StartCoroutine(ShipLogging(loggingInterval));
@@ -162,5 +162,19 @@ public class GameController : MonoBehaviour
     public List<Ship> GetAllShips()
     {
         return shipList;
+    }
+
+
+    public void DestroyShip (Ship ship)
+    {
+        shipList.Remove(ship);
+        if (ship.shipType == Ship.ShipType.DESTROYER)
+            destroyerList.Remove(ship.GetComponent<Destroyer>());
+        if (ship.shipType == Ship.ShipType.MERCHANT)
+            merchantList.Remove(ship.GetComponent<Merchant>());
+        if (ship.shipType == Ship.ShipType.UBOAT)
+            uboatList.Remove(ship.GetComponent<Uboat>());
+
+        Destroy(ship.gameObject);
     }
 }

@@ -4287,6 +4287,7 @@ MonoBehaviour:
   explosionPrefab: {fileID: 2023078720477336933, guid: 27cb87151b03a854b8184b223d1b8e33, type: 3}
   gameSpeed: 1
   knotsPerMagnitude: 30
+  loggingInterval: 5
   useTurnCorrection: 1
   steeringCorrectionMultiplier: 2.4
   speedRemnantRemoveAmount: 0.8

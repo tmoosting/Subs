@@ -20,7 +20,10 @@ public class Ship : MonoBehaviour
     public int targetBearing;
     bool engineReverse;
 
+
     Captain captain;
+    List<Vector2> logList = new List<Vector2>();
+
 
     private void Awake()
     {
@@ -29,23 +32,29 @@ public class Ship : MonoBehaviour
     }
 
 
-    public void EatTorpedo()
-    { 
-        StartCoroutine(DestroyAfterDelay(0.3f));
-       GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+    private void FixedUpdate()
+    {            
+        PowerEngine();
+        TurnShip();   
     }
-   
+     
+
+    public void EatTorpedo()
+    {
+        StartCoroutine(DestroyAfterDelay(0.3f));
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+    }
+
     IEnumerator DestroyAfterDelay(float time)
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
 
-
-    private void FixedUpdate()
-    {            
-        PowerEngine();
-        TurnShip();   
+    public void LogPosition()
+    {
+        logList.Add(new Vector2(transform.position.x, transform.position.y));
+    //    Debug.Log("logging for " + gameObject.name + " x: " + transform.position.x);
     }
 
     void PowerEngine()

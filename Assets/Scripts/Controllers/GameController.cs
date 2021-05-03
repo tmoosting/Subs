@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     [Header("General Settings")]
     public float gameSpeed;
     public float knotsPerMagnitude;
+    public float loggingInterval; // in seconds
 
     [Header("Turn Correction")]
     public bool useTurnCorrection;
@@ -109,10 +110,17 @@ public class GameController : MonoBehaviour
             ship.SetCourse(999); // its current bearing becomes its targert
             ship.SetEngineSpeed(Ship.Engine.Half);
         }
-       
 
+        StartCoroutine(ShipLogging(loggingInterval));
+      
     }
-
+    IEnumerator ShipLogging(float time)
+    {
+        yield return new WaitForSeconds(time);
+        foreach (Ship ship in shipList)        
+            ship.LogPosition();
+        StartCoroutine(ShipLogging(loggingInterval));
+    }
 
     public void SetSelectedShip(Ship ship)
     {

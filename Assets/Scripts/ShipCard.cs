@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShipBar : MonoBehaviour
+public class ShipCard : MonoBehaviour
 {
-    
-    
+
+
     public GameObject shipIcon;
     public GameObject shipName;
     [HideInInspector]
@@ -17,19 +17,20 @@ public class ShipBar : MonoBehaviour
     public Ship containedShip;
 
     private void Awake()
-    { 
+    {
         gameObject.SetActive(false);
+        UIController.Instance.shipCardList.Add(this);
     }
 
     public void AssignShip(Ship ship)
     {
         containedShip = ship;
         shipName.GetComponent<TextMeshProUGUI>().text = ship.gameObject.name;
-        gameObject.SetActive(true); 
-        SetSprite(1); 
-        containsShip = true; 
+        gameObject.SetActive(true);
+        SetSprite(1);
+        containsShip = true;
     }
-    
+
     private void OnMouseEnter()
     {
         if (GameController.Instance.selectedShip != containedShip)
@@ -50,12 +51,12 @@ public class ShipBar : MonoBehaviour
                 SetSprite(3);
             }
         }
-      
+
     }
 
     public void SetSprite(int mode)
     {
-        
+
         if (containedShip.shipType == Ship.ShipType.DESTROYER)
         {
             if (mode == 1)

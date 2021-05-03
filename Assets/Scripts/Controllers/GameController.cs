@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour
     {
         FindShips();
 
-        UIController.Instance.LoadShipsIntoShipBars();
+        
 
         // select a ship and highlight it
         SetSelectedShip(destroyerList[0]); 
@@ -71,7 +71,11 @@ public class GameController : MonoBehaviour
                 bar.SetSprite(3);
 
         // set ship engines, bearings, specifics
-        InitializeShips(); 
+        InitializeShips();
+
+        UIController.Instance.LoadShipsIntoShipBars();
+        UIController.Instance.CreateShipCards();
+        UpdateHighlights();
     }
     void FindShips()
     {
@@ -105,6 +109,8 @@ public class GameController : MonoBehaviour
             ship.SetCourse(999); // its current bearing becomes its targert
             ship.SetEngineSpeed(Ship.Engine.Half);
         }
+       
+
     }
 
 
@@ -112,12 +118,27 @@ public class GameController : MonoBehaviour
     {
         selectedShip = ship;
         UIController.Instance.LoadShipInShipWindow(selectedShip);
-        if (CameraController.Instance.zoomedToShip == true)
+        if (CameraController.Instance.followMode == true)
             CameraController.Instance.ZoomToShip(ship);
-
+        UpdateHighlights(); 
     }
 
+    void UpdateHighlights()
+    {
+        foreach (ShipBar bar in UIController.Instance.shipBarList)
+            if (bar.containsShip == true)
+                bar.SetSprite(1);
+        foreach (ShipCard card in UIController.Instance.shipCardList)
+            if (card.containsShip == true)
+                card.SetSprite(1);
 
+        foreach (ShipBar bar in UIController.Instance.shipBarList)
+            if (bar.containedShip == selectedShip)
+                bar.SetSprite(3);
+        foreach (ShipCard card in UIController.Instance.shipCardList)
+            if (card.containedShip == selectedShip)
+                card.SetSprite(3);
+    }
    public List<Destroyer> GetDestroyers()
     { 
         return destroyerList;

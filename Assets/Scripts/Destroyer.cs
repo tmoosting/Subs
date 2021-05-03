@@ -33,18 +33,7 @@ public class Destroyer : Ship
         //transform.Rotate(0.0f, 0, steerFactor * steerSpeed);
 
 
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
-            if (gameObject.name == "Destroyer (1)")
-            {
-                // RedistributeVelocity(); 
-                Debug.Log("rb velo x: " + rb.velocity.x + "    y :   " + rb.velocity.y); 
-
-            }
-        }
+ 
 
 
             if (Input.GetKeyDown(KeyCode.B))

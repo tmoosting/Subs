@@ -20,11 +20,16 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI currentBearingText;
     public TextMeshProUGUI targetBearingText;
     public GameObject followIcon;
-    public TMP_InputField bearingInputField;  
+    public TMP_InputField bearingInputField;
+    public GameObject shipCardPrefab;
+    public GameObject shipCardParent;
 
 
-    // [HideInInspector]
     public List<ShipBar> shipBarList = new List<ShipBar>();
+   [HideInInspector]
+    public List<ShipCard> shipCardList = new List<ShipCard>();
+    [HideInInspector]
+    public bool strategyViewEnabled;
 
     private void Awake()
     {
@@ -37,6 +42,7 @@ public class UIController : MonoBehaviour
     {
         LeftRightSelection(); 
         UpdateShipWindow();
+        CheckForStrategyView();
 
         if (Input.GetKeyDown(KeyCode.P))
             GameController.Instance.useTurnCorrection = !GameController.Instance.useTurnCorrection;
@@ -45,6 +51,28 @@ public class UIController : MonoBehaviour
             if (GameController.Instance.selectedShip.shipType == Ship.ShipType.UBOAT)
                 GameController.Instance.selectedShip.GetComponent<Uboat>().FireTorpedo();
     } 
+    void CheckForStrategyView()
+    {
+        if (shipCardList.Count > 0)
+        {
+            if (strategyViewEnabled == true)
+            {
+                foreach (ShipCard card in shipCardList)
+                {
+                    card.gameObject.SetActive(true);
+                    card.transform.position = card.containedShip.transform.position;
+                }
+            }
+            else
+            {
+                foreach (ShipCard card in shipCardList)
+                {
+                    card.gameObject.SetActive(false);
+                }
+            }
+        }
+      
+    }
     public void LoadShipInShipWindow(Ship ship)
     { 
         nameText.gameObject.SetActive(true);
@@ -76,7 +104,19 @@ public class UIController : MonoBehaviour
     }
 
 
-
+    public void CreateShipCards()
+    {
+        foreach (Ship ship in GameController.Instance.GetAllShips())
+        { 
+            GameObject obj = Instantiate(shipCardPrefab);
+            ShipCard card = obj.GetComponent<ShipCard>();
+            card.AssignShip(ship);
+            card.transform.position = ship.transform.position;
+            obj.transform.SetParent(shipCardParent.transform);
+            obj.transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
+     
 
 
 

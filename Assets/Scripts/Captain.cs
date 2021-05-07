@@ -7,7 +7,7 @@ using Unity.MLAgents.Sensors;
 
 public class Captain : Agent
 {
-    [SerializeField] private Transform targetTransform;
+     [SerializeField] private Transform targetTransform;
 
 
     Vector3 startPos;
@@ -17,7 +17,9 @@ public class Captain : Agent
     }
     public override void OnEpisodeBegin()
     {
-        transform.position = startPos;
+       // transform.position = Vector3.zero;
+          transform.position = startPos;
+        Debug.Log("begin");
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -36,48 +38,46 @@ public class Captain : Agent
         //   float moveSpeed = 1f;
         //   transform.position += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
 
+        Debug.Log("branch 0: " + actions.ContinuousActions[0]);
 
-        Debug.Log(actions.DiscreteActions[0].ToString());
-        //   Debug.Log(actions.ContinuousActions[1]);
-        float moveX = actions.DiscreteActions[0];
-            float moveY = 1f;
-       // float moveY = actions.DiscreteActions[1];
+         Debug.Log("branch 1: " + actions.ContinuousActions[1]);
+        //    Debug.Log(actions.DiscreteActions[0]);
+
+        // Debug.Log(actions.DiscreteActions[1]);
+          float moveX = actions.ContinuousActions[0]; 
+         float moveY = actions.ContinuousActions[1];
         float moveSpeed = 1f;
-        transform.position += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
+       transform.position += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
     }
 
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-    //    ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-    //    continuousActions[0] = Input.GetAxisRaw("Horizontal");
-   //     continuousActions[1] = Input.GetAxisRaw("Vertical");
+         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
+           continuousActions[0] = Input.GetAxis("Horizontal");
+           continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<Uboat>(out Uboat uboat))
         {
-            SetReward(1f);
+            SetReward(+1f);
             Debug.Log("succes!");
-        EndEpisode();
+            EndEpisode();
         }
         if (collision.gameObject.TryGetComponent<Merchant>(out Merchant merchant))
         {
             SetReward(-1f);
 
-            SoundController.Instance.PlayTorpedoHitSound();
-            GameObject explosion = Instantiate(GameController.Instance.explosionPrefab);
-            explosion.transform.position = transform.position;
-            ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
-            explosionParticles.Play();
+       //     SoundController.Instance.PlayTorpedoHitSound();
+         //   GameObject explosion = Instantiate(GameController.Instance.explosionPrefab);
+         //   explosion.transform.position = transform.position;
+         //   ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
+         //   explosionParticles.Play();
 
             EndEpisode();
         }
 
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-         
-    }
+    } 
 }

@@ -1,18 +1,18 @@
 {
-    "FindUboats": {
+    "My Behavior": {
         "checkpoints": [
             {
-                "steps": 495,
-                "file_path": "results\\ppo\\FindUboats\\FindUboats-495.onnx",
-                "reward": -1.0,
-                "creation_time": 1620061520.8324156
+                "steps": 320,
+                "file_path": "results\\ppo\\My Behavior\\My Behavior-320.onnx",
+                "reward": null,
+                "creation_time": 1620304019.6044884
             }
         ],
         "final_checkpoint": {
-            "steps": 495,
-            "file_path": "results\\ppo\\FindUboats.onnx",
-            "reward": -1.0,
-            "creation_time": 1620061520.8324156
+            "steps": 320,
+            "file_path": "results\\ppo\\My Behavior.onnx",
+            "reward": null,
+            "creation_time": 1620304019.6044884
         }
     },
     "metadata": {

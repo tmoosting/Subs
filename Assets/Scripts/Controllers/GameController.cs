@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     public GameObject shipHolder;
     public GameObject torpedoPrefab;
     public GameObject explosionPrefab;
+    public GameObject depthChargesPrefab;
 
     [Header("General Settings")]
     public float gameSpeed;
@@ -36,6 +37,8 @@ public class GameController : MonoBehaviour
     public float destroyerAcceleration;
     public float destroyerStandardSpeed; // in knots
     public float destroyerTurnSpeed;
+    public float depthChargeTriggerRange;
+    public float depthChargeCooldown;
      
 
 
@@ -49,7 +52,8 @@ public class GameController : MonoBehaviour
     public float torpedoInitialForce;
     public float torpedoMaxSpeed;
     public float torpedoAccelerationRate;
-
+    public float maxSearchRange = 75.0f;
+    public float restartSearch = 2.5f;
 
     private void Awake()
     {
@@ -176,5 +180,33 @@ public class GameController : MonoBehaviour
             uboatList.Remove(ship.GetComponent<Uboat>());
 
         Destroy(ship.gameObject);
+    }
+
+
+    public void TorpedoImpactAt(Vector3 position)
+    {
+        SoundController.Instance.PlayTorpedoHitSound();
+        GameObject explosion = Instantiate(explosionPrefab);
+        explosion.transform.position = position;
+        ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
+        explosionParticles.Play();
+    }
+
+    public void DepthChargesAt (Vector3 position, Vector3 direction)
+    {
+      // Debug.Log("direction x: " + direction.x + " direction y: " + direction.y + "  direction z: " + direction.z);
+
+        SoundController.Instance.PlayDepthChargesSound(); 
+        GameObject explosion1 = Instantiate(depthChargesPrefab);
+        explosion1.transform.position = position;
+        ParticleSystem explosionParticles1 = explosion1.GetComponent<ParticleSystem>();
+        explosion1.transform.rotation = Quaternion.Euler(-90, 90, -90); 
+        explosionParticles1.Play(); 
+
+    }
+    public void DepthChargeHitAt(Vector3 position)
+    {
+        // spawn particle and sound
+
     }
 }

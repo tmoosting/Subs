@@ -44,6 +44,9 @@ TagManager:
   - name: sea
     uniqueID: 2466087137
     locked: 0
+  - name: marker
+    uniqueID: 956904577
+    locked: 0
   - name: ship0
     uniqueID: 3619038479
     locked: 0

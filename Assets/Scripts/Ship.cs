@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,10 @@ public class Ship : MonoBehaviour
     public int targetBearing;
     bool engineReverse;
 
-     
+    protected Vector3 targetLocation;
+    [HideInInspector]
+    public bool movingToTarget;
+
     List<Vector2> logList = new List<Vector2>();
 
 
@@ -36,7 +40,17 @@ public class Ship : MonoBehaviour
         PowerEngine();
         TurnShip();   
     }
-     
+
+    public void ToggleTargetMovement(Vector3 target)
+    { 
+        movingToTarget = !movingToTarget; 
+        targetLocation = target;
+    }
+    public void ReachTargetMarker()
+    {
+        movingToTarget = false;
+        targetLocation = transform.position;
+    }
 
     public void EatTorpedo()
     {
@@ -147,10 +161,15 @@ public class Ship : MonoBehaviour
     {
         // grab base speed from BaseController
         float baseRotation = -GetTurnSpeed();
-        // multiply by current speed to limit turning at slow/nonspeeds
-        float actualRotation = baseRotation * GetVelocity();
+
+        float actualRotation;
+        if (GetspeedInKnots() < 2)
+            actualRotation = baseRotation * 0.07f; // simulate about 2-knot-speed when at a (near) standstill
+        else
+            actualRotation = baseRotation * GetVelocity();
+
         // rotate clockwise
-         transform.Rotate(0, 0, actualRotation);
+        transform.Rotate(0, 0, actualRotation);
 
         if (GameController.Instance.useTurnCorrection == true)
         {
@@ -167,7 +186,12 @@ public class Ship : MonoBehaviour
     void TurnAntiClockwise()
     {
         float baseRotation = GetTurnSpeed();
-        float actualRotation = baseRotation * GetVelocity();
+        
+        float actualRotation;
+        if (GetspeedInKnots() < 2)
+            actualRotation = baseRotation * 0.07f; // simulate about 2-knot-speed when at a (near) standstill
+        else
+            actualRotation = baseRotation * GetVelocity();
         transform.Rotate(0, 0, actualRotation);
 
         if (GameController.Instance.useTurnCorrection == true)
@@ -249,6 +273,42 @@ public class Ship : MonoBehaviour
     {
         engineReverse = reversed;
     }
+    private double MakeAnglePositive(double inAngle)
+    {
+        // Limit the incoming angle to a degree value between 0 and 359
+        inAngle = inAngle % 360;
+
+        // Add 360 until degree value is positive and suitable for bearing value.
+        while (inAngle < 0)
+        {
+            inAngle += 360;
+        }
+        return inAngle;
+    }
+    public void SetTargetLocation()
+    {
+
+    }
+    public void SetCourseToLocation(Vector3 targetLocation)
+    {
+        Vector3 ownPosition = transform.position;
+
+        // Normalize vectors and treat own position as the origin.
+        // The target position is then at a normalized location from own position.
+        double deltaX = targetLocation.x - ownPosition.x;
+        double deltaY = targetLocation.y - ownPosition.y;
+
+        // Use the 2D arc-tan to convert normalized point from origin into a radian angle.
+        double angleToTargetRadian = Math.Atan2(deltaY, deltaX);
+        // Convert radian angle to degree.
+        double angleToTargetDegree = angleToTargetRadian * (180 / Math.PI);
+        // In game target bearing is working with a 90 deg offset and a negative transformation
+        // as compared to the standard radian degree circle.
+        double angleToIngameTarget = MakeAnglePositive(90 - angleToTargetDegree);
+
+        // Round and cast to int and set course to target location
+        SetCourse((int)Math.Round(angleToIngameTarget));
+    }
 
 
     public float GetspeedInKnots()
@@ -257,6 +317,7 @@ public class Ship : MonoBehaviour
     }
     public float GetVelocity()
     {
+        // get 'raw' physics velocity
         return GetComponent<Rigidbody2D>().velocity.magnitude;
     }
     public int GetCurrentBearing()

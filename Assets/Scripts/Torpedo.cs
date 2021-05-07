@@ -34,11 +34,8 @@ public class Torpedo : MonoBehaviour
     void ExplodeOnShip(Ship ship)
     {
         ship.EatTorpedo();
+        GameController.Instance.TorpedoImpactAt(transform.position);
         Destroy(gameObject);
-        SoundController.Instance.PlayTorpedoHitSound();
-        GameObject explosion = Instantiate(GameController.Instance.explosionPrefab);
-        explosion.transform.position = transform.position;
-        ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
-        explosionParticles.Play();
+    
     }
 }

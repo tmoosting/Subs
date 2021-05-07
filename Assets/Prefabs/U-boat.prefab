@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1937385746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1937385747}
+  m_Layer: 7
+  m_Name: TorpedoTube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1937385747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937385746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.386, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2377188582835012908}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2377188582835012911
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +43,7 @@ GameObject:
   - component: {fileID: 2377188582835012909}
   - component: {fileID: 3905979899949940040}
   - component: {fileID: 4283830765150041256}
+  - component: {fileID: 1844589960}
   m_Layer: 7
   m_Name: U-boat
   m_TagString: Untagged
@@ -32,6 +63,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8189825078425382978}
+  - {fileID: 1937385747}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,7 +105,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -675928817
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9251ebdecd4fe544197befec5ba84ffa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -102,6 +134,9 @@ MonoBehaviour:
   currentEngine: 0
   currentBearing: 0
   targetBearing: 0
+  movingToTarget: 0
+  torpedoTube: {fileID: 1937385746}
+  gunSprite: {fileID: 7442552096842995475}
   submerged: 0
 --- !u!50 &3905979899949940040
 Rigidbody2D:
@@ -137,19 +172,31 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0050346516, y: -0.0027976632}
+  m_Offset: {x: 0.0050346553, y: 0.0027360916}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.23333333, y: 0.94666666}
+    oldSize: {x: 0.19444445, y: 0.7888889}
     newSize: {x: 0.35, y: 1.42}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.19828433, y: 0.93886924}
+  m_Size: {x: 0.19828433, y: 0.8023777}
   m_EdgeRadius: 0
+--- !u!114 &1844589960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377188582835012911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69dca0e73d74a324881f5948ded3cd23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7442552096842995475
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +266,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1214572787
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ad33ff75310f0b04a81865e2b51c704f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

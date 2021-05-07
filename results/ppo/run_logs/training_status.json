@@ -1,0 +1,23 @@
+{
+    "My Behavior": {
+        "checkpoints": [
+            {
+                "steps": 320,
+                "file_path": "results\\ppo\\My Behavior\\My Behavior-320.onnx",
+                "reward": null,
+                "creation_time": 1620304019.6044884
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 320,
+            "file_path": "results\\ppo\\My Behavior.onnx",
+            "reward": null,
+            "creation_time": 1620304019.6044884
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

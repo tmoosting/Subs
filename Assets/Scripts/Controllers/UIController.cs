@@ -22,7 +22,9 @@ public class UIController : MonoBehaviour
     public GameObject followIcon;
     public TMP_InputField bearingInputField;
     public GameObject shipCardPrefab;
-    public GameObject shipCardParent;
+    public GameObject shipCardParent; 
+    public GameObject moveToMarker; 
+    public GameObject setBearingButton; 
 
 
     public List<ShipBar> shipBarList = new List<ShipBar>();
@@ -36,6 +38,7 @@ public class UIController : MonoBehaviour
         Instance = this;
         nameText.gameObject.SetActive(false);
         followIcon.gameObject.SetActive(false);
+        moveToMarker.SetActive(false); 
         bearingInputField.onValueChanged.AddListener(delegate { BearingInputValueChanged(); });
     }
     private void Update()
@@ -44,12 +47,34 @@ public class UIController : MonoBehaviour
         UpdateShipWindow();
         CheckForStrategyView();
 
+        if (Input.GetMouseButtonDown(2))
+        {
+            GameController.Instance.selectedShip.ToggleTargetMovement(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (GameController.Instance.selectedShip.movingToTarget)
+            {
+                moveToMarker.SetActive(true);
+                Vector3 markerPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+                moveToMarker.transform.position = markerPos;
+            }
+            else
+                moveToMarker.SetActive(false);
+        }
+
+
         if (Input.GetKeyDown(KeyCode.P))
             GameController.Instance.useTurnCorrection = !GameController.Instance.useTurnCorrection;
 
         if (Input.GetKeyDown(KeyCode.T))
             if (GameController.Instance.selectedShip.shipType == Ship.ShipType.UBOAT)
                 GameController.Instance.selectedShip.GetComponent<Uboat>().FireTorpedo();
+
+        if (Input.GetKeyDown(KeyCode.U))
+            if (GameController.Instance.selectedShip.shipType == Ship.ShipType.UBOAT)
+                GameController.Instance.selectedShip.GetComponent<Uboat>().ToggleSubmerge();
+
+        if (Input.GetKeyDown(KeyCode.X))
+            if (GameController.Instance.selectedShip.shipType == Ship.ShipType.DESTROYER)
+                GameController.Instance.selectedShip.GetComponent<Destroyer>().TestFireDepthCharges();
     } 
     void CheckForStrategyView()
     {
@@ -101,6 +126,21 @@ public class UIController : MonoBehaviour
         currentEngineSpeedText.text = selectedShip.GetspeedInKnots().ToString("F1") + " knots";        
         currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
         targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
+        if (selectedShip.movingToTarget == true)
+        {
+            targetBearingText.fontStyle = FontStyles.Underline | FontStyles.Bold;
+            setBearingButton.gameObject.SetActive(false);
+            bearingInputField.gameObject.SetActive(false);
+        }
+        else
+        {
+            //    targetBearingText.fontStyle ^= FontStyles.Bold;
+            //  targetBearingText.fontStyle ^= FontStyles.Underline;            
+            targetBearingText.fontStyle = FontStyles.Normal;
+            setBearingButton.gameObject.SetActive(true);
+            bearingInputField.gameObject.SetActive(true);
+        }
+           
     }
 
 

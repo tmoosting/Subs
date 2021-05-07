@@ -26,5 +26,8 @@ public class SoundController : MonoBehaviour
     {
         audioSource.PlayOneShot(torpedoHit);
     }
-    
+    public void PlayDepthChargesSound()
+    {
+        audioSource.PlayOneShot(torpedoFire);
+    }
 }

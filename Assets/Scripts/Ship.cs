@@ -80,6 +80,7 @@ public class Ship : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float maxMagnitude = 0f;
+       
 
         if (shipType == ShipType.DESTROYER || shipType == ShipType.MERCHANT)
         {

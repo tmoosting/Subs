@@ -4297,8 +4297,8 @@ MonoBehaviour:
   destroyerTurnSpeed: 1
   depthChargeTriggerRange: 1
   depthChargeCooldown: 5
-  uboatStandardSpeedAbove: 24
-  uboatStandardSpeedBelow: 10
+  uboatStandardSpeedAbove: 18
+  uboatStandardSpeedBelow: 8
   uboatAccelerationAbove: 8
   uboatAccelerationBelow: 5
   uboatTurnSpeedAbove: 1.4
@@ -13050,6 +13050,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &723171749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 723171750}
+  - component: {fileID: 723171751}
+  m_Layer: 0
+  m_Name: NoisemapController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &723171750
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723171749}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1590296750}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &723171751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723171749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e81f11a3c632384ea3d313e7073ebfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &726169709
 GameObject:
   m_ObjectHideFlags: 0
@@ -27401,6 +27444,7 @@ Transform:
   - {fileID: 1608717029}
   - {fileID: 1658758015}
   - {fileID: 17614490}
+  - {fileID: 723171750}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

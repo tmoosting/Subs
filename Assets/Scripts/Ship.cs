@@ -295,14 +295,14 @@ public class Ship : MonoBehaviour
     {
 
     }
-    public void SetCourseToLocation(Vector3 targetLocation)
+    public double obtainLocationBearing(Vector3 location) 
     {
         Vector3 ownPosition = transform.position;
 
         // Normalize vectors and treat own position as the origin.
         // The target position is then at a normalized location from own position.
-        double deltaX = targetLocation.x - ownPosition.x;
-        double deltaY = targetLocation.y - ownPosition.y;
+        double deltaX = location.x - ownPosition.x;
+        double deltaY = location.y - ownPosition.y;
 
         // Use the 2D arc-tan to convert normalized point from origin into a radian angle.
         double angleToTargetRadian = Math.Atan2(deltaY, deltaX);
@@ -310,12 +310,13 @@ public class Ship : MonoBehaviour
         double angleToTargetDegree = angleToTargetRadian * (180 / Math.PI);
         // In game target bearing is working with a 90 deg offset and a negative transformation
         // as compared to the standard radian degree circle.
-        double angleToIngameTarget = MakeAnglePositive(90 - angleToTargetDegree);
-
-        // Round and cast to int and set course to target location
-        SetCourse((int)Math.Round(angleToIngameTarget));
+        return MakeAnglePositive(90 - angleToTargetDegree);
     }
-
+    public void SetCourseToLocation(Vector3 targetLocation)
+    {
+        // Round and cast to int and set course to target location
+        SetCourse((int)Math.Round(obtainLocationBearing(targetLocation)));
+    }
 
     public float GetspeedInKnots()
     {

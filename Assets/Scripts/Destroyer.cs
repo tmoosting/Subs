@@ -82,12 +82,11 @@ public class Destroyer : Ship
         depthChargesremaining -= 6;
         Vector3 direction = (transform.position - uboat.transform.position).normalized;
         GameController.Instance.DepthChargesAt(transform.position, direction);
-
-
+        uboat.EatDepthCharge();
 
         // sink subs in a specific direction. extra explosion on hit
     }
-
+    
     IEnumerator DepthChargeCooldownReset()
     {
         yield return new WaitForSeconds(GameController.Instance.depthChargeCooldown);

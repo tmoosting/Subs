@@ -33,8 +33,7 @@ public class Torpedo : MonoBehaviour
 
     void ExplodeOnShip(Ship ship)
     {
-        ship.EatTorpedo();
-        GameController.Instance.TorpedoImpactAt(transform.position);
+        ship.EatTorpedo(); 
         Destroy(gameObject);
     
     }

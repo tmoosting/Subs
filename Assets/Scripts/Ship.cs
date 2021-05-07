@@ -57,10 +57,15 @@ public class Ship : MonoBehaviour
         StartCoroutine(DestroyAfterDelay(0.3f));
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
-
-    IEnumerator DestroyAfterDelay(float time)
+    public void EatDepthCharge()
+    {
+        StartCoroutine(DestroyAfterDelay(5f));
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+    }
+    public IEnumerator DestroyAfterDelay(float time)
     {
         yield return new WaitForSeconds(time);
+        GameController.Instance.TorpedoImpactAt(transform.position);
         GameController.Instance.DestroyShip(this);
         
     }

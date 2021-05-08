@@ -1,20 +1,4 @@
 {
-    "My Behavior": {
-        "checkpoints": [
-            {
-                "steps": 20503,
-                "file_path": "results\\ppo\\My Behavior\\My Behavior-20503.onnx",
-                "reward": 0.4444444444444444,
-                "creation_time": 1620481416.2035394
-            }
-        ],
-        "final_checkpoint": {
-            "steps": 20503,
-            "file_path": "results\\ppo\\My Behavior.onnx",
-            "reward": 0.4444444444444444,
-            "creation_time": 1620481416.2035394
-        }
-    },
     "metadata": {
         "stats_format_version": "0.2.0",
         "mlagents_version": "0.25.0",

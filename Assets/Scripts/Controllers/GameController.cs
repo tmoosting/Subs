@@ -24,8 +24,7 @@ public class GameController : MonoBehaviour
     public GameObject explosionPrefab;
     public GameObject depthChargesPrefab;
 
-    [Header("General Settings")]
-    public bool trainingMode;
+    [Header("General Settings")] 
     public float gameSpeed;
     public float knotsPerMagnitude;
     public float loggingInterval; // in seconds
@@ -68,7 +67,7 @@ public class GameController : MonoBehaviour
     }
     void InitializeProgram()
     {
-        if (trainingMode == false)
+        if (TrainingController.Instance.enableTrainingMode == false)
         {
             FindShips();
             // select a ship and highlight it

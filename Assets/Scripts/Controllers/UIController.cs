@@ -122,7 +122,7 @@ public class UIController : MonoBehaviour
     }
     void UpdateShipWindow()
     { 
-        if (GameController.Instance.trainingMode == false)
+        if (TrainingController.Instance.enableTrainingMode == false)
         {
             Ship selectedShip = GameController.Instance.selectedShip;
             currentEngineSpeedText.text = selectedShip.GetspeedInKnots().ToString("F1") + " knots";

@@ -30,7 +30,7 @@ public class Uboat : Ship
 
     private void Update()
     {
-        if (GameController.Instance.trainingMode == false)
+        if (TrainingController.Instance.enableTrainingMode == false)
         {
             // Manually set target to go to.
             if (movingToTarget)

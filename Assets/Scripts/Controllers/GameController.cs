@@ -12,7 +12,8 @@ public class GameController : MonoBehaviour
     List<Merchant> merchantList = new List<Merchant>();
     List<Uboat> uboatList = new List<Uboat>();
     List<Ship> shipList = new List<Ship>();
-
+    int trainingSuccessCount = 0;
+    int trainingFailCount = 0; 
 
     [HideInInspector]
     public Ship selectedShip { get; private set; }
@@ -24,6 +25,7 @@ public class GameController : MonoBehaviour
     public GameObject depthChargesPrefab;
 
     [Header("General Settings")]
+    public bool trainingMode;
     public float gameSpeed;
     public float knotsPerMagnitude;
     public float loggingInterval; // in seconds
@@ -66,22 +68,22 @@ public class GameController : MonoBehaviour
     }
     void InitializeProgram()
     {
-        FindShips();
+        if (trainingMode == false)
+        {
+            FindShips();
+            // select a ship and highlight it
+            SetSelectedShip(destroyerList[0]);
+            foreach (ShipBar bar in UIController.Instance.shipBarList)
+                if (bar.containedShip == GameController.Instance.selectedShip)
+                    bar.SetSprite(3);
 
-        
+            // set ship engines, bearings, specifics
+            InitializeShips();
 
-        // select a ship and highlight it
-        SetSelectedShip(destroyerList[0]); 
-        foreach (ShipBar bar in UIController.Instance.shipBarList)        
-            if (bar.containedShip == GameController.Instance.selectedShip)
-                bar.SetSprite(3);
-
-        // set ship engines, bearings, specifics
-        InitializeShips();
-
-        UIController.Instance.LoadShipsIntoShipBars();
-        UIController.Instance.CreateShipCards();
-        UpdateHighlights();
+            UIController.Instance.LoadShipsIntoShipBars();
+            UIController.Instance.CreateShipCards();
+            UpdateHighlights();
+        } 
     }
     void FindShips()
     {
@@ -113,7 +115,7 @@ public class GameController : MonoBehaviour
         foreach (Ship ship in merchantList)
         {
             ship.SetCourse(999); // its current bearing becomes its targert
-        //    ship.SetEngineSpeed(Ship.Engine.Half);
+            ship.SetEngineSpeed(Ship.Engine.Standard);
         }
 
         StartCoroutine(ShipLogging(loggingInterval));
@@ -208,6 +210,18 @@ public class GameController : MonoBehaviour
     public void DepthChargeHitAt(Vector3 position)
     {
         // spawn particle and sound
+
+    }
+
+    public void LogTrainingSuccess()
+    {
+        trainingSuccessCount++;
+        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingFailCount);
+    }
+    public void LogTrainingFail()
+    {
+        trainingFailCount++;
+        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingFailCount);
 
     }
 }

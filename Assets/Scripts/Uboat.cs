@@ -30,128 +30,71 @@ public class Uboat : Ship
 
     private void Update()
     {
-        // Manually set target to go to.
-        if (movingToTarget)
+        if (GameController.Instance.trainingMode == false)
         {
-            // Get back to the surface.
-            if (submerged)
+            // Manually set target to go to.
+            if (movingToTarget)
             {
-                Resurface();
-            }
-
-            if (currentEngine != Engine.Standard)
-            {
-                currentEngine = Engine.Standard;
-            }
-
-            SetCourseToLocation(targetLocation);
-        }
-        // Fleeing from destroyer seen in SearchShips;
-        else if (seenDestroyer != null)
-        {
-            targetLocation = seenDestroyer.transform.position;
-
-            // Determine whether the u-boat should still flee the scene.
-            if (Vector3.Distance(transform.position, targetLocation) <= GameController.Instance.uboatFleeDistance * 1.25f)
-            {
-                // Set engine into overdrive, get out of there fast!
-                if (currentEngine != Engine.Flank)
-                {
-                    currentEngine = Engine.Flank;
-                }
-
-                // Submerge to become harder to notice.
-                if (!submerged)
-                {
-                    Submerge();
-                }
-
-                // Set course away from destroyers (180 deg away)
-                SetCourse((int)Math.Round((obtainLocationBearing(targetLocation) + 180) % 360));
-            }
-            // U-boat is far enough away from the destroyers, it is now safe to resurface and to start looking around again.
-            else
-            {
-                seenDestroyer = null;
-                targetLocation = transform.position;
-
                 // Get back to the surface.
                 if (submerged)
                 {
                     Resurface();
                 }
 
-                // Temporarily disable engine until next move is determined.
-                if (currentEngine != Engine.Still)
+                if (currentEngine != Engine.Standard)
                 {
-                    currentEngine = Engine.Still;
+                    currentEngine = Engine.Standard;
                 }
 
-                // Everything has been reset, including merchants, u-boat needs to start searching again.
-                SearchShips();
+                SetCourseToLocation(targetLocation);
             }
-        }
-        // No ships found, roam around randomly.
-        else if (roaming)
-        {
-            // Get back to the surface.
-            if (submerged)
+            // Fleeing from destroyer seen in SearchShips;
+            else if (seenDestroyer != null)
             {
-                Resurface();
-            }
+                targetLocation = seenDestroyer.transform.position;
 
-            if (currentEngine != Engine.Standard)
-            {
-                currentEngine = Engine.Standard;
-            }
-            SetCourseToLocation(targetLocation);
-        }
-        // Merchant found in SearchShips.
-        else if (targetMerchant != null)
-        {
-            targetLocation = targetMerchant.transform.position;
-
-            // Check to see whether the merchant is within engagement distance.
-            float distanceToTarget = Vector3.Distance(transform.position, targetLocation);
-            if (distanceToTarget <= GameController.Instance.engagementDistance)
-            {
-                if (currentEngine != Engine.Flank)
+                // Determine whether the u-boat should still flee the scene.
+                if (Vector3.Distance(transform.position, targetLocation) <= GameController.Instance.uboatFleeDistance * 1.25f)
                 {
-                    currentEngine = Engine.Flank;
+                    // Set engine into overdrive, get out of there fast!
+                    if (currentEngine != Engine.Flank)
+                    {
+                        currentEngine = Engine.Flank;
+                    }
+
+                    // Submerge to become harder to notice.
+                    if (!submerged)
+                    {
+                        Submerge();
+                    }
+
+                    // Set course away from destroyers (180 deg away)
+                    SetCourse((int)Math.Round((obtainLocationBearing(targetLocation) + 180) % 360));
                 }
-
-                // Submerge to become harder to notice.
-                if (!submerged && distanceToTarget <= GameController.Instance.engagementDistance * 0.5f)
+                // U-boat is far enough away from the destroyers, it is now safe to resurface and to start looking around again.
+                else
                 {
-                    Submerge();
-                }
+                    seenDestroyer = null;
+                    targetLocation = transform.position;
 
-                // TODO: Maybe add better ballistics trigonometry.
+                    // Get back to the surface.
+                    if (submerged)
+                    {
+                        Resurface();
+                    }
 
-                // Instead of shooting directly at the merchant ship, the uboat will
-                // try to shoot in front of the merchant ship in order to intersect
-                // the path of the torpedo with the path of the merchant.
+                    // Temporarily disable engine until next move is determined.
+                    if (currentEngine != Engine.Still)
+                    {
+                        currentEngine = Engine.Still;
+                    }
 
-                // Find time of torpedo to target location.
-                float timeToTarget = distanceToTarget / (GameController.Instance.torpedoMaxSpeed * 0.05f);
-
-                // Simulate target location to shoot at by multiplying time with the
-                // speed vector of the merchant.
-                Vector3 shootingIntersection = targetLocation;
-                shootingIntersection.x += (targetMerchant.GetComponent<Rigidbody2D>().velocity.x) * timeToTarget;
-                shootingIntersection.y += (targetMerchant.GetComponent<Rigidbody2D>().velocity.y) * timeToTarget;
-
-                SetCourseToLocation(shootingIntersection);
-
-                // Fire only when the submarine's bearing is close to the target bearing.
-
-                //// Debug.Log($"{gameObject.name} The difference between target and current bearing is {Math.Abs(GetTargetBearing() - GetCurrentBearing())}");
-                if (!torpedoCooldownActive && Math.Abs(GetTargetBearing() - GetCurrentBearing()) <= 3)
-                {
-                    FireTorpedo();
+                    // Everything has been reset, including merchants, u-boat needs to start searching again.
+                    SearchShips();
                 }
             }
-            else
+            // No ships found, roam around randomly.
+            else if (roaming)
             {
                 // Get back to the surface.
                 if (submerged)
@@ -165,15 +108,76 @@ public class Uboat : Ship
                 }
                 SetCourseToLocation(targetLocation);
             }
-        }
-        // Default 'no action'.
-        else
-        {
-            if (currentEngine != Engine.Still)
+            // Merchant found in SearchShips.
+            else if (targetMerchant != null)
             {
-                currentEngine = Engine.Still;
+                targetLocation = targetMerchant.transform.position;
+
+                // Check to see whether the merchant is within engagement distance.
+                float distanceToTarget = Vector3.Distance(transform.position, targetLocation);
+                if (distanceToTarget <= GameController.Instance.engagementDistance)
+                {
+                    if (currentEngine != Engine.Flank)
+                    {
+                        currentEngine = Engine.Flank;
+                    }
+
+                    // Submerge to become harder to notice.
+                    if (!submerged && distanceToTarget <= GameController.Instance.engagementDistance * 0.5f)
+                    {
+                        Submerge();
+                    }
+
+                    // TODO: Maybe add better ballistics trigonometry.
+
+                    // Instead of shooting directly at the merchant ship, the uboat will
+                    // try to shoot in front of the merchant ship in order to intersect
+                    // the path of the torpedo with the path of the merchant.
+
+                    // Find time of torpedo to target location.
+                    float timeToTarget = distanceToTarget / (GameController.Instance.torpedoMaxSpeed * 0.05f);
+
+                    // Simulate target location to shoot at by multiplying time with the
+                    // speed vector of the merchant.
+                    Vector3 shootingIntersection = targetLocation;
+                    shootingIntersection.x += (targetMerchant.GetComponent<Rigidbody2D>().velocity.x) * timeToTarget;
+                    shootingIntersection.y += (targetMerchant.GetComponent<Rigidbody2D>().velocity.y) * timeToTarget;
+
+                    SetCourseToLocation(shootingIntersection);
+
+                    // Fire only when the submarine's bearing is close to the target bearing.
+
+                    //// Debug.Log($"{gameObject.name} The difference between target and current bearing is {Math.Abs(GetTargetBearing() - GetCurrentBearing())}");
+                    if (!torpedoCooldownActive && Math.Abs(GetTargetBearing() - GetCurrentBearing()) <= 3)
+                    {
+                        FireTorpedo();
+                    }
+                }
+                else
+                {
+                    // Get back to the surface.
+                    if (submerged)
+                    {
+                        Resurface();
+                    }
+
+                    if (currentEngine != Engine.Standard)
+                    {
+                        currentEngine = Engine.Standard;
+                    }
+                    SetCourseToLocation(targetLocation);
+                }
+            }
+            // Default 'no action'.
+            else
+            {
+                if (currentEngine != Engine.Still)
+                {
+                    currentEngine = Engine.Still;
+                }
             }
         }
+       
     }
 
     public void FireTorpedo()

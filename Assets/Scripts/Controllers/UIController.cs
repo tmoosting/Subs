@@ -24,7 +24,8 @@ public class UIController : MonoBehaviour
     public GameObject shipCardPrefab;
     public GameObject shipCardParent; 
     public GameObject moveToMarker; 
-    public GameObject setBearingButton; 
+    public GameObject setBearingButton;
+    public TextMeshProUGUI trainingCounter;
 
 
     public List<ShipBar> shipBarList = new List<ShipBar>();
@@ -121,25 +122,29 @@ public class UIController : MonoBehaviour
     }
     void UpdateShipWindow()
     { 
+        if (GameController.Instance.trainingMode == false)
+        {
+            Ship selectedShip = GameController.Instance.selectedShip;
+            currentEngineSpeedText.text = selectedShip.GetspeedInKnots().ToString("F1") + " knots";
+            currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
+            targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
+            if (selectedShip.movingToTarget == true)
+            {
+                targetBearingText.fontStyle = FontStyles.Underline | FontStyles.Bold;
+                setBearingButton.gameObject.SetActive(false);
+                bearingInputField.gameObject.SetActive(false);
+            }
+            else
+            {
+                //    targetBearingText.fontStyle ^= FontStyles.Bold;
+                //  targetBearingText.fontStyle ^= FontStyles.Underline;            
+                targetBearingText.fontStyle = FontStyles.Normal;
+                setBearingButton.gameObject.SetActive(true);
+                bearingInputField.gameObject.SetActive(true);
+            }
+        }
         // for continuous updates
-        Ship selectedShip = GameController.Instance.selectedShip;
-        currentEngineSpeedText.text = selectedShip.GetspeedInKnots().ToString("F1") + " knots";        
-        currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
-        targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
-        if (selectedShip.movingToTarget == true)
-        {
-            targetBearingText.fontStyle = FontStyles.Underline | FontStyles.Bold;
-            setBearingButton.gameObject.SetActive(false);
-            bearingInputField.gameObject.SetActive(false);
-        }
-        else
-        {
-            //    targetBearingText.fontStyle ^= FontStyles.Bold;
-            //  targetBearingText.fontStyle ^= FontStyles.Underline;            
-            targetBearingText.fontStyle = FontStyles.Normal;
-            setBearingButton.gameObject.SetActive(true);
-            bearingInputField.gameObject.SetActive(true);
-        }
+  
            
     }
 
@@ -251,5 +256,10 @@ public class UIController : MonoBehaviour
                     break;
                 }
 
+    }
+
+    public void UpdateTrainingResults (int successes, int fails)
+    {
+        trainingCounter.text = "Success: " + successes + "\nFails: " + fails;
     }
 }

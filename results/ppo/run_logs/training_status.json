@@ -2,17 +2,17 @@
     "My Behavior": {
         "checkpoints": [
             {
-                "steps": 2383,
-                "file_path": "results\\ppo\\My Behavior\\My Behavior-2383.onnx",
+                "steps": 2176,
+                "file_path": "results\\ppo\\My Behavior\\My Behavior-2176.onnx",
                 "reward": -1.0,
-                "creation_time": 1620470307.932441
+                "creation_time": 1620475689.5795748
             }
         ],
         "final_checkpoint": {
-            "steps": 2383,
+            "steps": 2176,
             "file_path": "results\\ppo\\My Behavior.onnx",
             "reward": -1.0,
-            "creation_time": 1620470307.932441
+            "creation_time": 1620475689.5795748
         }
     },
     "metadata": {

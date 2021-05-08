@@ -1,4 +1,20 @@
 {
+    "My Behavior": {
+        "checkpoints": [
+            {
+                "steps": 1259,
+                "file_path": "results\\ppo\\My Behavior\\My Behavior-1259.onnx",
+                "reward": -1.0,
+                "creation_time": 1620481607.28678
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1259,
+            "file_path": "results\\ppo\\My Behavior.onnx",
+            "reward": -1.0,
+            "creation_time": 1620481607.28678
+        }
+    },
     "metadata": {
         "stats_format_version": "0.2.0",
         "mlagents_version": "0.25.0",

@@ -60,14 +60,17 @@ public class Captain : Agent
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("hit!---------------------------------------------------------------");
         if (collision.gameObject.TryGetComponent<Uboat>(out Uboat uboat))
         {
             SetReward(+1f);
-            Debug.Log("succes!");
+            Debug.Log("succes!---------------------------------------------------------");
             EndEpisode();
         }
-        if (collision.gameObject.TryGetComponent<Merchant>(out Merchant merchant))
+        if (collision.gameObject.TryGetComponent<Wall>(out Wall wall))
         {
+            Debug.Log("Fail!-------------------------------------------------------------");
+
             SetReward(-1f);
 
        //     SoundController.Instance.PlayTorpedoHitSound();

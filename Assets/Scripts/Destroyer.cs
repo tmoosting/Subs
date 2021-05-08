@@ -58,7 +58,7 @@ public class Destroyer : Ship
             {
                 if (Vector3.Distance(uboat.gameObject.transform.position, transform.position) < GameController.Instance.depthChargeTriggerRange)
                 {
-                    FireDepthCharges(uboat);
+                //    FireDepthCharges(uboat);
                 }
             }
         }

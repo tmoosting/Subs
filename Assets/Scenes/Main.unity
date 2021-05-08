@@ -3488,6 +3488,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a2e2a172aa1fb41a49168addbc546c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &244215379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 244215380}
+  - component: {fileID: 244215381}
+  m_Layer: 0
+  m_Name: TrainingController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &244215380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244215379}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1590296750}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &244215381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244215379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03090c5353182684ca53e3c3789b74ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainerBoxParent: {fileID: 0}
+  enableTrainingMode: 0
+  trainingMode: 0
+  destroyerStartSpeed: 0
 --- !u!1 &245839574
 GameObject:
   m_ObjectHideFlags: 0
@@ -4286,7 +4333,6 @@ MonoBehaviour:
   torpedoPrefab: {fileID: 5386233134531011300, guid: 5b6a172fe9ae1be49858d7419b00dab6, type: 3}
   explosionPrefab: {fileID: 2023078720477336933, guid: 27cb87151b03a854b8184b223d1b8e33, type: 3}
   depthChargesPrefab: {fileID: 2306508884400654165, guid: ff2b51dde1eeb594481765ade361dcee, type: 3}
-  trainingMode: 0
   gameSpeed: 1
   knotsPerMagnitude: 30
   loggingInterval: 5
@@ -27449,6 +27495,7 @@ Transform:
   - {fileID: 1658758015}
   - {fileID: 17614490}
   - {fileID: 723171750}
+  - {fileID: 244215380}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

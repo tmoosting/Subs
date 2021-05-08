@@ -12,8 +12,7 @@ public class GameController : MonoBehaviour
     List<Merchant> merchantList = new List<Merchant>();
     List<Uboat> uboatList = new List<Uboat>();
     List<Ship> shipList = new List<Ship>();
-    int trainingSuccessCount = 0;
-    int trainingFailCount = 0; 
+
 
     [HideInInspector]
     public Ship selectedShip { get; private set; }
@@ -63,12 +62,11 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     {
-        InitializeProgram();
+        if (TrainingController.Instance.enableTrainingMode == false)
+            InitializeProgram();
     }
     void InitializeProgram()
     {
-        if (TrainingController.Instance.enableTrainingMode == false)
-        {
             FindShips();
             // select a ship and highlight it
             SetSelectedShip(destroyerList[0]);
@@ -82,7 +80,7 @@ public class GameController : MonoBehaviour
             UIController.Instance.LoadShipsIntoShipBars();
             UIController.Instance.CreateShipCards();
             UpdateHighlights();
-        } 
+        
     }
     void FindShips()
     {
@@ -212,15 +210,5 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void LogTrainingSuccess()
-    {
-        trainingSuccessCount++;
-        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingFailCount);
-    }
-    public void LogTrainingFail()
-    {
-        trainingFailCount++;
-        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingFailCount);
 
-    }
 }

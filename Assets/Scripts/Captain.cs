@@ -19,7 +19,7 @@ public class Captain : Agent
     {
        // transform.position = Vector3.zero;
           transform.position = startPos;
-        Debug.Log("begin");
+     //   Debug.Log("begin");
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -27,45 +27,43 @@ public class Captain : Agent
         Vector3 direction = (targetTransform.position - transform.position).normalized;
 
         // k_MaxDistance is a hard-coded value based on what you think the max distance a ship can be away from its target.
-        var normalizedDistance = Vector3.Distance(transform.position, targetTransform.position) / 10;
+        float k_MaxDistance = 10;
+        var normalizedDistance = Vector3.Distance(transform.position, targetTransform.position) / k_MaxDistance;
 
         sensor.AddObservation(direction);
-        sensor.AddObservation(normalizedDistance);
-
-
-
+        sensor.AddObservation(normalizedDistance); 
     //    sensor.AddObservation(transform.position);
    //     sensor.AddObservation(targetTransform.position);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
-    {
-        //   Debug.Log(actions.ContinuousActions[0].ToString());
-        ////   Debug.Log(actions.ContinuousActions[1]);
-        //   float moveX = actions.ContinuousActions[0];
-        ////   float moveY = 1f;
-        //  float moveY = actions.ContinuousActions[1];
-        //   float moveSpeed = 1f;
-        //   transform.position += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
+    { 
+        if (TrainingController.Instance.doneInitializing == true)
+        {
+            if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.CONTSIMPLE)
+            {
+                float moveX = actions.ContinuousActions[0];
+                float moveY = actions.ContinuousActions[1];
+                float moveSpeed = 1f;
+                transform.position += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
+            }
+            else if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.DISCBEARING)
+            {
+                int bearing = actions.DiscreteActions[0];
+                GetComponent<Ship>().SetCourse(bearing);
+            }
+        }
+     
 
-      //  Debug.Log("branch 0: " + actions.ContinuousActions[0]);
-
-      //   Debug.Log("branch 1: " + actions.ContinuousActions[1]);
-        //    Debug.Log(actions.DiscreteActions[0]);
-
-        // Debug.Log(actions.DiscreteActions[1]);
-          float moveX = actions.ContinuousActions[0]; 
-         float moveY = actions.ContinuousActions[1];
-        float moveSpeed = 1f;
-       transform.position += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
+        
     }
 
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-           continuousActions[0] = Input.GetAxis("Horizontal");
-           continuousActions[1] = Input.GetAxisRaw("Vertical");
+       //  ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
+       //    continuousActions[0] = Input.GetAxis("Horizontal");
+       //    continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -74,8 +72,8 @@ public class Captain : Agent
         if (collision.gameObject.TryGetComponent<Uboat>(out Uboat uboat))
         {
             SetReward(+1f);
-       //     Debug.Log("succes!---------------------------------------------------------");
-            GameController.Instance.LogTrainingSuccess();
+            //     Debug.Log("succes!---------------------------------------------------------");
+            TrainingController.Instance.LogTrainingSuccess();
             EndEpisode();
         }
         if (collision.gameObject.TryGetComponent<Wall>(out Wall wall))
@@ -83,7 +81,7 @@ public class Captain : Agent
         //    Debug.Log("Fail!-------------------------------------------------------------");
 
             SetReward(-1f);
-            GameController.Instance.LogTrainingFail();
+            TrainingController.Instance.LogTrainingFail();
 
             //     SoundController.Instance.PlayTorpedoHitSound();
             //   GameObject explosion = Instantiate(GameController.Instance.explosionPrefab);

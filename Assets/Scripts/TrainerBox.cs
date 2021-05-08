@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class TrainerBox : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<GameObject> wallList;
 
-    // Update is called once per frame
-    void Update()
+    public void ColorSuccess()
     {
-        
+        foreach (GameObject obj in wallList)        
+            obj.GetComponent<SpriteRenderer>().color = TrainingController.Instance.successColor;         
+    }
+    public void ColorFail()
+    {
+        foreach (GameObject obj in wallList)
+            obj.GetComponent<SpriteRenderer>().color = TrainingController.Instance.failColor ;
     }
 }

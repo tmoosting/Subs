@@ -9,7 +9,7 @@ public class Captain : Agent
 {
      [SerializeField] private Transform targetTransform;
 
-
+    public TrainerBox captainBox;
     Vector3 startPos;
     private void Awake()
     {
@@ -74,6 +74,7 @@ public class Captain : Agent
             SetReward(+1f);
             //     Debug.Log("succes!---------------------------------------------------------");
             TrainingController.Instance.LogTrainingSuccess();
+            captainBox.ColorSuccess();
             EndEpisode();
         }
         if (collision.gameObject.TryGetComponent<Wall>(out Wall wall))
@@ -88,6 +89,7 @@ public class Captain : Agent
             //   explosion.transform.position = transform.position;
             //   ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
             //   explosionParticles.Play();
+            captainBox.ColorFail();
 
             EndEpisode();
         }

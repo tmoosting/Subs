@@ -22,6 +22,8 @@ public class TrainingController : MonoBehaviour
     public bool enableTrainingMode;
     public TrainingMode trainingMode;
     public Ship.Engine destroyerStartSpeed;
+    public Color successColor;
+    public Color failColor;
 
     [HideInInspector] public bool doneInitializing = false;
     int trainingSuccessCount = 0;

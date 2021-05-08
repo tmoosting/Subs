@@ -25,7 +25,7 @@ public class Uboat : Ship
 
         targetLocation = transform.position;
 
-        InvokeRepeating("SearchShips", 0.1f, 3.0f);
+        InvokeRepeating("SearchShips", 0.1f, 1.0f);
     }
 
     private void Update()
@@ -33,6 +33,12 @@ public class Uboat : Ship
         // Manually set target to go to.
         if (movingToTarget)
         {
+            // Get back to the surface.
+            if (submerged)
+            {
+                Resurface();
+            }
+
             if (currentEngine != Engine.Standard)
             {
                 currentEngine = Engine.Standard;
@@ -88,32 +94,71 @@ public class Uboat : Ship
         // No ships found, roam around randomly.
         else if (roaming)
         {
+            // Get back to the surface.
+            if (submerged)
+            {
+                Resurface();
+            }
+
             if (currentEngine != Engine.Standard)
             {
                 currentEngine = Engine.Standard;
             }
             SetCourseToLocation(targetLocation);
         }
-        // Merchant found in SearchShips;
+        // Merchant found in SearchShips.
         else if (targetMerchant != null)
         {
             targetLocation = targetMerchant.transform.position;
 
-            if (Vector3.Distance(transform.position, targetLocation) <= GameController.Instance.engagementDistance)
+            // Check to see whether the merchant is within engagement distance.
+            float distanceToTarget = Vector3.Distance(transform.position, targetLocation);
+            if (distanceToTarget <= GameController.Instance.engagementDistance)
             {
-                if (currentEngine != Engine.Half)
+                if (currentEngine != Engine.Flank)
                 {
-                    currentEngine = Engine.Half;
+                    currentEngine = Engine.Flank;
                 }
 
-                if (!torpedoCooldownActive)
+                // Submerge to become harder to notice.
+                if (!submerged && distanceToTarget <= GameController.Instance.engagementDistance * 0.5f)
+                {
+                    Submerge();
+                }
+
+                // TODO: Maybe add better ballistics trigonometry.
+
+                // Instead of shooting directly at the merchant ship, the uboat will
+                // try to shoot in front of the merchant ship in order to intersect
+                // the path of the torpedo with the path of the merchant.
+
+                // Find time of torpedo to target location.
+                float timeToTarget = distanceToTarget / (GameController.Instance.torpedoMaxSpeed * 0.05f);
+
+                // Simulate target location to shoot at by multiplying time with the
+                // speed vector of the merchant.
+                Vector3 shootingIntersection = targetLocation;
+                shootingIntersection.x += (targetMerchant.GetComponent<Rigidbody2D>().velocity.x) * timeToTarget;
+                shootingIntersection.y += (targetMerchant.GetComponent<Rigidbody2D>().velocity.y) * timeToTarget;
+
+                SetCourseToLocation(shootingIntersection);
+
+                // Fire only when the submarine's bearing is close to the target bearing.
+
+                //// Debug.Log($"{gameObject.name} The difference between target and current bearing is {Math.Abs(GetTargetBearing() - GetCurrentBearing())}");
+                if (!torpedoCooldownActive && Math.Abs(GetTargetBearing() - GetCurrentBearing()) <= 3)
                 {
                     FireTorpedo();
                 }
-                SetCourseToLocation(targetLocation);
             }
             else
             {
+                // Get back to the surface.
+                if (submerged)
+                {
+                    Resurface();
+                }
+
                 if (currentEngine != Engine.Standard)
                 {
                     currentEngine = Engine.Standard;
@@ -226,12 +271,10 @@ public class Uboat : Ship
                 }
             }
 
-            // TODO: RETARGET TO OTHER MERCHANT IF CURRENT MERCHANT IS TOO FAR AWAY
-
             // Check whether it is already chasing a merchant.
             // Only when there is no merchant in sight or when the current merchant is too far away
             // should it search for a new merchant.
-            if (targetMerchant == null || Vector3.Distance(transform.position, targetMerchant.transform.position) > GameController.Instance.maxSearchRange * 0.33f)
+            if (targetMerchant == null || Vector3.Distance(transform.position, targetMerchant.transform.position) > GameController.Instance.maxSearchRange * 0.10f)
             {
                 float bestDistance = float.MaxValue;
 
@@ -252,22 +295,16 @@ public class Uboat : Ship
                 }
             }
 
-            Debug.Log($"{gameObject.name} Roaming is currently {(roaming ? "enabled" : "disabled")} and a merchant ship has {(targetMerchant != null ? "" : "not")} been found");
-
             // No target has been found and uboat is not roaming: start roaming.
             if (targetMerchant == null && !roaming)
             {
                 setRandomTargetLocation();
-
-                Debug.Log($"{gameObject.name} is now roaming");
 
                 // Activate roaming.
                 roaming = true;
             }
             else if (targetMerchant == null && roaming)
             {
-                Debug.Log("Kanker?");
-
                 // Current random location target found, restart search to a different location.
                 if (Vector3.Distance(transform.position, targetLocation) <= GameController.Instance.restartSearch)
                 {

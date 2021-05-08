@@ -40,8 +40,6 @@ public class GameController : MonoBehaviour
     public float depthChargeTriggerRange;
     public float depthChargeCooldown;
      
-
-
     [Header("Uboat Settings")]
     public float uboatStandardSpeedAbove;
     public float uboatStandardSpeedBelow;
@@ -54,6 +52,9 @@ public class GameController : MonoBehaviour
     public float torpedoAccelerationRate;
     public float maxSearchRange = 75.0f;
     public float restartSearch = 2.5f;
+    public float engagementDistance = 5.0f;
+    public float torpedoCooldown = 5.0f;
+    public float uboatFleeDistance = 6.0f;
 
     private void Awake()
     {

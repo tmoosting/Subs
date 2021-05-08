@@ -52,6 +52,7 @@ public class TrainingController : MonoBehaviour
 
     void InitializeShips()
     {
+        // getting errors, commented out to leave it for now
         foreach (Destroyer destroyer in destroyerList)
         {
             if (destroyer.gameObject.GetComponent<Captain>() != null)

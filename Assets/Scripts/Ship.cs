@@ -13,8 +13,8 @@ public class Ship : MonoBehaviour
     public enum Engine { Still, Third, Half, Standard, Flank  }
     
 
-    [SerializeField]
-    public ShipType shipType;
+    [SerializeField] public ShipType shipType;
+    protected Captain captain;
   
     public Engine currentEngine;
     public int currentBearing;
@@ -22,16 +22,20 @@ public class Ship : MonoBehaviour
     bool engineReverse;
 
     protected Vector3 targetLocation;
-    [HideInInspector]
-    public bool movingToTarget;
+    [HideInInspector]     public bool movingToTarget;
+    [HideInInspector] public bool machineBearingSet = false;
 
     List<Vector2> logList = new List<Vector2>();
 
+    private Lookout lookout;
 
     private void Awake()
     {
-        currentBearing = GetCurrentBearing();
-       //  captain = new Captain();
+        // no brains for uboat captains!
+        if (shipType == ShipType.DESTROYER || shipType == ShipType.MERCHANT) 
+            captain = GetComponent<Captain>();        
+        lookout = GetComponent<Lookout>();
+        currentBearing = GetCurrentBearing(); 
     }
 
 
@@ -54,22 +58,26 @@ public class Ship : MonoBehaviour
 
     public void EatTorpedo()
     {
-        StartCoroutine(DestroyAfterDelay(0.3f));
+        StartCoroutine(DestroyAfterDelay(GameController.Instance.torpedoImpactDelay));
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
     public void EatDepthCharge()
     {
-        StartCoroutine(DestroyAfterDelay(5f));
+        StartCoroutine(DestroyAfterDelay(GameController.Instance.depthChargeExplodeDelay));
+        StartCoroutine(SinkSoundAfterDelay(GameController.Instance.depthChargeExplodeDelay/2));
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
     public IEnumerator DestroyAfterDelay(float time)
     {
         yield return new WaitForSeconds(time);
         GameController.Instance.TorpedoImpactAt(transform.position);
-        GameController.Instance.DestroyShip(this);
-        
+        GameController.Instance.DestroyShip(this); 
     }
-
+    public IEnumerator SinkSoundAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SoundController.Instance.PlayChargeSink();
+    }
     public void LogPosition()
     {
         logList.Add(new Vector2(transform.position.x, transform.position.y));

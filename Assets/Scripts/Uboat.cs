@@ -197,7 +197,7 @@ public class Uboat : Ship
         Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
         rb.AddForce(transform.up * GameController.Instance.torpedoInitialForce);
 
-        SoundController.Instance.PlayTorpedoFireSound();
+        SoundController.Instance.PlayTorpedoFire();
     }
 
     IEnumerator TorpedoCooldownReset()
@@ -217,7 +217,8 @@ public class Uboat : Ship
 
     public void Submerge()
     {
-        submerged = true;
+        submerged = true; 
+        gameObject.layer = LayerMask.NameToLayer("underwater"); 
 
         // Change color of submerged uboat.
         Color tempColor = gunSprite.GetComponent<SpriteRenderer>().color;
@@ -229,7 +230,7 @@ public class Uboat : Ship
     public void Resurface()
     {
         submerged = false;
-
+        gameObject.layer = LayerMask.NameToLayer("uboat");
         // Change color of surfaced uboat.
         Color tempColor = gunSprite.GetComponent<SpriteRenderer>().color;
         tempColor.a = 1f;

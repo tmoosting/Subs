@@ -21891,8 +21891,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trainerBoxParent: {fileID: 2034673026}
   enableTrainingMode: 1
-  trainingMode: 0
-  destroyerStartSpeed: 0
+  trainingMode: 1
+  destroyerStartSpeed: 3
   successColor: {r: 0.078431375, g: 0.7254902, b: 0, a: 1}
   failColor: {r: 0.85882354, g: 0, b: 0, a: 1}
   doneInitializing: 0
@@ -33525,10 +33525,6 @@ PrefabInstance:
     - target: {fileID: 2913861199458281454, guid: 6bec924f79bfa9044a0d06e6629ac6c1, type: 3}
       propertyPath: m_Name
       value: TrainerBox (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2913861199458281454, guid: 6bec924f79bfa9044a0d06e6629ac6c1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2913861199458281455, guid: 6bec924f79bfa9044a0d06e6629ac6c1, type: 3}
       propertyPath: m_RootOrder

@@ -14,7 +14,7 @@ TagManager:
   - torpedo
   - uboat
   - mouseclickable
-  - 
+  - underwater
   - 
   - 
   - 
@@ -47,17 +47,20 @@ TagManager:
   - name: marker
     uniqueID: 956904577
     locked: 0
+  - name: effect0
+    uniqueID: 379064777
+    locked: 0
   - name: ship0
     uniqueID: 3619038479
     locked: 0
-  - name: effect0
-    uniqueID: 379064777
+  - name: effect1
+    uniqueID: 3208838597
     locked: 0
   - name: ship1
     uniqueID: 1214572787
     locked: 0
-  - name: effect1
-    uniqueID: 3208838597
+  - name: effect2
+    uniqueID: 1592531781
     locked: 0
   - name: ui0
     uniqueID: 453172537

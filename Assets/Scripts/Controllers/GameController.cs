@@ -21,10 +21,10 @@ public class GameController : MonoBehaviour
     public GameObject shipHolder;
     public GameObject torpedoPrefab;
     public GameObject explosionPrefab;
-    public GameObject depthChargesPrefab;
+    public GameObject depthChargesPrefab; 
 
     [Header("General Settings")] 
-    public float gameSpeed;
+    [Range(0.1f,3)] public float gameSpeed;
     public float knotsPerMagnitude;
     public float loggingInterval; // in seconds
 
@@ -39,7 +39,13 @@ public class GameController : MonoBehaviour
     public float destroyerTurnSpeed;
     public float depthChargeTriggerRange;
     public float depthChargeCooldown;
-     
+    public float depthChargeExplodeDelay; // keep higher than cooldown value for sound effect
+
+    [Header("Merchant Settings")] 
+    public float merchantAcceleration;
+    public float merchantStandardSpeed;
+    public float merchantTurnSpeed;
+
     [Header("Uboat Settings")]
     public float uboatStandardSpeedAbove;
     public float uboatStandardSpeedBelow;
@@ -50,6 +56,7 @@ public class GameController : MonoBehaviour
     public float torpedoInitialForce;
     public float torpedoMaxSpeed;
     public float torpedoAccelerationRate;
+    public float torpedoImpactDelay; 
     public float maxSearchRange = 75.0f;
     public float restartSearch = 2.5f;
     public float engagementDistance = 5.0f;
@@ -64,6 +71,14 @@ public class GameController : MonoBehaviour
     {
         if (TrainingController.Instance.enableTrainingMode == false)
             InitializeProgram();
+    }
+    private void Update()
+    { 
+        Time.timeScale = gameSpeed*0.75f;
+    }
+    public void SetGameSpeed(float speed)
+    {
+        gameSpeed = speed;
     }
     void InitializeProgram()
     {
@@ -185,7 +200,7 @@ public class GameController : MonoBehaviour
 
     public void TorpedoImpactAt(Vector3 position)
     {
-        SoundController.Instance.PlayTorpedoHitSound();
+        SoundController.Instance.PlayTorpedoHit();
         GameObject explosion = Instantiate(explosionPrefab);
         explosion.transform.position = position;
         ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
@@ -196,7 +211,7 @@ public class GameController : MonoBehaviour
     {
       // Debug.Log("direction x: " + direction.x + " direction y: " + direction.y + "  direction z: " + direction.z);
 
-        SoundController.Instance.PlayDepthChargesSound(); 
+        SoundController.Instance.PlayChargeSplash(); 
         GameObject explosion1 = Instantiate(depthChargesPrefab);
         explosion1.transform.position = position;
         ParticleSystem explosionParticles1 = explosion1.GetComponent<ParticleSystem>();
@@ -204,11 +219,6 @@ public class GameController : MonoBehaviour
         explosionParticles1.Play(); 
 
     }
-    public void DepthChargeHitAt(Vector3 position)
-    {
-        // spawn particle and sound
-
-    }
-
+ 
 
 }

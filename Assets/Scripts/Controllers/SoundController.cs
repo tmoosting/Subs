@@ -9,6 +9,10 @@ public class SoundController : MonoBehaviour
     AudioSource audioSource;
     public AudioClip torpedoFire;
     public AudioClip torpedoHit;
+    public AudioClip sonarPing;
+    public AudioClip chargeSplash;
+    public AudioClip chargeSink;
+    public AudioClip cannonFire;
     
     
 
@@ -18,16 +22,24 @@ public class SoundController : MonoBehaviour
         audioSource = GetComponent<AudioSource>(); 
     }
 
-    public void PlayTorpedoFireSound()
+    public void PlayTorpedoFire()
     {
         audioSource.PlayOneShot(torpedoFire);
     }
-    public void PlayTorpedoHitSound()
+    public void PlayTorpedoHit()
     {
         audioSource.PlayOneShot(torpedoHit);
+    } 
+    public void PlaySonarPing()
+    { 
+        audioSource.PlayOneShot(sonarPing);
     }
-    public void PlayDepthChargesSound()
+    public void PlayChargeSplash()
     {
-        audioSource.PlayOneShot(torpedoFire);
+        audioSource.PlayOneShot(chargeSplash);
+    }
+    public void PlayChargeSink()
+    {
+        audioSource.PlayOneShot(chargeSink);
     }
 }

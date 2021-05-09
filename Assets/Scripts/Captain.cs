@@ -7,19 +7,64 @@ using Unity.MLAgents.Sensors;
 
 public class Captain : Agent
 {
-     [SerializeField] private Transform targetTransform;
+     
 
-    public TrainerBox captainBox;
     Vector3 startPos;
+
+    [Header("Brain")]
+    List<Ship> spottedShips = new List<Ship>();
+    List<Torpedo> spottedTorpedoes = new List<Torpedo>();
+    Dictionary<Ship, float> lastSightings = new Dictionary<Ship, float>();
+
+    [Header("MLAgents")]
+    [SerializeField] private Transform targetTransform;
+    public TrainerBox captainBox;
+    
+
+
     private void Awake()
     {
         startPos = transform.position;
     }
+
+
+    public void SightAShip(Ship ship)
+    { 
+        if (spottedShips.Contains(ship) == false)
+        { 
+            Debug.Log("spotted " + ship.name);
+            spottedShips.Add(ship);
+        }
+    } 
+    public void DetectSonar(Ship ship)
+    { 
+        if (spottedShips.Contains(ship) == false)
+        {
+            // Sound the alarm! 
+            Debug.Log("spotted " + ship.name);
+            spottedShips.Add(ship);
+        }
+    }
+    public void SightATorpedo(Torpedo torpedo)
+    {
+        if (spottedTorpedoes.Contains(torpedo) == false)
+        {
+            // Sound the extra loud alarm! 
+            spottedTorpedoes.Add(torpedo);
+        }
+    }
+
+
+
+    //  ML FUNCTIONS -----------------------------------------------------------
+
+
+
     public override void OnEpisodeBegin()
     {
-       // transform.position = Vector3.zero;
-          transform.position = startPos;
-     //   Debug.Log("begin");
+        // transform.position = Vector3.zero;
+        transform.position = startPos;
+        //   Debug.Log("begin");
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -31,13 +76,13 @@ public class Captain : Agent
         var normalizedDistance = Vector3.Distance(transform.position, targetTransform.position) / k_MaxDistance;
 
         sensor.AddObservation(direction);
-        sensor.AddObservation(normalizedDistance); 
-    //    sensor.AddObservation(transform.position);
-   //     sensor.AddObservation(targetTransform.position);
+        sensor.AddObservation(normalizedDistance);
+        //    sensor.AddObservation(transform.position);
+        //     sensor.AddObservation(targetTransform.position);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
-    { 
+    {
         if (TrainingController.Instance.doneInitializing == true)
         {
             if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.CONTSIMPLE)
@@ -49,26 +94,26 @@ public class Captain : Agent
             }
             else if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.DISCBEARING)
             {
-                int bearing = actions.DiscreteActions[0];
-                GetComponent<Ship>().SetCourse(bearing);
+                if (GetComponent<Ship>().machineBearingSet == false)
+                {
+                    int bearing = actions.DiscreteActions[0];
+                    GetComponent<Ship>().SetCourse(bearing);
+                    GetComponent<Ship>().machineBearingSet = true;
+                }
+
             }
         }
-     
-
-        
     }
-
-
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-       //  ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-       //    continuousActions[0] = Input.GetAxis("Horizontal");
-       //    continuousActions[1] = Input.GetAxisRaw("Vertical");
+        //  ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
+        //    continuousActions[0] = Input.GetAxis("Horizontal");
+        //    continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-     //   Debug.Log("hit!---------------------------------------------------------------");
+        //   Debug.Log("hit!---------------------------------------------------------------");
         if (collision.gameObject.TryGetComponent<Uboat>(out Uboat uboat))
         {
             SetReward(+1f);
@@ -79,7 +124,7 @@ public class Captain : Agent
         }
         if (collision.gameObject.TryGetComponent<Wall>(out Wall wall))
         {
-        //    Debug.Log("Fail!-------------------------------------------------------------");
+            //    Debug.Log("Fail!-------------------------------------------------------------");
 
             SetReward(-1f);
             TrainingController.Instance.LogTrainingFail();
@@ -94,5 +139,8 @@ public class Captain : Agent
             EndEpisode();
         }
 
-    } 
+    }
+
+
+
 }

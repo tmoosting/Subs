@@ -26,6 +26,8 @@ public class UIController : MonoBehaviour
     public GameObject moveToMarker; 
     public GameObject setBearingButton;
     public TextMeshProUGUI trainingCounter;
+    public Slider speedSlider;
+    public TextMeshProUGUI speedText;
 
 
     public List<ShipBar> shipBarList = new List<ShipBar>();
@@ -43,7 +45,7 @@ public class UIController : MonoBehaviour
         bearingInputField.onValueChanged.AddListener(delegate { BearingInputValueChanged(); });
     }
     private void Update()
-    {
+    { 
         LeftRightSelection(); 
         UpdateShipWindow();
         CheckForStrategyView();
@@ -261,5 +263,9 @@ public class UIController : MonoBehaviour
     public void UpdateTrainingResults (int successes, int fails)
     {
         trainingCounter.text = "Success: " + successes + "\nFails: " + fails;
+    }
+    public void SetSpeedText (float speed)
+    {
+        speedText.text = speed.ToString("F1");
     }
 }

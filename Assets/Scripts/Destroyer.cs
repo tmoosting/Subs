@@ -6,11 +6,7 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "New Destroyer", menuName = "Destroyer", order = 51)]
 public class Destroyer : Ship
 {
-
-    Lookout lookout;
-    Radar radar;
-    Sonar sonar;
-
+     
     int depthChargesremaining = 66;
     bool depthChargeCooldownActive = false;
 
@@ -58,7 +54,7 @@ public class Destroyer : Ship
             {
                 if (Vector3.Distance(uboat.gameObject.transform.position, transform.position) < GameController.Instance.depthChargeTriggerRange)
                 {
-                 //   FireDepthCharges(uboat);
+                    FireDepthCharges(uboat);
                 }
             }
         }
@@ -89,7 +85,7 @@ public class Destroyer : Ship
     
     IEnumerator DepthChargeCooldownReset()
     {
-        yield return new WaitForSeconds(GameController.Instance.depthChargeCooldown);
+        yield return new WaitForSeconds(GameController.Instance.depthChargeCooldown); 
         depthChargeCooldownActive = false;
     }
 }

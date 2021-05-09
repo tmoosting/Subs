@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1794298315
 Transform:
   m_ObjectHideFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 5871733708477413273}
   - component: {fileID: 5871733708477413279}
   - component: {fileID: 6616132195556799923}
-  - component: {fileID: 1506264192}
+  - component: {fileID: 6125015636946514655}
   m_Layer: 0
   m_Name: Destroyer
   m_TagString: Untagged
@@ -333,10 +333,13 @@ MonoBehaviour:
   radarLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  enableLookout: 0
-  rangeMax: 10
-  rangeSpeed: 1
-  fadeRange: 3
+  enableLookout: 1
+  rangeMax: 12
+  rangeResetFactor: 0.75
+  rangeSpeed: 0.8
+  fadeRange: 8
+  interval: 0
+  spottedUboats: []
 --- !u!61 &6616132195556799923
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -363,7 +366,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.18242323, y: 1.0018077}
   m_EdgeRadius: 0
---- !u!114 &1506264192
+--- !u!114 &6125015636946514655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -372,19 +375,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3827945928144196883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674f6c4aa5108574c918e0ec1d4ade61, type: 3}
+  m_Script: {fileID: 11500000, guid: b68a95f2b237c2a419286b7c51832d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfRadarPing: {fileID: 0}
-  radarLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  enableSonar: 0
-  rangeMax: 0
-  rangeSpeed: 0
-  fadeRange: 0
-  interval: 0
-  spottedUboats: []
 --- !u!1 &4940894947335419671
 GameObject:
   m_ObjectHideFlags: 0

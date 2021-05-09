@@ -31,9 +31,7 @@ public class Ship : MonoBehaviour
 
     private void Awake()
     {
-        // no brains for uboat captains!
-        if (shipType == ShipType.DESTROYER || shipType == ShipType.MERCHANT) 
-            captain = GetComponent<Captain>();        
+        captain = GetComponent<Captain>();
         lookout = GetComponent<Lookout>();
         currentBearing = GetCurrentBearing(); 
     }

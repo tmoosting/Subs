@@ -5,6 +5,7 @@ using UnityEngine;
 public class Sonar : MonoBehaviour
 {
      
+    // range up to 50 miles
 
     [SerializeField] private Transform pfRadarPing;
     [SerializeField] private LayerMask radarLayerMask;
@@ -80,7 +81,7 @@ public class Sonar : MonoBehaviour
                            GetComponent<Captain>().DetectSonar(raycastHit2D.collider.gameObject.GetComponent<Ship>());
                         radarPing.SetColor(new Color(1, 0.1f, 0.2f));
                     } 
-                    radarPing.SetDisappearTimer(rangeMax / rangeSpeed * 1.5f);
+                    radarPing.SetDisappearTimer(rangeMax / rangeSpeed * 2.5f);
                 }
             }
         }
@@ -103,6 +104,8 @@ public class Sonar : MonoBehaviour
             alreadyPingedColliderList.Clear();
             pulseTransform.localScale = new Vector3(range, range);
             intervalStandby = true;
+            if (GetComponent<Captain>() != null)
+                GetComponent<Captain>().SonarCycle();
             StartCoroutine(ScanInterval(interval));
         } 
         pulseTransform.localScale = new Vector3(range, range);
@@ -111,8 +114,13 @@ public class Sonar : MonoBehaviour
     IEnumerator ScanInterval(float interval)
     {
         yield return new WaitForSeconds(interval);
-        SoundController.Instance.PlaySonarPing(); 
-        intervalStandby = false;
+        NewScanCycle();
     }
 
+    void NewScanCycle()
+    {
+        SoundController.Instance.PlaySonarPing();
+        intervalStandby = false;
+
+    }
 }

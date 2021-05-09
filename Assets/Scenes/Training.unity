@@ -4225,6 +4225,10 @@ MonoBehaviour:
   destroyerTurnSpeed: 1
   depthChargeTriggerRange: 1
   depthChargeCooldown: 5
+  depthChargeExplodeDelay: 0
+  merchantAcceleration: 0
+  merchantStandardSpeed: 0
+  merchantTurnSpeed: 0
   uboatStandardSpeedAbove: 18
   uboatStandardSpeedBelow: 8
   uboatAccelerationAbove: 8
@@ -4234,6 +4238,7 @@ MonoBehaviour:
   torpedoInitialForce: 60
   torpedoMaxSpeed: 140
   torpedoAccelerationRate: 110
+  torpedoImpactDelay: 0
   maxSearchRange: 75
   restartSearch: 2.5
   engagementDistance: 5
@@ -28030,6 +28035,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   torpedoFire: {fileID: 8300000, guid: 9219b01155b4b9140991b7ac6043835c, type: 3}
   torpedoHit: {fileID: 8300000, guid: ee0dbd350200b034bb3457bffd7790ef, type: 3}
+  sonarPing: {fileID: 0}
+  chargeSplash: {fileID: 0}
+  chargeSink: {fileID: 0}
+  cannonFire: {fileID: 0}
 --- !u!82 &1658758017
 AudioSource:
   m_ObjectHideFlags: 0
@@ -28169,6 +28178,8 @@ MonoBehaviour:
   moveToMarker: {fileID: 1093247774}
   setBearingButton: {fileID: 182793339}
   trainingCounter: {fileID: 653293258}
+  speedSlider: {fileID: 0}
+  speedText: {fileID: 0}
   shipBarList:
   - {fileID: 122830483}
   - {fileID: 978772232}

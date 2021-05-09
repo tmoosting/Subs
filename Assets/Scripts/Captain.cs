@@ -1,146 +1,134 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.MLAgents;
-using Unity.MLAgents.Actuators;
-using Unity.MLAgents.Sensors;
 
-public class Captain : Agent
+public class Captain : MonoBehaviour
 {
-     
+
 
     Vector3 startPos;
 
     [Header("Brain")]
-    List<Ship> spottedShips = new List<Ship>();
-    List<Torpedo> spottedTorpedoes = new List<Torpedo>();
-    Dictionary<Ship, float> lastSightings = new Dictionary<Ship, float>();
+    // for every potential ship, captain has a List<Observation>. Each observation lasts from first to last sighting.
+    // so that when a ship goes out of view, and later is sighted again, a new observation is made
+    public List<Observation> ongoingObservations = new List<Observation>(); // holds current 'ongoing' observations, refreshed each update
+    Dictionary<Ship, List<Observation>> shipObservations = new Dictionary<Ship, List<Observation>>();
+    List<Ship> spottedSonarsThisCycle = new List<Ship>();
+    List<Ship> spottedLookoutsThisCycle = new List<Ship>();
 
-    [Header("MLAgents")]
-    [SerializeField] private Transform targetTransform;
-    public TrainerBox captainBox;
-    
+
+
+
+
 
 
     private void Awake()
     {
         startPos = transform.position;
     }
+    private void Update()
+    {
+        // refresh  ongoingObservations list
+        ongoingObservations = new List<Observation>();
+        foreach (Ship ship in shipObservations.Keys)
+            // only check latest index for each ship's obs list because that is the newest observation
+            if (shipObservations[ship][shipObservations[ship].Count - 1].ongoing == true)
+                ongoingObservations.Add(shipObservations[ship][shipObservations[ship].Count - 1]); 
+    }
 
 
-    public void SightAShip(Ship ship)
-    { 
-        if (spottedShips.Contains(ship) == false)
-        { 
-            Debug.Log("spotted " + ship.name);
-            spottedShips.Add(ship);
-        }
-    } 
-    public void DetectSonar(Ship ship)
-    { 
-        if (spottedShips.Contains(ship) == false)
+
+
+    public void DetectLookout(Ship ship)
+    {
+        spottedLookoutsThisCycle.Add(ship);
+
+        // check that it's not already being observed
+        bool shipCurrentlyBeingObserved = false;
+        foreach (Observation obs in ongoingObservations)
+            if (obs.observedShip == ship)
+                shipCurrentlyBeingObserved = true;
+
+        if (shipCurrentlyBeingObserved == false)
         {
-            // Sound the alarm! 
-            Debug.Log("spotted " + ship.name);
-            spottedShips.Add(ship);
+            // make a new observation, passing the observant ship and the observed ship 
+            Observation obs = new Observation(GetComponent<Ship>(), ship, Observation.Type.LOOKOUT);
+
+            // check if it already has an Obs list for the ship, then add the observation
+            if (shipObservations.ContainsKey(ship) == false)
+                shipObservations.Add(ship, new List<Observation>());
+            shipObservations[ship].Add(obs);
         }
+        else
+        {
+            // Log the observation in the ongoing Observation's log list
+            foreach (Observation obs in ongoingObservations)
+                if (obs.observedShip == ship)
+                    obs.RegisterObservation();
+
+        }
+    }
+    public void DetectSonar(Ship ship)
+    {
+    //    Debug.Log("catching " + ship.name + " on sonar");
+        spottedSonarsThisCycle.Add(ship);
+
+
+        // check that it's not already being observed
+        bool shipCurrentlyBeingObserved = false;
+        foreach (Observation obs in ongoingObservations)
+            if (obs.observedShip == ship)
+                shipCurrentlyBeingObserved = true;
+
+        if (shipCurrentlyBeingObserved == false)
+        {
+            // make a new observation, passing the observant ship and the observed ship 
+            Observation obs = new Observation(GetComponent<Ship>(), ship, Observation.Type.SONAR);
+
+            // check if it already has an Obs list for the ship, then add the observation
+            if (shipObservations.ContainsKey(ship) == false)
+                shipObservations.Add(ship, new List<Observation>());
+            shipObservations[ship].Add(obs);
+        }
+        else
+        {
+            // Log the observation in the ongoing Observation's log list
+            foreach (Observation obs in ongoingObservations)
+                if (obs.observedShip == ship)
+                    obs.RegisterObservation();
+
+        }
+
     }
     public void SightATorpedo(Torpedo torpedo)
     {
-        if (spottedTorpedoes.Contains(torpedo) == false)
+        // panic!!
+    }
+    public void LookoutCycle()
+    {
+        // called after each Lookout cycle, to check for ongoing-observation-ships that were not observed this round
+        foreach (Observation obs in ongoingObservations)
         {
-            // Sound the extra loud alarm! 
-            spottedTorpedoes.Add(torpedo);
+            if (obs.ongoing == true)
+                if (obs.type == Observation.Type.LOOKOUT)
+                    if (spottedLookoutsThisCycle.Contains(obs.observedShip) == false)
+                        obs.FinishObservation();
         }
+        // clear the cycle list 
+        spottedLookoutsThisCycle = new List<Ship>();
     }
-
-
-
-    //  ML FUNCTIONS -----------------------------------------------------------
-
-
-
-    public override void OnEpisodeBegin()
+    public void SonarCycle()
     {
-        // transform.position = Vector3.zero;
-        transform.position = startPos;
-        //   Debug.Log("begin");
-    }
-
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        Vector3 direction = (targetTransform.position - transform.position).normalized;
-
-        // k_MaxDistance is a hard-coded value based on what you think the max distance a ship can be away from its target.
-        float k_MaxDistance = 10;
-        var normalizedDistance = Vector3.Distance(transform.position, targetTransform.position) / k_MaxDistance;
-
-        sensor.AddObservation(direction);
-        sensor.AddObservation(normalizedDistance);
-        //    sensor.AddObservation(transform.position);
-        //     sensor.AddObservation(targetTransform.position);
-    }
-
-    public override void OnActionReceived(ActionBuffers actions)
-    {
-        if (TrainingController.Instance.doneInitializing == true)
+        // called after each Sonar cycle, to check for ongoing-observation-ships that were not observed this round
+        foreach (Observation obs in ongoingObservations)
         {
-            if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.CONTSIMPLE)
-            {
-                float moveX = actions.ContinuousActions[0];
-                float moveY = actions.ContinuousActions[1];
-                float moveSpeed = 1f;
-                transform.position += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
-            }
-            else if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.DISCBEARING)
-            {
-                if (GetComponent<Ship>().machineBearingSet == false)
-                {
-                    int bearing = actions.DiscreteActions[0];
-                    GetComponent<Ship>().SetCourse(bearing);
-                    GetComponent<Ship>().machineBearingSet = true;
-                }
-
-            }
+            if (obs.ongoing == true)
+                if (obs.type == Observation.Type.SONAR)
+                    if (spottedSonarsThisCycle.Contains(obs.observedShip) == false)
+                        obs.FinishObservation();
         }
+        // clear the cycle list 
+        spottedSonarsThisCycle = new List<Ship>();
     }
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        //  ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        //    continuousActions[0] = Input.GetAxis("Horizontal");
-        //    continuousActions[1] = Input.GetAxisRaw("Vertical");
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //   Debug.Log("hit!---------------------------------------------------------------");
-        if (collision.gameObject.TryGetComponent<Uboat>(out Uboat uboat))
-        {
-            SetReward(+1f);
-            //     Debug.Log("succes!---------------------------------------------------------");
-            TrainingController.Instance.LogTrainingSuccess();
-            captainBox.ColorSuccess();
-            EndEpisode();
-        }
-        if (collision.gameObject.TryGetComponent<Wall>(out Wall wall))
-        {
-            //    Debug.Log("Fail!-------------------------------------------------------------");
-
-            SetReward(-1f);
-            TrainingController.Instance.LogTrainingFail();
-
-            //     SoundController.Instance.PlayTorpedoHitSound();
-            //   GameObject explosion = Instantiate(GameController.Instance.explosionPrefab);
-            //   explosion.transform.position = transform.position;
-            //   ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
-            //   explosionParticles.Play();
-            captainBox.ColorFail();
-
-            EndEpisode();
-        }
-
-    }
-
-
-
+   
 }

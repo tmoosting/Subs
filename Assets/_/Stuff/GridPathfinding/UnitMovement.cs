@@ -30,7 +30,7 @@ namespace GridPathfindingSystem {
         private PathCallback pathCallback;
         private GridPathfinding.UnitMovementCallbackType callbackType;
         private object obj;
-        private bool isMoving = false;
+    //    private bool isMoving = false;
         private MapPos finalPos;
         private MapPos mapPos;
         private LastMoveTo lastMoveTo;
@@ -51,7 +51,7 @@ namespace GridPathfindingSystem {
                 return;
             }
             Vector3 pos = getPosition();
-            isMoving = true;
+        //    isMoving = true;
             PathNode currPath = pathList[0];
             Vector3 currPos;
             float distanceCheck = 2f;
@@ -119,7 +119,7 @@ namespace GridPathfindingSystem {
         }
         public void PathComplete() {
             if (destroyed) return;
-            isMoving = false;
+       //     isMoving = false;
             if (pathCallback != null) {
                 pathCallback(callbackType, obj);
             }

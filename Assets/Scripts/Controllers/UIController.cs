@@ -78,7 +78,23 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
             if (GameController.Instance.selectedShip.shipType == Ship.ShipType.DESTROYER)
                 GameController.Instance.selectedShip.GetComponent<Destroyer>().TestFireDepthCharges();
+
+        if (Input.GetKeyDown(KeyCode.O))
+            if (GameController.Instance.selectedShip.shipType == Ship.ShipType.DESTROYER)
+                LogOngoingObservations();
     } 
+    void LogOngoingObservations()
+    {
+        Debug.Log("Obs ");
+        if (GameController.Instance.selectedShip.GetComponent<Captain>() != null)
+        {
+            foreach (Observation obs in GameController.Instance.selectedShip.GetComponent<Captain>().ongoingObservations)
+            {
+          
+            }
+        }
+     
+    }
     void CheckForStrategyView()
     {
         if (shipCardList.Count > 0)

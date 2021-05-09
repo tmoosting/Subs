@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2377188582835012909}
   - component: {fileID: 3905979899949940040}
   - component: {fileID: 4283830765150041256}
+  - component: {fileID: 8143313332475019528}
   m_Layer: 7
   m_Name: U-boat
   m_TagString: Untagged
@@ -185,6 +186,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.19828433, y: 0.8023777}
   m_EdgeRadius: 0
+--- !u!114 &8143313332475019528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377188582835012911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68a95f2b237c2a419286b7c51832d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7442552096842995475
 GameObject:
   m_ObjectHideFlags: 0

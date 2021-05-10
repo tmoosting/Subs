@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5871733708477413279}
   - component: {fileID: 6616132195556799923}
   - component: {fileID: 6125015636946514655}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Destroyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4986409541379854686}
   - component: {fileID: 4820833398172239531}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DestroyerGun (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3740654924016792591}
   - component: {fileID: 8438629868061488219}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DestroyerGun (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -27,11 +27,10 @@ public class Trainer : Agent
         transform.rotation = Quaternion.identity;
 
 
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        // transform.position = Vector3.zero;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>(); 
         rb.velocity = Vector3.zero;
         rb.angularVelocity = 0;
-        GetComponent<Ship>().machineBearingSet = false;
+        GetComponent<Ship>().SetEngineSpeed(Ship.Engine.Still);
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -62,14 +61,19 @@ public class Trainer : Agent
                 }
             else if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.DISCBEARING)
             {
-            //    if (GetComponent<Ship>().machineBearingSet == false)
-            //    {
-                    int bearing = actions.DiscreteActions[0];
-                    GetComponent<Ship>().SetCourse(bearing);
-                    GetComponent<Ship>().machineBearingSet = true;
-                  //  Debug.Log(GetComponent<Ship>().name + " setting course for " + bearing);
 
-             //   }
+
+
+                int engineInt = actions.DiscreteActions[0];
+                    int bearing = actions.DiscreteActions[1];
+
+             //   Debug.Log(GetComponent<Ship>().name + " getting engine value " + engineInt + " which is engine "+ (Ship.Engine)engineInt);
+
+
+                GetComponent<Ship>().SetEngineSpeed((Ship.Engine)engineInt+1);
+                    GetComponent<Ship>().SetCourse(bearing);
+                 
+
 
             }
         }

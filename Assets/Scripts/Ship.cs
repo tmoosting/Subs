@@ -22,8 +22,7 @@ public class Ship : MonoBehaviour
     bool engineReverse;
 
     protected Vector3 targetLocation;
-    [HideInInspector]     public bool movingToTarget;
-    [HideInInspector] public bool machineBearingSet = false;
+    [HideInInspector]     public bool movingToTarget; 
 
     List<Vector2> logList = new List<Vector2>();
 

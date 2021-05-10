@@ -16,7 +16,7 @@ public class TrainingController : MonoBehaviour
     // DISCBEARING: obs 4, disc 1/360
 
     [Header("Assigns")]
-    public GameObject trainerBoxParent;
+    public GameObject trainerBoxParent; 
 
     [Header("General Settings")]
     public bool enableTrainingMode;
@@ -39,6 +39,10 @@ public class TrainingController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        //adds this class's envreset function to the existing one
+        Academy.Instance.OnEnvironmentReset += EnvironmentReset;
+
         if (enableTrainingMode == true)
         {
             FindTrainerBoxes();
@@ -50,6 +54,11 @@ public class TrainingController : MonoBehaviour
     {
     
       
+    }
+
+    void EnvironmentReset()
+    {
+        // Reset the scene here
     }
 
     void InitializeShips()
@@ -68,7 +77,7 @@ public class TrainingController : MonoBehaviour
                 }
                 else if (trainingMode == TrainingMode.DISCBEARING)
                 {
-                    //BehaviorParameters behaviorParamaters = destroyer.gameObject.GetComponent<BehaviorParameters>();
+                   //  BehaviorParameters behaviorParamaters = destroyer.gameObject.GetComponent<BehaviorParameters>();                   
                     //behaviorParamaters.BrainParameters.VectorObservationSize = 4; 
                     //int[] discreteBranches = new int[1];        
                     //ActionSpec actionSpec = new ActionSpec(0, discreteBranches);

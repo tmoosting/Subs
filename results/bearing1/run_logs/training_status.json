@@ -2,17 +2,17 @@
     "My Behavior": {
         "checkpoints": [
             {
-                "steps": 30013,
-                "file_path": "results\\bearing1\\My Behavior\\My Behavior-30013.onnx",
-                "reward": -0.9866666666666667,
-                "creation_time": 1620478555.8505936
+                "steps": 28876,
+                "file_path": "results\\bearing1\\My Behavior\\My Behavior-28876.onnx",
+                "reward": -0.9714285714285714,
+                "creation_time": 1620641031.369637
             }
         ],
         "final_checkpoint": {
-            "steps": 30013,
+            "steps": 28876,
             "file_path": "results\\bearing1\\My Behavior.onnx",
-            "reward": -0.9866666666666667,
-            "creation_time": 1620478555.8505936
+            "reward": -0.9714285714285714,
+            "creation_time": 1620641031.369637
         }
     },
     "metadata": {

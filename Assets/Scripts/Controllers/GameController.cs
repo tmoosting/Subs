@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     public GameObject depthChargesPrefab; 
 
     [Header("General Settings")] 
-    [Range(0.1f,3)] public float gameSpeed;
+    [Range(0.1f,10)] public float gameSpeed;
     public float knotsPerMagnitude;
     public float loggingInterval; // in seconds
 

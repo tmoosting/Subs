@@ -67,7 +67,7 @@ public class TrainingController : MonoBehaviour
                     //behaviorParamaters.BrainParameters.ActionSpec = actionSpec; 
                 }
                 else if (trainingMode == TrainingMode.DISCBEARING)
-                { 
+                {
                     //BehaviorParameters behaviorParamaters = destroyer.gameObject.GetComponent<BehaviorParameters>();
                     //behaviorParamaters.BrainParameters.VectorObservationSize = 4; 
                     //int[] discreteBranches = new int[1];        
@@ -75,15 +75,15 @@ public class TrainingController : MonoBehaviour
                     //actionSpec.BranchSizes = new int [1];
                     //actionSpec.NumDiscreteActions = 360;
                     //behaviorParamaters.BrainParameters.ActionSpec = actionSpec;
+
+                    destroyer.SetEngineSpeed(destroyerStartSpeed);
+
                 }
 
             }
 
         }
-        foreach (Destroyer destroyer in destroyerList)
-        {
-            destroyer.SetEngineSpeed(destroyerStartSpeed);
-        }
+
         doneInitializing = true;
     }
 

@@ -13,29 +13,25 @@ public class Trainer : Agent
 
     [SerializeField] private Transform targetTransform;
     public TrainerBox captainBox;
-
-
-
-
+     
 
     private void Awake()
     {
         startPos = transform.position;
-    }
-    
-
-
-
-
+    } 
 
 
     public override void OnEpisodeBegin()
-    { 
-            // transform.position = Vector3.zero;
-            transform.position = startPos;
-            //   Debug.Log("begin");
-        
+    {
+        transform.position = startPos;
+        transform.rotation = Quaternion.identity;
 
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        // transform.position = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = 0;
+        GetComponent<Ship>().machineBearingSet = false;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -61,21 +57,23 @@ public class Trainer : Agent
                 {
                     float moveX = actions.ContinuousActions[0];
                     float moveY = actions.ContinuousActions[1];
-                    float moveSpeed = 1f;
+                    float moveSpeed = 2f;
                     transform.position += new Vector3(moveX, moveY, 0) * Time.deltaTime * moveSpeed;
                 }
-                else if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.DISCBEARING)
-                {
-                    if (GetComponent<Ship>().machineBearingSet == false)
-                    {
-                        int bearing = actions.DiscreteActions[0];
-                        GetComponent<Ship>().SetCourse(bearing);
-                        GetComponent<Ship>().machineBearingSet = true;
-                    }
+            else if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.DISCBEARING)
+            {
+            //    if (GetComponent<Ship>().machineBearingSet == false)
+            //    {
+                    int bearing = actions.DiscreteActions[0];
+                    GetComponent<Ship>().SetCourse(bearing);
+                    GetComponent<Ship>().machineBearingSet = true;
+                  //  Debug.Log(GetComponent<Ship>().name + " setting course for " + bearing);
 
-                }
+             //   }
+
             }
-       
+        }
+
 
     }
     public override void Heuristic(in ActionBuffers actionsOut)

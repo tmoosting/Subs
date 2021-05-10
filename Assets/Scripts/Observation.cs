@@ -35,8 +35,7 @@ public class Observation
 
     public void FinishObservation()
     { 
-        ongoing = false;
-        Debug.Log("finish observing " + observedShip.name + ", poslog has "+ positionLog.Count + " entries");
+        ongoing = false; 
     }
 
 }

@@ -6,13 +6,19 @@
                 "file_path": "results\\bearingagentrandomx\\BearingAgentRandomX\\BearingAgentRandomX-159551.onnx",
                 "reward": 0.043478260869565216,
                 "creation_time": 1620836841.241725
+            },
+            {
+                "steps": 309201,
+                "file_path": "results\\bearingagentrandomx\\BearingAgentRandomX\\BearingAgentRandomX-309201.onnx",
+                "reward": 0.4117647058823529,
+                "creation_time": 1620837985.6838956
             }
         ],
         "final_checkpoint": {
-            "steps": 159551,
+            "steps": 309201,
             "file_path": "results\\bearingagentrandomx\\BearingAgentRandomX.onnx",
-            "reward": 0.043478260869565216,
-            "creation_time": 1620836841.241725
+            "reward": 0.4117647058823529,
+            "creation_time": 1620837985.6838956
         }
     },
     "metadata": {

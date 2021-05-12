@@ -47,7 +47,7 @@ public class Destroyer : Ship
         {
             SetCourseToLocation(targetLocation);
         }
-
+        
         if (depthChargeCooldownActive == false)
         {
             foreach (Uboat uboat in GameController.Instance.GetUboats())
@@ -55,6 +55,7 @@ public class Destroyer : Ship
                 if (Vector3.Distance(uboat.gameObject.transform.position, transform.position) < GameController.Instance.depthChargeTriggerRange)
                 {
                     FireDepthCharges(uboat);
+
                 }
             }
         }

@@ -30,6 +30,7 @@ public class Observation
 
     public void RegisterObservation()
     {
+        if (positionLog.ContainsKey(observedShip.transform.position) == false)
         positionLog.Add(observedShip.transform.position, Time.time);
     }
 

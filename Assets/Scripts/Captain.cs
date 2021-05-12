@@ -131,4 +131,12 @@ public class Captain : MonoBehaviour
         spottedSonarsThisCycle = new List<Ship>();
     }
    
+    public void ResetCaptain()
+    {
+        // for training purposes
+        ongoingObservations = new List<Observation>();
+        shipObservations = new Dictionary<Ship, List<Observation>>();
+        spottedSonarsThisCycle = new List<Ship>();
+        spottedLookoutsThisCycle = new List<Ship>();
+    }
 }

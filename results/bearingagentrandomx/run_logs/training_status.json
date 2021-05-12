@@ -1,0 +1,23 @@
+{
+    "BearingAgentRandomX": {
+        "checkpoints": [
+            {
+                "steps": 159551,
+                "file_path": "results\\bearingagentrandomx\\BearingAgentRandomX\\BearingAgentRandomX-159551.onnx",
+                "reward": 0.043478260869565216,
+                "creation_time": 1620836841.241725
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 159551,
+            "file_path": "results\\bearingagentrandomx\\BearingAgentRandomX.onnx",
+            "reward": 0.043478260869565216,
+            "creation_time": 1620836841.241725
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

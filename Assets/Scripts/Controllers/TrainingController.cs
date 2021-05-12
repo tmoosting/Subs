@@ -16,11 +16,12 @@ public class TrainingController : MonoBehaviour
     // DISCBEARING: obs 4, disc 1/360
 
     [Header("Assigns")]
-    public GameObject trainerBoxParent; 
+    public GameObject trainerBoxTransformParent; 
+    public GameObject trainerBoxBearingParent; 
 
     [Header("General Settings")]
     public bool enableTrainingMode;
-    public TrainingMode trainingMode;
+    private TrainingMode trainingMode; // private now because not used anymore
     public Ship.Engine destroyerStartSpeed;
     public Color successColor;
     public Color failColor;
@@ -100,10 +101,21 @@ public class TrainingController : MonoBehaviour
 
     void FindTrainerBoxes()
     {
-        foreach (Transform child in trainerBoxParent.transform)
+        if (trainerBoxTransformParent.activeSelf == true)
         {
-            if (child.gameObject.GetComponent<TrainerBox>() != null) 
-                trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>()); 
+            foreach (Transform child in trainerBoxTransformParent.transform)
+            {
+                if (child.gameObject.GetComponent<TrainerBox>() != null)
+                    trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
+            }
+        }
+        if (trainerBoxBearingParent.activeSelf == true)
+        {
+            foreach (Transform child in trainerBoxBearingParent.transform)
+            {
+                if (child.gameObject.GetComponent<TrainerBox>() != null)
+                    trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
+            }
         }
     }
     void FindShips()

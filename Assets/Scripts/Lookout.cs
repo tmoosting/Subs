@@ -74,23 +74,34 @@ public class Lookout : MonoBehaviour
                 if (!alreadyPingedColliderList.Contains(raycastHit2D.collider))
                 {
                     alreadyPingedColliderList.Add(raycastHit2D.collider);
-                    Transform radarPingTransform = Instantiate(pfRadarPing, raycastHit2D.collider.transform.position, Quaternion.identity);
-
-                    RadarPing radarPing = radarPingTransform.GetComponent<RadarPing>();
+                    
 
                     if (raycastHit2D.collider.gameObject.GetComponent<Ship>() != null)
                     {
-                        if (GetComponent<Captain>() != null)
-                            GetComponent<Captain>().DetectLookout(raycastHit2D.collider.gameObject.GetComponent<Ship>());
-                        radarPing.SetColor(new Color(0.1f, 0.1f, 0.9f));
+                        if (raycastHit2D.collider.gameObject.GetComponent<Ship>() != GetComponent<Ship>())
+                        {
+                            Transform radarPingTransform = Instantiate(pfRadarPing, raycastHit2D.collider.transform.position, Quaternion.identity);
+
+                            RadarPing radarPing = radarPingTransform.GetComponent<RadarPing>();
+                            if (GetComponent<Captain>() != null)
+                                GetComponent<Captain>().DetectLookout(raycastHit2D.collider.gameObject.GetComponent<Ship>());
+                            radarPing.SetColor(new Color(0.1f, 0.1f, 0.9f));
+                            radarPing.SetDisappearTimer(rangeMax / rangeSpeed * 1f);
+
+                        }
                     }
                     if (raycastHit2D.collider.gameObject.GetComponent<Torpedo>() != null)
                     {
                         if (GetComponent<Captain>() != null)
                             GetComponent<Captain>().SightATorpedo(raycastHit2D.collider.gameObject.GetComponent<Torpedo>());
-                        
+
+                        Transform radarPingTransform = Instantiate(pfRadarPing, raycastHit2D.collider.transform.position, Quaternion.identity);
+
+                        RadarPing radarPing = radarPingTransform.GetComponent<RadarPing>();
+                        radarPing.SetDisappearTimer(rangeMax / rangeSpeed * 1f);
+
+
                     }
-                    radarPing.SetDisappearTimer(rangeMax / rangeSpeed * 2.5f);
                 }
             }
         }

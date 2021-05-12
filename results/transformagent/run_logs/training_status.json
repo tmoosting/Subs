@@ -1,0 +1,23 @@
+{
+    "TransformAgent": {
+        "checkpoints": [
+            {
+                "steps": 261940,
+                "file_path": "results\\transformagent\\TransformAgent\\TransformAgent-261940.onnx",
+                "reward": 1.0,
+                "creation_time": 1620817028.1907537
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 261940,
+            "file_path": "results\\transformagent\\TransformAgent.onnx",
+            "reward": 1.0,
+            "creation_time": 1620817028.1907537
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

@@ -1,18 +1,18 @@
 {
-    "My Behavior": {
+    "BearingAgent": {
         "checkpoints": [
             {
-                "steps": 3642,
-                "file_path": "results\\ppo\\My Behavior\\My Behavior-3642.onnx",
-                "reward": -0.9636363636363636,
-                "creation_time": 1620653715.6897602
+                "steps": 9550,
+                "file_path": "results\\ppo\\BearingAgent\\BearingAgent-9550.onnx",
+                "reward": -0.7215189873417721,
+                "creation_time": 1620835679.6138973
             }
         ],
         "final_checkpoint": {
-            "steps": 3642,
-            "file_path": "results\\ppo\\My Behavior.onnx",
-            "reward": -0.9636363636363636,
-            "creation_time": 1620653715.6897602
+            "steps": 9550,
+            "file_path": "results\\ppo\\BearingAgent.onnx",
+            "reward": -0.7215189873417721,
+            "creation_time": 1620835679.6138973
         }
     },
     "metadata": {

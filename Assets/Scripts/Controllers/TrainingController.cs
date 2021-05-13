@@ -42,10 +42,12 @@ public class TrainingController : MonoBehaviour
         Instance = this;
 
         //adds this class's envreset function to the existing one
-        Academy.Instance.OnEnvironmentReset += EnvironmentReset;
+  
 
         if (enableTrainingMode == true)
         {
+            Academy.Instance.OnEnvironmentReset += EnvironmentReset;
+
             FindTrainerBoxes();
             FindShips();
             InitializeShips();

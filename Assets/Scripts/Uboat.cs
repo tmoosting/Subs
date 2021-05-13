@@ -324,6 +324,20 @@ public class Uboat : Ship
         } 
     }
 
+
+    public void ThrowPillenwerfer()
+    {
+        SoundController.Instance.PlayBubble();
+        GameObject obj = Instantiate(GameController.Instance.pillenwerferPrefab);
+        obj.transform.position = transform.position;
+        StartCoroutine(DestroyAfterDelay(GameController.Instance.pillenwerferDuration, obj));
+    }
    
+
+    IEnumerator DestroyAfterDelay(float delay, GameObject obj)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(obj);
+    }
 
 }

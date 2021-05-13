@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     public GameObject torpedoPrefab;
     public GameObject explosionPrefab;
     public GameObject depthChargesPrefab; 
+    public GameObject pillenwerferPrefab; 
 
     [Header("General Settings")] 
     [Range(0.1f,10)] public float gameSpeed;
@@ -62,6 +63,8 @@ public class GameController : MonoBehaviour
     public float engagementDistance = 5.0f;
     public float torpedoCooldown = 5.0f;
     public float uboatFleeDistance = 6.0f;
+    public float pillenwerferDuration;
+    public float pillenwerferCooldown;
 
     private void Awake()
     {

@@ -67,7 +67,7 @@ public class Sonar : MonoBehaviour
         { 
             if (raycastHit2D.collider != null)
             {
-                Debug.Log("hit: " + collider.gameObject.name);
+                Debug.Log("hit: " + raycastHit2D.collider.gameObject.name);
 
                 // Hit something
                 if (!alreadyPingedColliderList.Contains(raycastHit2D.collider))

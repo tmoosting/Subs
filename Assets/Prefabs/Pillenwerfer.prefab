@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5389603378664112792}
   - component: {fileID: 2891183554489990726}
   - component: {fileID: 9215166992480244441}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pillenwerfer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 5180196139318348631}
   - component: {fileID: 3809163598593342389}
   - component: {fileID: 2935389542968921679}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

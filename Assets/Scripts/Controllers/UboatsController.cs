@@ -5,23 +5,6 @@ using UnityEngine;
 
 public class UboatsController : MonoBehaviour
 {
-    private class UboatEqualityComparer : IEqualityComparer<Uboat>
-    {
-        #region IEqualityComparer<Uboat> Members
-
-        public bool Equals(Uboat x, Uboat y)
-        {
-            return (x == y);
-        }
-
-        public int GetHashCode(Uboat obj)
-        {
-            return (obj.GetHashCode());
-        }
-
-        #endregion
-    }
-
     public static UboatsController Instance;
 
     // Start is called before the first frame update
@@ -128,8 +111,8 @@ public class UboatsController : MonoBehaviour
                 // If not fleeing and a target has been found, attack.
                 if (!uboat_key.isFleeing() && targetShip != null)
                     uboat_key.attackShip(targetShip);
-                //else if (!uboat_key.isFleeing() && !uboat_key.isAssisting() && !uboat_key.isAttacking())
-                //    uboat_key.randomRoam();
+                else if (!uboat_key.isFleeing() && !uboat_key.isAssisting() && !uboat_key.isAttacking())
+                    uboat_key.randomRoam();
 
                 // Remove all observations of current uboat which were better for another uboats.
                 uboatObservations[uboat_key] = new SortedList<float, Ship>(uboatObservations[uboat_key].Where(val => !removeObservations.Contains(val.Key)).ToDictionary(x => x.Key, x => x.Value));

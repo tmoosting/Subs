@@ -21,7 +21,8 @@ public class GameController : MonoBehaviour
     public GameObject shipHolder;
     public GameObject torpedoPrefab;
     public GameObject explosionPrefab;
-    public GameObject depthChargesPrefab; 
+    public GameObject depthChargesPrefab;
+    public GameObject pillenwerferPrefab;
 
     [Header("General Settings")] 
     [Range(0.1f,10)] public float gameSpeed;
@@ -47,29 +48,33 @@ public class GameController : MonoBehaviour
     public float merchantTurnSpeed;
 
     [Header("Uboat Settings")]
-    public float uboatStandardSpeedAbove;
-    public float uboatStandardSpeedBelow;
-    public float uboatAccelerationAbove;
-    public float uboatAccelerationBelow;
-    public float uboatTurnSpeedAbove;
-    public float uboatTurnSpeedBelow;
-    public float torpedoInitialForce;
-    public float torpedoMaxSpeed;
-    public float torpedoAccelerationRate;
-    public float torpedoImpactDelay; 
+    public float uboatStandardSpeedAbove = 18f;
+    public float uboatStandardSpeedBelow = 8f;
+    public float uboatAccelerationAbove = 8f;
+    public float uboatAccelerationBelow = 5f;
+    public float uboatTurnSpeedAbove = 1.4f;
+    public float uboatTurnSpeedBelow = 0.6f;
+    public float torpedoInitialForce = 60f;
+    public float torpedoMaxSpeed = 140f;
+    public float torpedoAccelerationRate = 110f;
+    public float torpedoImpactDelay = 0.12f; 
 
     public float maxSearchRange = 50.0f;
-    public float restartSearchRange = 5.0f;
+    public float restartSearchRange = 9.0f;
 
     public float maxRoamRange = 40.0f;
     public float restartRoam = 2.5f;
 
-    public float engagementDistance = 5.0f;
+    public float engagementDistance = 8.0f;
 
     public float torpedoCooldown = 5.0f;
 
     public float uboatFleeDistance = 6.0f;
     public float uboatAssistDistance = 12.0f;
+
+    public float pillenwerferDuration = 30.0f;
+    public float pillenwerferCooldown = 75.0f;
+    public float pillenwerferInitialForce = 30.0f;
 
     private void Awake()
     {

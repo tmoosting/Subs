@@ -18,8 +18,7 @@ public class Uboat : Ship
     private bool attacking = false;
     private bool assisting = false;
     private bool torpedoCooldownActive = false;
-    private Merchant targetMerchant = null;
-    private Destroyer seenDestroyer = null;
+    private bool pillenwerferCooldownActive = false;
     private Ship targetShip = null;
 
     private System.Random r = null;
@@ -75,6 +74,12 @@ public class Uboat : Ship
 
                         // Set course away from destroyers (180 deg away)
                         SetCourse((int)Math.Round((obtainLocationBearing(targetLocation) + 180) % 360));
+
+                        if (!pillenwerferCooldownActive && Math.Abs(GetTargetBearing() - GetCurrentBearing()) <= 3)
+                        {
+                            Debug.Log("Pillenwerfer active!");
+                            ThrowPillenwerfer();
+                        }
                     }
                     // U-boat is far enough away from the destroyers, it is now safe to resurface and to start looking around again.
                     else
@@ -236,10 +241,42 @@ public class Uboat : Ship
         obj.transform.rotation = transform.rotation;
 
         // Add force to torpedo.
-        Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
-        rb.AddForce(transform.up * GameController.Instance.torpedoInitialForce);
+        obj.GetComponent<Rigidbody2D>().AddForce(transform.up * GameController.Instance.torpedoInitialForce);
 
         SoundController.Instance.PlayTorpedoFire();
+    }
+
+    public void ThrowPillenwerfer()
+    {
+        // Enable cooldown on pillenwerfer.
+        pillenwerferCooldownActive = true;
+        StartCoroutine(PillenwerferCooldownReset());
+
+        // Create new pillenwerfer object.
+        GameObject pw1 = Instantiate(GameController.Instance.pillenwerferPrefab);
+        GameObject pw2 = Instantiate(GameController.Instance.pillenwerferPrefab);
+
+        // Set postion and rotation.
+        pw1.transform.position = transform.position;
+        pw1.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 225);
+        pw2.transform.position = transform.position;
+        pw2.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 135);
+
+        // Add force to pillenwerfers.
+        pw1.GetComponent<Rigidbody2D>().AddForce(pw1.transform.up * GameController.Instance.pillenwerferInitialForce);
+        pw2.GetComponent<Rigidbody2D>().AddForce(pw2.transform.up * GameController.Instance.pillenwerferInitialForce);
+
+        // Destroy after duration time.
+        StartCoroutine(DestroyAfterDelay(GameController.Instance.pillenwerferDuration, pw1));
+        StartCoroutine(DestroyAfterDelay(GameController.Instance.pillenwerferDuration, pw2));
+
+        SoundController.Instance.PlayBubble();
+    }
+
+    IEnumerator DestroyAfterDelay(float delay, GameObject obj)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(obj);
     }
 
     IEnumerator TorpedoCooldownReset()
@@ -247,6 +284,13 @@ public class Uboat : Ship
         // Wait for pre-defined seconds.
         yield return new WaitForSeconds(GameController.Instance.torpedoCooldown);
         torpedoCooldownActive = false;
+    }
+
+    IEnumerator PillenwerferCooldownReset()
+    {
+        // Wait for pre-defined seconds.
+        yield return new WaitForSeconds(GameController.Instance.pillenwerferCooldown);
+        pillenwerferCooldownActive = false;
     }
 
     public void ToggleSubmerge()
@@ -293,11 +337,6 @@ public class Uboat : Ship
         targetLocation.y += (float)(((r.NextDouble() * minMaxRand) + minMaxRand) * (r.Next(0, 2) == 1 ? 1 : -1));
     }
 
-    public Merchant getTargetedMerchant()
-    {
-        return targetMerchant;
-    }
-
     public Ship getTargetedShip()
     {
         return targetShip;
@@ -308,11 +347,6 @@ public class Uboat : Ship
         if (targetShip == null)
             return float.MaxValue;
         return Vector3.Distance(targetShip.transform.position, transform.position);
-    }
-
-    public void releaseTargetMerchant()
-    {
-        targetMerchant = null;
     }
 
     public bool isFleeing()
@@ -369,7 +403,7 @@ public class Uboat : Ship
         // Make a list of all uboats which are not the current uboat.
         var uboatList = GameController.Instance.GetUboats().Where(val => val != this).ToList();
 
-        Debug.Log($"There are in total {uboatList.Count} other uboats.");
+        //// Debug.Log($"There are in total {uboatList.Count} other uboats.");
 
         foreach (Uboat uboat in uboatList)
         {

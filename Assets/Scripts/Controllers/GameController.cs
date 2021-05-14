@@ -57,11 +57,19 @@ public class GameController : MonoBehaviour
     public float torpedoMaxSpeed;
     public float torpedoAccelerationRate;
     public float torpedoImpactDelay; 
-    public float maxSearchRange = 75.0f;
-    public float restartSearch = 2.5f;
+
+    public float maxSearchRange = 50.0f;
+    public float restartSearchRange = 5.0f;
+
+    public float maxRoamRange = 40.0f;
+    public float restartRoam = 2.5f;
+
     public float engagementDistance = 5.0f;
+
     public float torpedoCooldown = 5.0f;
+
     public float uboatFleeDistance = 6.0f;
+    public float uboatAssistDistance = 12.0f;
 
     private void Awake()
     {

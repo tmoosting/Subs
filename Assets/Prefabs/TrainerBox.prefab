@@ -22,9 +22,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: ad914a7150ecbb645a281bf8e3bc30a6, type: 3}
   m_InferenceDevice: 2
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: BearingAgentRandomX
   TeamId: 0
   m_UseChildSensors: 1
@@ -1702,11 +1702,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.57
+      value: -3.73
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.31
+      value: 2.04
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.z

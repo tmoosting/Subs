@@ -33,6 +33,7 @@ public class SoundController : MonoBehaviour
     } 
     public void PlaySonarPing()
     { 
+        if (TrainingController.Instance.enableTrainingMode == false)
         audioSource.PlayOneShot(sonarPing);
     }
     public void PlayChargeSplash()

@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI targetBearingText;
     public GameObject followIcon;
     public TMP_InputField bearingInputField;
+    public TMP_InputField trainingEngineInputField;
     public GameObject shipCardPrefab;
     public GameObject shipCardParent; 
     public GameObject moveToMarker; 
@@ -52,15 +53,24 @@ public class UIController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            GameController.Instance.selectedShip.ToggleTargetMovement(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (GameController.Instance.selectedShip.movingToTarget)
+            if (TrainingController.Instance.enableTrainingMode == false)
             {
-                moveToMarker.SetActive(true);
-                Vector3 markerPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-                moveToMarker.transform.position = markerPos;
+                // toggle-type middle mouse click
+                GameController.Instance.selectedShip.ToggleTargetMovement(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if (GameController.Instance.selectedShip.movingToTarget)
+                {
+                    moveToMarker.SetActive(true);
+                    Vector3 markerPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+                    moveToMarker.transform.position = markerPos;
+                }
+                else
+                    moveToMarker.SetActive(false);
             }
             else
-                moveToMarker.SetActive(false);
+            {
+                // do this in openagent heuristic
+            }
+
         }
 
 
@@ -226,7 +236,8 @@ public class UIController : MonoBehaviour
 
     }
     public void SetBearing()
-    {
+    {  
+        if (GameController.Instance.selectedShip != null)
         GameController.Instance.selectedShip.SetCourse(int.Parse(bearingInputField.text));
     }
 

@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1620991083",
+        "python_version": "3.9.2 (tags/v3.9.2:1a79785, Feb 19 2021, 13:44:55) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\tmoos\\AppData\\Local\\Programs\\Python\\Python39\\Scripts\\mlagents-learn --run-id=openagent1 --force",
+        "mlagents_version": "0.25.0",
+        "mlagents_envs_version": "0.25.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.20.1",
+        "end_time_seconds": "1620991130"
+    },
+    "total": 47.7910253,
+    "count": 1,
+    "self": 0.005912999999999613,
+    "children": {
+        "run_training.setup": {
+            "total": 0.04882080000000011,
+            "count": 1,
+            "self": 0.04882080000000011
+        },
+        "TrainerController.start_learning": {
+            "total": 47.7362915,
+            "count": 1,
+            "self": 0.0005636999999936165,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 47.7320529,
+                    "count": 1,
+                    "self": 47.7320529
+                },
+                "trainer_threads": {
+                    "total": 9.000000034120603e-07,
+                    "count": 1,
+                    "self": 9.000000034120603e-07
+                },
+                "TrainerController._save_models": {
+                    "total": 0.00367400000000373,
+                    "count": 1,
+                    "self": 0.00367400000000373
+                }
+            }
+        }
+    }
+}

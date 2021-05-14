@@ -18,6 +18,7 @@ public class TrainingController : MonoBehaviour
     [Header("Assigns")]
     public GameObject trainerBoxTransformParent; 
     public GameObject trainerBoxBearingParent; 
+    public GameObject trainerBoxBearingNoWallsParent; 
 
     [Header("General Settings")]
     public bool enableTrainingMode;
@@ -36,7 +37,7 @@ public class TrainingController : MonoBehaviour
     List<Uboat> uboatList = new List<Uboat>();
     List<Ship> shipList = new List<Ship>();
 
-
+    [HideInInspector] public Ship anySelectedShip;
     private void Awake()
     {
         Instance = this;
@@ -119,6 +120,14 @@ public class TrainingController : MonoBehaviour
                     trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
             }
         }
+        if (trainerBoxBearingNoWallsParent.activeSelf == true)
+        {
+            foreach (Transform child in trainerBoxBearingNoWallsParent.transform)
+            {
+                if (child.gameObject.GetComponent<TrainerBox>() != null)
+                    trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
+            }
+        }
     }
     void FindShips()
     {
@@ -142,6 +151,11 @@ public class TrainingController : MonoBehaviour
             shipList.Add(ship);
         foreach (Ship ship in uboatList)
             shipList.Add(ship);
+
+        foreach  (Ship ship in shipList)
+        {
+            anySelectedShip = ship;
+        }
         Debug.Log("Found Training Ships: " + destroyerList.Count + " Destroyer, " + merchantList.Count + " Merchant, " + uboatList.Count + " Uboat");
     }
     public void LogTrainingSuccess()

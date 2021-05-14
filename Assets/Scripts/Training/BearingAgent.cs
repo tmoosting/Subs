@@ -104,6 +104,8 @@ public class BearingAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+
+        // AddReward(-0.01f);
         if (TrainingController.Instance.doneInitializing == true)
         {
 

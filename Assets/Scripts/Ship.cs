@@ -277,7 +277,7 @@ public class Ship : MonoBehaviour
           targetBearing = bearing; 
     }
     public void SetEngineSpeed(Engine engine)
-    {
+    { 
         currentEngine = engine;
     }
     public void SetReverse (bool reversed)

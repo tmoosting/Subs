@@ -1,0 +1,47 @@
+{
+    "BearingAgentRandomX": {
+        "checkpoints": [
+            {
+                "steps": 339078,
+                "file_path": "results\\test500ksteps\\BearingAgentRandomX\\BearingAgentRandomX-339078.onnx",
+                "reward": null,
+                "creation_time": 1620839649.045722
+            },
+            {
+                "steps": 369869,
+                "file_path": "results\\test500ksteps\\BearingAgentRandomX\\BearingAgentRandomX-369869.onnx",
+                "reward": null,
+                "creation_time": 1620839726.0389233
+            },
+            {
+                "steps": 499985,
+                "file_path": "results\\test500ksteps\\BearingAgentRandomX\\BearingAgentRandomX-499985.onnx",
+                "reward": 0.21311475409836064,
+                "creation_time": 1620840049.8144946
+            },
+            {
+                "steps": 500166,
+                "file_path": "results\\test500ksteps\\BearingAgentRandomX\\BearingAgentRandomX-500166.onnx",
+                "reward": 0.22580645161290322,
+                "creation_time": 1620840049.881072
+            },
+            {
+                "steps": 500166,
+                "file_path": "results\\test500ksteps\\BearingAgentRandomX\\BearingAgentRandomX-500166.onnx",
+                "reward": null,
+                "creation_time": 1620840158.1404076
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500166,
+            "file_path": "results\\test500ksteps\\BearingAgentRandomX.onnx",
+            "reward": null,
+            "creation_time": 1620840158.1404076
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

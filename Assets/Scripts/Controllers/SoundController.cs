@@ -13,6 +13,7 @@ public class SoundController : MonoBehaviour
     public AudioClip chargeSplash;
     public AudioClip chargeSink;
     public AudioClip cannonFire;
+    public AudioClip bubble;
     
     
 
@@ -41,5 +42,9 @@ public class SoundController : MonoBehaviour
     public void PlayChargeSink()
     {
         audioSource.PlayOneShot(chargeSink);
+    }
+    public void PlayBubble()
+    {
+        audioSource.PlayOneShot(bubble);
     }
 }

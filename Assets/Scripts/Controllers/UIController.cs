@@ -82,6 +82,10 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
             if (GameController.Instance.selectedShip.shipType == Ship.ShipType.DESTROYER)
                 LogOngoingObservations();
+
+        if (Input.GetKeyDown(KeyCode.B))
+            if (GameController.Instance.selectedShip.shipType == Ship.ShipType.UBOAT)
+                GameController.Instance.selectedShip.GetComponent<Uboat>().ThrowPillenwerfer();
     } 
     void LogOngoingObservations()
     {

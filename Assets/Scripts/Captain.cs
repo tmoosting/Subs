@@ -68,36 +68,46 @@ public class Captain : MonoBehaviour
 
         }
     }
-    public void DetectSonar(Ship ship)
+    public void DetectSonar(GameObject obj)
     {
-    //    Debug.Log("catching " + ship.name + " on sonar");
-        spottedSonarsThisCycle.Add(ship);
 
-
-        // check that it's not already being observed
-        bool shipCurrentlyBeingObserved = false;
-        foreach (Observation obs in ongoingObservations)
-            if (obs.observedShip == ship)
-                shipCurrentlyBeingObserved = true;
-
-        if (shipCurrentlyBeingObserved == false)
+        if (obj.GetComponent<Pillenwerfer>() != null)
         {
-            // make a new observation, passing the observant ship and the observed ship 
-            Observation obs = new Observation(GetComponent<Ship>(), ship, Observation.Type.SONAR);
-
-            // check if it already has an Obs list for the ship, then add the observation
-            if (shipObservations.ContainsKey(ship) == false)
-                shipObservations.Add(ship, new List<Observation>());
-            shipObservations[ship].Add(obs);
+            // it's a decoy!
         }
         else
         {
-            // Log the observation in the ongoing Observation's log list
+            Ship ship = obj.GetComponent<Ship>();
+            //    Debug.Log("catching " + ship.name + " on sonar");
+            spottedSonarsThisCycle.Add(ship);
+
+
+            // check that it's not already being observed
+            bool shipCurrentlyBeingObserved = false;
             foreach (Observation obs in ongoingObservations)
                 if (obs.observedShip == ship)
-                    obs.RegisterObservation();
+                    shipCurrentlyBeingObserved = true;
 
+            if (shipCurrentlyBeingObserved == false)
+            {
+                // make a new observation, passing the observant ship and the observed ship 
+                Observation obs = new Observation(GetComponent<Ship>(), ship, Observation.Type.SONAR);
+
+                // check if it already has an Obs list for the ship, then add the observation
+                if (shipObservations.ContainsKey(ship) == false)
+                    shipObservations.Add(ship, new List<Observation>());
+                shipObservations[ship].Add(obs);
+            }
+            else
+            {
+                // Log the observation in the ongoing Observation's log list
+                foreach (Observation obs in ongoingObservations)
+                    if (obs.observedShip == ship)
+                        obs.RegisterObservation();
+
+            }
         }
+         
 
     }
     public void SightATorpedo(Torpedo torpedo)

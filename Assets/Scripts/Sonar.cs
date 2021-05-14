@@ -67,6 +67,8 @@ public class Sonar : MonoBehaviour
         { 
             if (raycastHit2D.collider != null)
             {
+                Debug.Log("hit: " + raycastHit2D.collider.gameObject.name);
+
                 // Hit something
                 if (!alreadyPingedColliderList.Contains(raycastHit2D.collider))
                 {
@@ -78,10 +80,16 @@ public class Sonar : MonoBehaviour
                     if (raycastHit2D.collider.gameObject.GetComponent<Ship>() != null)
                     {
                         if (GetComponent<Captain>() != null)
-                           GetComponent<Captain>().DetectSonar(raycastHit2D.collider.gameObject.GetComponent<Ship>());
+                           GetComponent<Captain>().DetectSonar(raycastHit2D.collider.gameObject);
                         radarPing.SetColor(new Color(1, 0.1f, 0.2f));
-                    } 
-                    radarPing.SetDisappearTimer(rangeMax / rangeSpeed * 2.5f);
+                    }
+                    if (raycastHit2D.collider.gameObject.GetComponent<Pillenwerfer>() != null)
+                    {
+                        if (GetComponent<Captain>() != null)
+                            GetComponent<Captain>().DetectSonar(raycastHit2D.collider.gameObject);
+                        radarPing.SetColor(new Color(1, 0.1f, 0.2f));
+                    }
+                    radarPing.SetDisappearTimer(rangeMax / rangeSpeed * 1f);
                 }
             }
         }

@@ -3531,9 +3531,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03090c5353182684ca53e3c3789b74ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainerBoxParent: {fileID: 0}
+  trainerBoxTransformParent: {fileID: 0}
+  trainerBoxBearingParent: {fileID: 0}
   enableTrainingMode: 0
-  trainingMode: 0
   destroyerStartSpeed: 0
   successColor: {r: 0, g: 0, b: 0, a: 0}
   failColor: {r: 0, g: 0, b: 0, a: 0}
@@ -4336,6 +4336,7 @@ MonoBehaviour:
   torpedoPrefab: {fileID: 5386233134531011300, guid: 5b6a172fe9ae1be49858d7419b00dab6, type: 3}
   explosionPrefab: {fileID: 2023078720477336933, guid: 27cb87151b03a854b8184b223d1b8e33, type: 3}
   depthChargesPrefab: {fileID: 2306508884400654165, guid: ff2b51dde1eeb594481765ade361dcee, type: 3}
+  pillenwerferPrefab: {fileID: 3262785940316386168, guid: 24584396ade52db4bb9a3e82c27c4476, type: 3}
   gameSpeed: 1
   knotsPerMagnitude: 30
   loggingInterval: 5
@@ -4366,6 +4367,8 @@ MonoBehaviour:
   engagementDistance: 5
   torpedoCooldown: 5
   uboatFleeDistance: 6
+  pillenwerferDuration: 5
+  pillenwerferCooldown: 0
 --- !u!1 &285719459
 GameObject:
   m_ObjectHideFlags: 0
@@ -9839,7 +9842,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3827945928144196882, guid: e8866e64f3e10a845bb92374c9420844, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3827945928144196882, guid: e8866e64f3e10a845bb92374c9420844, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13839,8 +13842,8 @@ Transform:
   m_Children:
   - {fileID: 151492858}
   - {fileID: 239689637}
-  - {fileID: 1314895657}
   - {fileID: 1154341424}
+  - {fileID: 1314895657}
   - {fileID: 368585260}
   - {fileID: 600479781}
   - {fileID: 1157514941}
@@ -20520,7 +20523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 426782737196043313, guid: cba76ed8b883a1f458b86d5c4a18e42a, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 426782737196043313, guid: cba76ed8b883a1f458b86d5c4a18e42a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28515,6 +28518,7 @@ MonoBehaviour:
   chargeSplash: {fileID: 8300000, guid: 91d1c1ac8df58264dbadc1ff75a14b7a, type: 3}
   chargeSink: {fileID: 8300000, guid: 5a2f9d9f4df32ed4abb3571f7967429a, type: 3}
   cannonFire: {fileID: 0}
+  bubble: {fileID: 8300000, guid: c223b98bf68f62747a592537a23e1d56, type: 3}
 --- !u!82 &1658758017
 AudioSource:
   m_ObjectHideFlags: 0

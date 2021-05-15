@@ -75,9 +75,8 @@ public class Uboat : Ship
                         // Set course away from destroyers (180 deg away)
                         SetCourse((int)Math.Round((obtainLocationBearing(targetLocation) + 180) % 360));
 
-                        if (!pillenwerferCooldownActive && Math.Abs(GetTargetBearing() - GetCurrentBearing()) <= 3)
+                        if (!pillenwerferCooldownActive && Math.Abs(GetTargetBearing() - GetCurrentBearing()) <= 20)
                         {
-                            Debug.Log("Pillenwerfer active!");
                             ThrowPillenwerfer();
                         }
                     }
@@ -257,9 +256,9 @@ public class Uboat : Ship
         GameObject pw2 = Instantiate(GameController.Instance.pillenwerferPrefab);
 
         // Set postion and rotation.
-        pw1.transform.position = transform.position;
+        pw1.transform.position = transform.position - transform.up * 0.5f;
         pw1.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 225);
-        pw2.transform.position = transform.position;
+        pw2.transform.position = transform.position - transform.up * 0.5f;
         pw2.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 135);
 
         // Add force to pillenwerfers.

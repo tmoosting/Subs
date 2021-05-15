@@ -1,0 +1,23 @@
+{
+    "CruisingAgent": {
+        "checkpoints": [
+            {
+                "steps": 21972,
+                "file_path": "results\\cruisingagent\\CruisingAgent\\CruisingAgent-21972.onnx",
+                "reward": -1.2919998556375503,
+                "creation_time": 1621073902.8951848
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 21972,
+            "file_path": "results\\cruisingagent\\CruisingAgent.onnx",
+            "reward": -1.2919998556375503,
+            "creation_time": 1621073902.8951848
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

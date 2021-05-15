@@ -30,6 +30,7 @@ public class TrainingController : MonoBehaviour
     [HideInInspector] public bool doneInitializing = false;
     int trainingSuccessCount = 0;
     int trainingFailCount = 0;
+    int trainingAttemptCount = -9;
 
     List<TrainerBox> trainerBoxes = new List<TrainerBox>();
     List<Destroyer> destroyerList = new List<Destroyer>();
@@ -161,14 +162,19 @@ public class TrainingController : MonoBehaviour
     public void LogTrainingSuccess()
     {
         trainingSuccessCount++;
-        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingFailCount);
+        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingAttemptCount);
     }
     public void LogTrainingFail()
     {
         trainingFailCount++;
-        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingFailCount);
+        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingAttemptCount);
 
     }
+    public void LogTrainingAttempt()
+    {
+        trainingAttemptCount++;
+        UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingAttemptCount);
 
+    }
 
 }

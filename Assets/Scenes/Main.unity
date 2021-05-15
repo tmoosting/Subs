@@ -3533,11 +3533,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trainerBoxTransformParent: {fileID: 0}
   trainerBoxBearingParent: {fileID: 0}
+  trainerBoxBearingNoWallsParent: {fileID: 0}
   enableTrainingMode: 0
   destroyerStartSpeed: 0
   successColor: {r: 0, g: 0, b: 0, a: 0}
   failColor: {r: 0, g: 0, b: 0, a: 0}
   doneInitializing: 0
+  anySelectedShip: {fileID: 0}
 --- !u!1 &245839574
 GameObject:
   m_ObjectHideFlags: 0
@@ -9653,7 +9655,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.7
+  orthographic size: 36.76
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -28701,6 +28703,7 @@ MonoBehaviour:
   targetBearingText: {fileID: 1314256996}
   followIcon: {fileID: 1594827257}
   bearingInputField: {fileID: 245839578}
+  trainingEngineInputField: {fileID: 0}
   shipCardPrefab: {fileID: 927635904031444012, guid: 4679000e3f9e50d4e81c2da5dcea4f5a, type: 3}
   shipCardParent: {fileID: 1101511284}
   moveToMarker: {fileID: 1093247774}

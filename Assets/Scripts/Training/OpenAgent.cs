@@ -10,6 +10,8 @@ public class OpenAgent : Agent
 
 
     Vector3 startPos;
+    Vector3 prevPos;
+    int prevPosCounter = 0;
 
     public Transform targetTransform; 
 
@@ -17,6 +19,7 @@ public class OpenAgent : Agent
     private void Awake()
     {
         startPos = transform.position;
+        prevPos = transform.position;
     }
     private void Update()
     {
@@ -29,6 +32,12 @@ public class OpenAgent : Agent
             LogTargetRelativebearing();
         }
             LogTargetRelativebearing();
+        prevPosCounter++;
+        if (prevPosCounter >= 5)
+        {
+            prevPosCounter = 0;
+            prevPos = transform.position;
+        }
 
     }
     void LogTargetRelativebearing()
@@ -36,9 +45,10 @@ public class OpenAgent : Agent
      //   Debug.Log("uboat has " +(int) GetComponent<Ship>().obtainLocationBearing(targetTransform.position));
         UIController.Instance.bearingInputField.text = ((int)GetComponent<Ship>().obtainLocationBearing(targetTransform.position)).ToString();
     }
-
+     
     public override void OnEpisodeBegin()
     {
+        TrainingController.Instance.LogTrainingAttempt();
         transform.position = startPos;
         transform.rotation = Quaternion.identity;
 
@@ -74,7 +84,7 @@ public class OpenAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
       // sensor.AddObservation((int)GetComponent<Ship>().GetTargetBearing());
-      //  sensor.AddObservation((int)GetComponent<Ship>().obtainLocationBearing(targetTransform.position));
+        sensor.AddObservation((int)GetComponent<Ship>().obtainLocationBearing(targetTransform.position));
         //bool sonarDetected = false;
         //bool lookoutDetected = false;
         //foreach (Observation obs in GetComponent<Captain>().ongoingObservations)
@@ -110,26 +120,29 @@ public class OpenAgent : Agent
         float k_MaxDistance = 15;
         var normalizedDistance = Vector3.Distance(targetTransform.position, transform.position) / k_MaxDistance;
         sensor.AddObservation(direction);
-        sensor.AddObservation(normalizedDistance);
+        sensor.AddObservation(normalizedDistance); 
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
 
-          AddReward(-0.0001f);
+        float distance = Vector3.Distance(targetTransform.position, transform.position);
+        if (distance > Vector3.Distance(targetTransform.position, prevPos))
+            AddReward(-0.01f);
         if (TrainingController.Instance.doneInitializing == true)
         {
 
-              Debug.Log("getting bearing: " + actions.DiscreteActions[0]);
+          //    Debug.Log("getting bearing: " + actions.DiscreteActions[0]);
          //   int engine = actions.DiscreteActions[0];
             int bearing = actions.DiscreteActions[0];
             // int engineInt = actions.DiscreteActions[1]; 
             //   Debug.Log(GetComponent<Ship>().name + " getting engine value " + engineInt + " which is engine "+ (Ship.Engine)engineInt);
 
             GetComponent<Ship>().SetCourse(bearing);
-         //  GetComponent<Ship>().SetEngineSpeed((Ship.Engine)engine );
+            //  GetComponent<Ship>().SetEngineSpeed((Ship.Engine)engine );
 
-
+            int difference = Mathf.Abs(actions.DiscreteActions[0]- (int)GetComponent<Ship>().obtainLocationBearing(targetTransform.position));
+         //   AddReward(-0.1f * difference);
         }
 
 
@@ -161,7 +174,9 @@ public class OpenAgent : Agent
     {
         SetReward(+1f);
         //  Debug.Log("succes!---------------------------------------------------------");
-        TrainingController.Instance.LogTrainingSuccess(); 
+        TrainingController.Instance.LogTrainingSuccess();
+        prevPos = transform.position;
+
         EndEpisode();
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -173,7 +188,7 @@ public class OpenAgent : Agent
             SetReward(+1f);
             //     Debug.Log("succes!---------------------------------------------------------");
             TrainingController.Instance.LogTrainingSuccess();
-        //    captainBox.ColorSuccess();
+            //    captainBox.ColorSuccess();
             EndEpisode();
         }
  

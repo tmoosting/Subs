@@ -24,6 +24,6 @@ behaviors:
     behavioral_cloning:
       strength: 0.9
       demo_path: Demos/OpenWaterDemo.demo
-    max_steps: 500000
+    max_steps: 5000000
     time_horizon: 64
     summary_freq: 10000

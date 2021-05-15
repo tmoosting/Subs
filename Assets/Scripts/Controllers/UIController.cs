@@ -293,7 +293,7 @@ public class UIController : MonoBehaviour
 
     public void UpdateTrainingResults (int successes, int fails)
     {
-        trainingCounter.text = "Success: " + successes + "\nFails: " + fails;
+        trainingCounter.text = "Success: " + successes + "\nAttempts: " + fails;
     }
     public void SetSpeedText (float speed)
     {

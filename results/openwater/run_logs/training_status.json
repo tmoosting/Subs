@@ -2,17 +2,29 @@
     "BearingAgentRandomX": {
         "checkpoints": [
             {
-                "steps": 1854,
-                "file_path": "results\\openwater\\BearingAgentRandomX\\BearingAgentRandomX-1854.onnx",
-                "reward": -17.047998905181885,
-                "creation_time": 1620995527.605436
+                "steps": 125231,
+                "file_path": "results\\openwater\\BearingAgentRandomX\\BearingAgentRandomX-125231.onnx",
+                "reward": -10.369999665766954,
+                "creation_time": 1621020831.844846
+            },
+            {
+                "steps": 156202,
+                "file_path": "results\\openwater\\BearingAgentRandomX\\BearingAgentRandomX-156202.onnx",
+                "reward": null,
+                "creation_time": 1621020957.2255702
+            },
+            {
+                "steps": 176748,
+                "file_path": "results\\openwater\\BearingAgentRandomX\\BearingAgentRandomX-176748.onnx",
+                "reward": null,
+                "creation_time": 1621021057.1822014
             }
         ],
         "final_checkpoint": {
-            "steps": 1854,
+            "steps": 176748,
             "file_path": "results\\openwater\\BearingAgentRandomX.onnx",
-            "reward": -17.047998905181885,
-            "creation_time": 1620995527.605436
+            "reward": null,
+            "creation_time": 1621021057.1822014
         }
     },
     "metadata": {

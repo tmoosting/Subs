@@ -46,8 +46,9 @@ public class BearingAgent : Agent
 
         // randomize uboat pos
         float xPos = Random.Range(-4.1f, 2f);
-    //    float yPos = Random.Range(2.65f, -3.39f);
-         targetTransform.localPosition = new Vector3(xPos, targetTransform.localPosition.y, targetTransform.localPosition.z);
+        float yPos = Random.Range(2.65f, -3.39f);
+    //     targetTransform.localPosition = new Vector3(xPos, yPos, targetTransform.localPosition.z);
+        targetTransform.localPosition = new Vector3(xPos, targetTransform.localPosition.y, targetTransform.localPosition.z);
 
         // randomize submerged or surfaced
         if (Random.Range(0, 2) == 0)

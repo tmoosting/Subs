@@ -81,7 +81,7 @@ public class CruisingAgent : Agent
         GetComponent<Captain>().ResetCaptain();
     }
 
-    float rewardFactor = 0.01f;
+    float rewardFactor = -0.01f;
     public override void CollectObservations(VectorSensor sensor)
     {
         float max_dist = 15;
@@ -99,7 +99,7 @@ public class CruisingAgent : Agent
          Debug.Log("norm angle : " + normalized_angle);
      //   Debug.Log("norm dist : " + normalized_distance);
       //  Debug.Log("adding reward: " + (1 - Mathf.Abs(normalized_angle)) * rewardFactor);
-      //  AddReward((1 - Mathf.Abs(normalized_angle)) * rewardFactor);   
+        AddReward((1 - Mathf.Abs(normalized_angle)) * rewardFactor);   
     }
 
     public override void OnActionReceived(ActionBuffers actions)

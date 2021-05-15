@@ -13026,7 +13026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &685511290
 Transform:
   m_ObjectHideFlags: 0
@@ -30149,7 +30149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1621929632
 Transform:
   m_ObjectHideFlags: 0
@@ -39309,10 +39309,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1621929632}
     m_Modifications:
-    - target: {fileID: 1405327533785011673, guid: 40a0661452df7a34eb5a9d470d293be7, type: 3}
-      propertyPath: m_BrainParameters.NumStackedVectorObservations
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4845566053589728789, guid: 40a0661452df7a34eb5a9d470d293be7, type: 3}
       propertyPath: m_Name
       value: OpenWaterBox

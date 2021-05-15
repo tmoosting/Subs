@@ -67,8 +67,12 @@ public class CruisingAgent : Agent
         UIController.Instance.trainingEngineInputField.text = "0";
 
         // randomize uboat pos
-        float xPos = Random.Range(-17f, 15);
-        float yPos = Random.Range(14, -8.0f);
+        float xPos = Random.Range(-6f, 6);
+        float yPos = Random.Range(6, -6);
+        if (xPos < 1 & xPos > -1)
+            xPos *= 4;
+        if (yPos < 1 & yPos > -1)
+            yPos *= 4;
         targetTransform.localPosition = new Vector3(xPos, yPos, targetTransform.localPosition.z);
         //   targetTransform.localPosition = new Vector3(xPos, targetTransform.localPosition.y, targetTransform.localPosition.z);
 

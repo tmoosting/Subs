@@ -157,7 +157,7 @@ public class TrainingController : MonoBehaviour
         {
             anySelectedShip = ship;
         }
-        Debug.Log("Found Training Ships: " + destroyerList.Count + " Destroyer, " + merchantList.Count + " Merchant, " + uboatList.Count + " Uboat");
+      //  Debug.Log("Found Training Ships: " + destroyerList.Count + " Destroyer, " + merchantList.Count + " Merchant, " + uboatList.Count + " Uboat");
     }
     public void LogTrainingSuccess()
     {

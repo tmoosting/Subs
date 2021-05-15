@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
+using UnityEngine; 
 
 
 
@@ -15,7 +14,7 @@ public class Ship : MonoBehaviour
 
     [SerializeField] public ShipType shipType;
     protected Captain captain;
-  
+   
     public Engine currentEngine;
     public int currentBearing;
     public int targetBearing;

@@ -17,7 +17,7 @@ engine_settings:
   no_graphics: false
 environment_parameters: null
 checkpoint_settings:
-  run_id: cruisingagent
+  run_id: openagent
   initialize_from: null
   load_model: false
   resume: true

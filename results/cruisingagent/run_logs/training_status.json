@@ -2,17 +2,23 @@
     "CruisingAgent": {
         "checkpoints": [
             {
-                "steps": 39607,
-                "file_path": "results\\cruisingagent\\CruisingAgent\\CruisingAgent-39607.onnx",
-                "reward": -0.9033332483636008,
-                "creation_time": 1621075008.9337263
+                "steps": 277749,
+                "file_path": "results\\cruisingagent\\CruisingAgent\\CruisingAgent-277749.onnx",
+                "reward": null,
+                "creation_time": 1621081786.5788012
+            },
+            {
+                "steps": 286983,
+                "file_path": "results\\cruisingagent\\CruisingAgent\\CruisingAgent-286983.onnx",
+                "reward": -2.423182064736331,
+                "creation_time": 1621081821.1806672
             }
         ],
         "final_checkpoint": {
-            "steps": 39607,
+            "steps": 286983,
             "file_path": "results\\cruisingagent\\CruisingAgent.onnx",
-            "reward": -0.9033332483636008,
-            "creation_time": 1621075008.9337263
+            "reward": -2.423182064736331,
+            "creation_time": 1621081821.1806672
         }
     },
     "metadata": {

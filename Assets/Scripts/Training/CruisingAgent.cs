@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine; 
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -67,8 +67,8 @@ public class CruisingAgent : Agent
         UIController.Instance.trainingEngineInputField.text = "0";
 
         // randomize uboat pos
-        float xPos = Random.Range(-13f, 7);
-        float yPos = Random.Range(13, 7);
+        float xPos = Random.Range(-17f, 15);
+        float yPos = Random.Range(14, -8.0f);
         targetTransform.localPosition = new Vector3(xPos, yPos, targetTransform.localPosition.z);
         //   targetTransform.localPosition = new Vector3(xPos, targetTransform.localPosition.y, targetTransform.localPosition.z);
 
@@ -81,32 +81,54 @@ public class CruisingAgent : Agent
         GetComponent<Captain>().ResetCaptain();
     }
 
-    float rewardFactor = -0.01f;
+    
     public override void CollectObservations(VectorSensor sensor)
     {
-        float max_dist = 15;
+        Ship ship = GetComponent<Ship>();
+
+        float max_dist = 10;
         float normalized_angle = (float)(((GetComponent<Ship>().GetTargetBearing() % 360) - 180f) / 180f);
    //    float normalized_angle = Vector3.SignedAngle(transform.forward, targetTransform.position - transform.position, Vector3.up) / 180f;
    //   float normalized_distance = Vector3.Distance(targetTransform.position, transform.position) / max_dist;
         float normalized_prev_distance = (targetTransform.position - prevPos).magnitude / max_dist;
           float normalized_distance = (targetTransform.position - transform.position).magnitude / max_dist;
 
-        if (normalized_prev_distance > normalized_distance)
-            AddReward(-0.01f);
+     
+        //   int normObtain = ((int)Mathf.Round(GetComponent<Ship>().obtainLocationBearing(targetTransform.position)) - 180f) / 180f;
 
-        sensor.AddObservation(normalized_angle); 
+        //float obtainLocBearing = (float)ship.obtainLocationBearing(targetTransform.position);
+        //int difference_in_bearing = (int)Mathf.Round(obtainLocBearing - ship.GetCurrentBearing() % 360);
+        //difference_in_bearing = difference_in_bearing > 180 ? 360 - difference_in_bearing : difference_in_bearing;
+        //float normal = (difference_in_bearing - 90f) / 90f;
+
+        int difference_in_bearing = (int)Mathf.Round((float)ship.obtainLocationBearing(targetTransform.position) - ship.GetCurrentBearing() % 360);
+        difference_in_bearing = difference_in_bearing > 180 ? 360 - difference_in_bearing : difference_in_bearing;
+        float normal = difference_in_bearing / 180f;
+
+        float absNormal = Mathf.Abs(normal);
+
+
+        //Debug.Log("obtain loc bearing : " + ship.obtainLocationBearing(targetTransform.position));
+        //Debug.Log("curr bearing : " + ship.GetCurrentBearing());
+        //Debug.Log("diff bearing : " + difference_in_bearing);
+        //Debug.Log("normal bearing : " + normal);
+ 
+
+        sensor.AddObservation(absNormal); 
         sensor.AddObservation(normalized_distance);
-         Debug.Log("norm angle : " + normalized_angle);
+      //  Debug.Log("norm bearing : " + normal);
+      //   Debug.Log("norm angle : " + normalized_angle);
      //   Debug.Log("norm dist : " + normalized_distance);
       //  Debug.Log("adding reward: " + (1 - Mathf.Abs(normalized_angle)) * rewardFactor);
-        AddReward((1 - Mathf.Abs(normalized_angle)) * rewardFactor);   
+       // AddReward((1 - Mathf.Abs(normalized_angle)) * rewardFactor);   
     }
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-      //  Debug.Log("discrete action: " + actions.DiscreteActions[0]);
-      
-      
+        Ship ship = GetComponent<Ship>();
+        //  Debug.Log("discrete action: " + actions.DiscreteActions[0]);
+
+
         //int difference = Mathf.Abs(actions.DiscreteActions[0] - (int)GetComponent<Ship>().obtainLocationBearing(targetTransform.position));
         //AddReward(-0.1f * difference);
 
@@ -115,11 +137,10 @@ public class CruisingAgent : Agent
             int actionValue = actions.DiscreteActions[0];
             int currentBearing = GetComponent<Ship>().GetCurrentBearing();
             int newBearing = currentBearing;
-
             if (actionValue == 0)
             {
-                // subtract one
-                if (currentBearing - 1 == 0 || currentBearing - 1 == -1)
+                // subtract one, counterclockwise
+                if (currentBearing - 1 <= 0 )
                     newBearing = 360;
                 else
                     newBearing = currentBearing - 1;
@@ -127,27 +148,57 @@ public class CruisingAgent : Agent
             else if (actionValue == 1)
             {
                 // do nothing
-                newBearing = currentBearing; 
+                newBearing = currentBearing;
             }
             else if (actionValue == 2)
             {
-                if (currentBearing + 1 == 360 || currentBearing + 1 == 361)
+                if (currentBearing + 1 >= 360 )
                     newBearing = 0;
                 else
                     newBearing = currentBearing + 1;
             }
-
             GetComponent<Ship>().SetCourse(newBearing);
-            //  GetComponent<Ship>().SetEngineSpeed((Ship.Engine)engine );
+            //  GetComponent<Ship>().SetEngineSpeed((Ship.Engine)engine ); 
+            ///
+            //int bearing = actions.DiscreteActions[0];
+            //GetComponent<Ship>().SetCourse(bearing);
+            // Debug.Log("bearing: " + bearing);
 
-        
+            float max_dist = 15;
+            float normalized_angle = (float)(((GetComponent<Ship>().GetTargetBearing() % 360) - 180f) / 180f);
+            //    float normalized_angle = Vector3.SignedAngle(transform.forward, targetTransform.position - transform.position, Vector3.up) / 180f;
+            //   float normalized_distance = Vector3.Distance(targetTransform.position, transform.position) / max_dist;
+            float normalized_prev_distance = (targetTransform.position - prevPos).magnitude / max_dist;
+            float normalized_distance = (targetTransform.position - transform.position).magnitude / max_dist;
+
+            int difference_in_bearing = (int)Mathf.Round((float)ship.obtainLocationBearing(targetTransform.position) - ship.GetCurrentBearing() % 360);
+            difference_in_bearing = difference_in_bearing > 180 ? 360 - difference_in_bearing : difference_in_bearing;
+            float normal = difference_in_bearing / 180f;
+
+            float absNormal = Mathf.Abs(normal);
+
+
+            //Debug.Log("obtain loc bearing : " + ship.obtainLocationBearing(targetTransform.position));
+            //Debug.Log("curr bearing : " + ship.GetCurrentBearing());
+            //Debug.Log("diff bearing : " + difference_in_bearing);
+            //Debug.Log("normal bearing : " + normal);
+
+            float rewardFactor = -0.001f;
+            AddReward(absNormal * rewardFactor);
+
+            if (normalized_prev_distance > normalized_distance)
+                AddReward(rewardFactor * 5f);
+            //if (normalized_prev_distance < normalized_distance)
+            //    AddReward(-rewardFactor * 5f);
         }
 
 
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        
+        ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
+        //   discreteActions[0] = int.Parse(UIController.Instance.trainingEngineInputField.text);
+        discreteActions[0] = int.Parse(UIController.Instance.bearingInputField.text);
 
 
 

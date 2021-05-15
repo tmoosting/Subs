@@ -1,0 +1,29 @@
+{
+    "CruisingAgent": {
+        "checkpoints": [
+            {
+                "steps": 17896,
+                "file_path": "results\\cruisingagent360\\CruisingAgent\\CruisingAgent-17896.onnx",
+                "reward": -3.3753451524036273,
+                "creation_time": 1621078980.3067544
+            },
+            {
+                "steps": 53785,
+                "file_path": "results\\cruisingagent360\\CruisingAgent\\CruisingAgent-53785.onnx",
+                "reward": -2.8801339135012207,
+                "creation_time": 1621079216.4893584
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 53785,
+            "file_path": "results\\cruisingagent360\\CruisingAgent.onnx",
+            "reward": -2.8801339135012207,
+            "creation_time": 1621079216.4893584
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

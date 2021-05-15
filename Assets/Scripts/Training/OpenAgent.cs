@@ -33,7 +33,7 @@ public class OpenAgent : Agent
         }
             LogTargetRelativebearing();
         prevPosCounter++;
-        if (prevPosCounter >= 5)
+        if (prevPosCounter >= 15)
         {
             prevPosCounter = 0;
             prevPos = transform.position;
@@ -117,7 +117,7 @@ public class OpenAgent : Agent
         //    sensor.AddObservation(normalizedDistance);
         //}
         Vector3 direction = (targetTransform.position - transform.position).normalized;
-        float k_MaxDistance = 15;
+        float k_MaxDistance = 10;
         var normalizedDistance = Vector3.Distance(targetTransform.position, transform.position) / k_MaxDistance;
         sensor.AddObservation(direction);
         sensor.AddObservation(normalizedDistance); 

@@ -32,8 +32,8 @@ public class ChaserBox : MonoBehaviour
         UIController.Instance.trainingEngineInputField.text = "0";
 
 
-        float xPos = Random.Range(-6f, 6);
-        float yPos = Random.Range(6, -6);
+        float xPos = Random.Range(-8f, 8);
+        float yPos = Random.Range(8, -8);
         if (xPos < 1 & xPos > -1)
             xPos *= 4;
         if (yPos < 1 & yPos > -1)

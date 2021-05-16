@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 7
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -214,11 +214,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.314
+      value: -2.69
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.564
+      value: -3.07
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.z
@@ -255,6 +255,22 @@ PrefabInstance:
     - target: {fileID: 2377188582835012911, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_Name
       value: U-boat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4283830765150041256, guid: dcf484755b76cd14b824136f34509294, type: 3}
+      propertyPath: m_Size.x
+      value: 0.80635977
+      objectReference: {fileID: 0}
+    - target: {fileID: 4283830765150041256, guid: dcf484755b76cd14b824136f34509294, type: 3}
+      propertyPath: m_Size.y
+      value: 1.3723269
+      objectReference: {fileID: 0}
+    - target: {fileID: 4283830765150041256, guid: dcf484755b76cd14b824136f34509294, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0031545162
+      objectReference: {fileID: 0}
+    - target: {fileID: 4283830765150041256, guid: dcf484755b76cd14b824136f34509294, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0123541355
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcf484755b76cd14b824136f34509294, type: 3}

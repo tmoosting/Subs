@@ -22,6 +22,7 @@ public class ChaserAgent : Agent
     [Tooltip("space: 3")] public bool useEnemyDirectionVector;
     [Tooltip("space: 1")] public bool useEnemyDirectionAngle;
     [Tooltip("space: 1")] public bool useEnemyDirectionRelativeToCurrentBearingAngle;
+    [Tooltip("space: 1")] public bool useEnemyDistance;
 
     [Header("Actions")]
     public bool useSpecificBearing;
@@ -98,7 +99,10 @@ public class ChaserAgent : Agent
         // at 90 when enemy is due east of agent
         int enemyBearingRelativeToCurrent = (int)Mathf.Round((float)ship.obtainLocationBearing(chaserBox.enemyShip.transform.position) - ship.GetCurrentBearing() % 360);
         // north:-1  east:-0.5  south:0  west:0.5  
-        float enemyBearingRelativeToCurrentNormalized = (float)((enemyBearingRelativeToCurrent % 360) / 360f); 
+        float enemyBearingRelativeToCurrentNormalized = (float)((enemyBearingRelativeToCurrent % 360) / 360f);
+
+        //distance 
+        float distanceNormalized = Vector3.Distance(chaserBox.enemyShip.transform.position, transform.position) / maxDistance;
 
         if (useAgentAngle == true)
             sensor.AddObservation(agentAngleNormalized);
@@ -107,7 +111,9 @@ public class ChaserAgent : Agent
         if (useEnemyDirectionAngle == true)
             sensor.AddObservation(enemyAtAngleNormalized);       
         if (useEnemyDirectionRelativeToCurrentBearingAngle == true)
-            sensor.AddObservation(enemyBearingRelativeToCurrentNormalized);
+            sensor.AddObservation(enemyBearingRelativeToCurrentNormalized); 
+        if (useEnemyDistance == true)
+            sensor.AddObservation(distanceNormalized);
     }
 
     public override void OnActionReceived(ActionBuffers actions)

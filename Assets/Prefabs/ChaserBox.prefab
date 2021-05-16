@@ -22,14 +22,15 @@ MonoBehaviour:
   useEnemyDirectionVector: 1
   useEnemyDirectionAngle: 1
   useEnemyDirectionRelativeToCurrentBearingAngle: 1
+  useEnemyDistance: 1
   useSpecificBearing: 0
   useAdjustmentBearing: 1
   baseReward: -0.01
-  penalizeIncreasedDistance: 0
-  rewardDecreasedDistance: 1
+  penalizeIncreasedDistance: 1
+  rewardDecreasedDistance: 0
   distanceRewardMultiplier: 5
   penalizeIncreasedAngle: 0
-  rewardDecreasedAngle: 1
+  rewardDecreasedAngle: 0
   angleRewardMultiplier: 5
 --- !u!114 &3931347583152755736
 MonoBehaviour:

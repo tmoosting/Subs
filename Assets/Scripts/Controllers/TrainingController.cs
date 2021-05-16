@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -18,14 +19,18 @@ public class TrainingController : MonoBehaviour
     [Header("Assigns")]
     public GameObject trainerBoxTransformParent; 
     public GameObject trainerBoxBearingParent; 
-    public GameObject trainerBoxBearingNoWallsParent; 
+    public GameObject trainerBoxBearingNoWallsParent;
 
+    [Header("Relevant Settings")]
+    public int numberOfAttempts;
+    
     [Header("General Settings")]
     public bool enableTrainingMode;
     private TrainingMode trainingMode; // private now because not used anymore
     public Ship.Engine destroyerStartSpeed;
     public Color successColor;
     public Color failColor;
+    
 
     [HideInInspector] public bool doneInitializing = false;
     int trainingSuccessCount = 0;
@@ -174,6 +179,12 @@ public class TrainingController : MonoBehaviour
     {
         trainingAttemptCount++;
         UIController.Instance.UpdateTrainingResults(trainingSuccessCount, trainingAttemptCount);
+
+        if (trainingAttemptCount >= numberOfAttempts)
+        {
+            Debug.Log("Finished " + numberOfAttempts + " attempts with " + trainingSuccessCount + " successes"); 
+            EditorApplication.isPlaying = false;
+        }
 
     }
 

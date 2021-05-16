@@ -2,17 +2,17 @@
     "Chaser": {
         "checkpoints": [
             {
-                "steps": 15621,
-                "file_path": "results\\chaseragent1\\Chaser\\Chaser-15621.onnx",
-                "reward": -0.27826085881046625,
-                "creation_time": 1621192613.7613788
+                "steps": 261740,
+                "file_path": "results\\chaseragent1\\Chaser\\Chaser-261740.onnx",
+                "reward": 135.8333249092102,
+                "creation_time": 1621193736.2228394
             }
         ],
         "final_checkpoint": {
-            "steps": 15621,
+            "steps": 261740,
             "file_path": "results\\chaseragent1\\Chaser.onnx",
-            "reward": -0.27826085881046625,
-            "creation_time": 1621192613.7613788
+            "reward": 135.8333249092102,
+            "creation_time": 1621193736.2228394
         }
     },
     "metadata": {

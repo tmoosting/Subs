@@ -96,6 +96,15 @@ public class ChaserAgent : Agent
     {
         chaserBox.ResetScene();
 
+         enemyDistance = 0f;
+         agentAngle = 0f;
+         adjBearingAction = 0;
+         distanceReward = 0f;
+         angleReward = 0f;
+         locBearing = 0f;
+         prevDistanceNormalized = 0f;
+         currentDistanceNormalized = 0f;
+
         if (stationaryAgent == true)
             GetComponent<Ship>().SetEngineSpeed(Ship.Engine.Still);
         else

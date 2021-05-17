@@ -6,13 +6,19 @@
                 "file_path": "results\\chaserAgent25\\Chaser\\Chaser-144087.onnx",
                 "reward": null,
                 "creation_time": 1621293143.544144
+            },
+            {
+                "steps": 319479,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-319479.onnx",
+                "reward": -19.89499844610691,
+                "creation_time": 1621293741.6291497
             }
         ],
         "final_checkpoint": {
-            "steps": 144087,
+            "steps": 319479,
             "file_path": "results\\chaserAgent25\\Chaser.onnx",
-            "reward": null,
-            "creation_time": 1621293143.544144
+            "reward": -19.89499844610691,
+            "creation_time": 1621293741.6291497
         }
     },
     "metadata": {

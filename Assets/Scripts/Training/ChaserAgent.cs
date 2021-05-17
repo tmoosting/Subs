@@ -13,6 +13,7 @@ public class ChaserAgent : Agent
     public ChaserBox chaserBox;
 
     [Header("Scene Settings")]
+    public bool stationaryAgent;
     public Ship.Engine startEngine;
     public float uboatMaxPlacementRange;
     public float uboatBoxSize;
@@ -46,6 +47,16 @@ public class ChaserAgent : Agent
     float maxDistance;
     Ship ship;
 
+    // for debug
+    float enemyDistance;
+    float agentAngle;
+    int adjBearingAction = 0;
+    float distanceReward = 0f;
+    float angleReward = 0f;
+    float locBearing = 0f;
+    float prevDistanceNormalized = 0f;
+    float currentDistanceNormalized = 0f;
+
     // if not in locator range, go straight up 
 
     private void Awake()
@@ -64,12 +75,31 @@ public class ChaserAgent : Agent
         }
         UIController.Instance.bearingInputField.text = ((int)GetComponent<Ship>().obtainLocationBearing(chaserBox.enemyShip.transform.position)).ToString();
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Debug.Log("enemyDistance : " + enemyDistance);
+            Debug.Log("agentAngle : " + agentAngle);
+            Debug.Log("adjBearingAction : " + adjBearingAction);
+            Debug.Log("locBearing : " + locBearing);
+            Debug.Log("prevDistanceNormalized : " + prevDistanceNormalized);
+            Debug.Log("currentDistanceNormalized : " + currentDistanceNormalized);
+            Debug.Log("distanceReward : " + distanceReward);
+            Debug.Log("prevBearingDifference : " + prevBearingDifference);
+            Debug.Log("GetDifferenceInBearingAbsolute : " + GetDifferenceInBearingAbsolute());
+            Debug.Log("angleReward : " + angleReward);
+
+        }
     }
+ 
+
     public override void OnEpisodeBegin()
     {
         chaserBox.ResetScene();
 
-        GetComponent<Ship>().SetEngineSpeed(startEngine);
+        if (stationaryAgent == true)
+            GetComponent<Ship>().SetEngineSpeed(Ship.Engine.Still);
+        else
+            GetComponent<Ship>().SetEngineSpeed(startEngine);
 
         // resets observations 
         GetComponent<Captain>().ResetCaptain();
@@ -93,10 +123,11 @@ public class ChaserAgent : Agent
 
         // north:0/1  east:0.25  south:0.5  west:0.75  
         float agentAngleNormalized = (float)((ship.GetCurrentBearing() % 360) / 360f);
+        agentAngle = agentAngleNormalized; // for debug
         //float agentAngleNormalizedMin = (float)(((ship.GetCurrentBearing()-5) % 360) / 360f);
         //float agentAngleNormalizedPlus = (float)(((ship.GetCurrentBearing()+5) % 360) / 360f);
 
-     //   Debug.Log("agent angle: " + agentAngleNormalized); 
+        //   Debug.Log("agent angle: " + agentAngleNormalized); 
 
 
         // north:-1  east:-0.5  south:0  west:0.5  
@@ -122,6 +153,7 @@ public class ChaserAgent : Agent
 
         //distance 
         float distanceNormalized = Vector3.Distance(chaserBox.enemyShip.transform.position, transform.position) / maxDistance;
+        enemyDistance = distanceNormalized; // for debug
 
         if (useAgentAngle == true)
             sensor.AddObservation(agentAngleNormalized);
@@ -143,51 +175,56 @@ public class ChaserAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     { 
-
-        if (useSpecificBearing == true)
-        { 
-            GetComponent<Ship>().SetCourse(actions.DiscreteActions[0]);
-        }
-
-        else if (useAdjustmentBearing == true)
+        if (stationaryAgent == false)
         {
-            int actionValue0 = actions.DiscreteActions[0];
-            int currentBearing = GetComponent<Ship>().GetCurrentBearing();
-            int newBearing = currentBearing;
-            if (actionValue0 == 0)
+            if (useSpecificBearing == true)
             {
-                // subtract one, counterclockwise
-                if (currentBearing - 1 <= 0)
-                    newBearing = 359;
-                else
-                    newBearing = currentBearing - 1;
+                GetComponent<Ship>().SetCourse(actions.DiscreteActions[0]);
             }
-            else if (actionValue0 == 1)
+
+            else if (useAdjustmentBearing == true)
             {
-                // do nothing
-                newBearing = currentBearing;
+                int actionValue0 = actions.DiscreteActions[0];
+                adjBearingAction = actionValue0; // for debug
+                int currentBearing = GetComponent<Ship>().GetCurrentBearing();
+                int newBearing = currentBearing;
+                if (actionValue0 == 0)
+                {
+                    // subtract one, counterclockwise
+                    if (currentBearing - 1 <= 0)
+                        newBearing = 359;
+                    else
+                        newBearing = currentBearing - 1;
+                }
+                else if (actionValue0 == 1)
+                {
+                    // do nothing
+                    newBearing = currentBearing;
+                }
+                else if (actionValue0 == 2)
+                {
+                    if (currentBearing + 1 >= 360)
+                        newBearing = 0;
+                    else
+                        newBearing = currentBearing + 1;
+                }
+                //   Debug.Log("setcourse" + newBearing);
+                ship.SetCourse(newBearing);
             }
-            else if (actionValue0 == 2)
+
+            if (setEngineSpeed == true)
             {
-                if (currentBearing + 1 >= 360)
-                    newBearing = 0;
-                else
-                    newBearing = currentBearing + 1;
+                ship.SetEngineSpeed((Ship.Engine)actions.DiscreteActions[1]);
             }
-         //   Debug.Log("setcourse" + newBearing);
-           ship.SetCourse(newBearing);
         }
 
-        if (setEngineSpeed == true)
-        {
-           ship.SetEngineSpeed((Ship.Engine)actions.DiscreteActions[1]);
-        }
+      
         AddStepRewards();  
     }
     void AddStepRewards()
     {
-        float prevDistanceNormalized = (chaserBox.enemyShip.transform.position - prevPos).magnitude / maxDistance;
-        float currentDistanceNormalized = (chaserBox.enemyShip.transform.position - transform.position).magnitude / maxDistance;
+         prevDistanceNormalized = (chaserBox.enemyShip.transform.position - prevPos).magnitude / maxDistance;
+         currentDistanceNormalized = (chaserBox.enemyShip.transform.position - transform.position).magnitude / maxDistance;
 
         if (baseNegativeTick == true)
         {
@@ -197,23 +234,35 @@ public class ChaserAgent : Agent
         if (penalizeIncreasedDistance == true)
         { 
             if (prevDistanceNormalized < currentDistanceNormalized)
+            {
+                distanceReward = baseReward * distanceRewardMultiplier; // for debug
                 AddReward(baseReward * distanceRewardMultiplier);
+            }
         }
         if (rewardDecreasedDistance == true)
         {
             if (prevDistanceNormalized > currentDistanceNormalized)
+            {
+                distanceReward = baseReward * distanceRewardMultiplier * -1;// for debug
                 AddReward((baseReward * distanceRewardMultiplier)*-1);
+            }
         }
 
         if (penalizeIncreasedAngle == true)
         {
             if (prevBearingDifference  < GetDifferenceInBearingAbsolute())
+            {
+                angleReward = baseReward * angleRewardMultiplier;// for debug
                 AddReward(baseReward * angleRewardMultiplier);
+            }
         }
         if (rewardDecreasedAngle == true)
         {
             if (prevBearingDifference > GetDifferenceInBearingAbsolute())
-                AddReward((baseReward * angleRewardMultiplier) * -1);
+            {
+                angleReward = baseReward * angleRewardMultiplier ;// for debug
+                AddReward((baseReward * angleRewardMultiplier) );
+            }
         }
 
       
@@ -225,7 +274,8 @@ public class ChaserAgent : Agent
         int difference_in_bearing = (int)Mathf.Round((float)ship.obtainLocationBearing(chaserBox.enemyShip.transform.position) - ship.GetCurrentBearing() % 360);
         difference_in_bearing = difference_in_bearing > 180 ? 360 - difference_in_bearing : difference_in_bearing;
         float difference_in_bearing_normal = difference_in_bearing / 180f;
-        float difference_in_bearing_normal_abs = Mathf.Abs(difference_in_bearing_normal); 
+        float difference_in_bearing_normal_abs = Mathf.Abs(difference_in_bearing_normal);
+        locBearing = difference_in_bearing_normal_abs;
         return difference_in_bearing_normal_abs;
     }
 
@@ -233,7 +283,7 @@ public class ChaserAgent : Agent
     {
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions; 
         discreteActions[0] = int.Parse(UIController.Instance.bearingInputField.text);
-        ship.SetEngineSpeed((Ship.Engine)3);
+     //   ship.SetEngineSpeed((Ship.Engine)3);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

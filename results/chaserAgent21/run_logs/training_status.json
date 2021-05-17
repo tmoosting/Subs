@@ -1,0 +1,23 @@
+{
+    "Chaser": {
+        "checkpoints": [
+            {
+                "steps": 109295,
+                "file_path": "results\\chaserAgent21\\Chaser\\Chaser-109295.onnx",
+                "reward": -119.46110539966159,
+                "creation_time": 1621276122.1537607
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 109295,
+            "file_path": "results\\chaserAgent21\\Chaser.onnx",
+            "reward": -119.46110539966159,
+            "creation_time": 1621276122.1537607
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

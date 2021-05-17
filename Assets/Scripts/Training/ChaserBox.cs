@@ -8,6 +8,7 @@ public class ChaserBox : MonoBehaviour
     public Ship enemyShip;
     Vector3 agentStartPos;
     Vector3 enemyStartPos;
+    
 
     private void Awake()
     {
@@ -31,9 +32,11 @@ public class ChaserBox : MonoBehaviour
         UIController.Instance.bearingInputField.text = "0";
         UIController.Instance.trainingEngineInputField.text = "0";
 
+        ChaserAgent agent = agentShip.GetComponent<ChaserAgent>();
+        enemyShip.GetComponent<BoxCollider2D>().size = new Vector2(agent.uboatBoxSize, agent.uboatBoxSize);
 
-        float xPos = Random.Range(-8f, 8);
-        float yPos = Random.Range(8, -8);
+        float xPos = Random.Range(-agent.uboatMaxPlacementRange, agent.uboatMaxPlacementRange);
+        float yPos = Random.Range(-agent.uboatMaxPlacementRange, agent.uboatMaxPlacementRange);
         if (xPos < 1 & xPos > -1)
             xPos *= 4;
         if (yPos < 1 & yPos > -1)

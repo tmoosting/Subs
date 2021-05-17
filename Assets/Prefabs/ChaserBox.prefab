@@ -15,23 +15,26 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 2000
+  MaxStep: 2200
   chaserBox: {fileID: 5803286017547254720}
   startEngine: 3
-  useAgentAngle: 1
+  uboatMaxPlacementRange: 8
+  uboatBoxSize: 2.2
   useEnemyDirectionVector: 1
-  useEnemyDirectionAngle: 1
-  useEnemyDirectionRelativeToCurrentBearingAngle: 1
   useEnemyDistance: 1
+  useAgentAngle: 1
+  useGeospatial: 1
   useSpecificBearing: 0
   useAdjustmentBearing: 1
+  setEngineSpeed: 0
   baseReward: -0.01
+  baseNegativeTick: 0
   penalizeIncreasedDistance: 1
   rewardDecreasedDistance: 0
   distanceRewardMultiplier: 5
-  penalizeIncreasedAngle: 0
+  penalizeIncreasedAngle: 1
   rewardDecreasedAngle: 0
-  angleRewardMultiplier: 5
+  angleRewardMultiplier: 0.1
 --- !u!114 &3931347583152755736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,8 +66,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 03000000
-    VectorActionSize: 03000000
+      BranchSizes: 0300000005000000
+    VectorActionSize: 0300000005000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -214,11 +217,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.69
+      value: -1.98
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.07
+      value: 4.87
       objectReference: {fileID: 0}
     - target: {fileID: 2377188582835012908, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_LocalPosition.z
@@ -258,11 +261,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4283830765150041256, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_Size.x
-      value: 0.80635977
+      value: 2.03
       objectReference: {fileID: 0}
     - target: {fileID: 4283830765150041256, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_Size.y
-      value: 1.3723269
+      value: 2.49
       objectReference: {fileID: 0}
     - target: {fileID: 4283830765150041256, guid: dcf484755b76cd14b824136f34509294, type: 3}
       propertyPath: m_Offset.x

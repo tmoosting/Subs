@@ -365,8 +365,6 @@ public class Ship : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         //get gs from locator
         float gs = subloc.gs;
-        Debug.Log("Drag: " + rb.drag);
         rb.drag = gs;
-        Debug.Log("Drag: " + rb.drag);
     }
 }

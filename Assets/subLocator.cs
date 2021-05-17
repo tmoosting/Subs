@@ -33,7 +33,5 @@ public class subLocator : MonoBehaviour
         // Calculate greyscale
         // gs = (R + G + B) / 3
         gs = (c.r + c.g + c.b)/3;
-
-        //Debug.Log("gs is " + gs);
     }
 }

@@ -2,28 +2,62 @@
     "Chaser": {
         "checkpoints": [
             {
-                "steps": 144087,
-                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-144087.onnx",
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
                 "reward": null,
-                "creation_time": 1621293143.544144
+                "creation_time": 1621294291.9915583
             },
             {
-                "steps": 319479,
-                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-319479.onnx",
-                "reward": -19.89499844610691,
-                "creation_time": 1621293741.6291497
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294407.8338501
+            },
+            {
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294458.752835
+            },
+            {
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294570.6688707
+            },
+            {
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294657.0274038
             }
         ],
         "final_checkpoint": {
-            "steps": 319479,
+            "steps": 500018,
             "file_path": "results\\chaserAgent25\\Chaser.onnx",
-            "reward": -19.89499844610691,
-            "creation_time": 1621293741.6291497
+            "reward": null,
+            "creation_time": 1621294657.0274038
         }
     },
     "metadata": {
         "stats_format_version": "0.2.0",
         "mlagents_version": "0.25.0",
         "torch_version": "1.7.1+cu110"
+    },
+    "ChaserAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\chaserAgent25\\ChaserAgent\\ChaserAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1621294570.7348857
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\chaserAgent25\\ChaserAgent.onnx",
+            "reward": null,
+            "creation_time": 1621294570.7348857
+        }
     }
 }

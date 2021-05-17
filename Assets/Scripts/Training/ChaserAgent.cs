@@ -77,16 +77,20 @@ public class ChaserAgent : Agent
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Debug.Log("enemyDistance : " + enemyDistance);
-            Debug.Log("agentAngle : " + agentAngle);
-            Debug.Log("adjBearingAction : " + adjBearingAction);
-            Debug.Log("locBearing : " + locBearing);
-            Debug.Log("prevDistanceNormalized : " + prevDistanceNormalized);
-            Debug.Log("currentDistanceNormalized : " + currentDistanceNormalized);
-            Debug.Log("distanceReward : " + distanceReward);
-            Debug.Log("prevBearingDifference : " + prevBearingDifference);
-            Debug.Log("GetDifferenceInBearingAbsolute : " + GetDifferenceInBearingAbsolute());
-            Debug.Log("angleReward : " + angleReward);
+            if (transform.parent.name == "ChaserBox")
+            {
+                Debug.Log("enemyDistance : " + enemyDistance);
+                Debug.Log("agentAngle : " + agentAngle);
+                Debug.Log("adjBearingAction : " + adjBearingAction);
+                Debug.Log("locBearing : " + locBearing);
+                Debug.Log("prevDistanceNormalized : " + prevDistanceNormalized);
+                Debug.Log("currentDistanceNormalized : " + currentDistanceNormalized);
+                Debug.Log("distanceReward : " + distanceReward);
+                Debug.Log("prevBearingDifference : " + prevBearingDifference);
+                Debug.Log("GetDifferenceInBearingAbsolute : " + GetDifferenceInBearingAbsolute());
+                Debug.Log("angleReward : " + angleReward);
+            }
+        
 
         }
     }

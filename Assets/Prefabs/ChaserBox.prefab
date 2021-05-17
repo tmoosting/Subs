@@ -35,7 +35,7 @@ MonoBehaviour:
   distanceRewardMultiplier: 5
   penalizeIncreasedAngle: 1
   rewardDecreasedAngle: 0
-  angleRewardMultiplier: 1
+  angleRewardMultiplier: 5
 --- !u!114 &3931347583152755736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 2
   m_BehaviorType: 0
-  m_BehaviorName: Chaser
+  m_BehaviorName: ChaserAgent
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1

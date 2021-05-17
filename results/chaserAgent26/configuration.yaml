@@ -33,7 +33,7 @@ behaviors: !!python/object/apply:mlagents.trainers.settings.DefaultTrainerDict
       init_path: null
       keep_checkpoints: 5
       checkpoint_interval: 500000
-      max_steps: 50000000
+      max_steps: 1200000
       time_horizon: 64
       summary_freq: 10000
       threaded: true
@@ -55,7 +55,7 @@ engine_settings:
   no_graphics: false
 environment_parameters: null
 checkpoint_settings:
-  run_id: chaserAgentgggff
+  run_id: chaserAgent26
   initialize_from: null
   load_model: false
   resume: false

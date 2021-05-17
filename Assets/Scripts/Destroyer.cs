@@ -14,27 +14,13 @@ public class Destroyer : Ship
     int depthChargesremaining = 66;
     bool depthChargeCooldownActive = false;
 
-    //get gs from locator
-    subLocator subloc;
-
-    void Start(){
-        //get gs from locator
-        subloc = gameObject.GetComponentInChildren<subLocator>();
-    }
-
     void RedistributeVelocity()
     {
-        //get gs from locator
-        float gs = subloc.gs;
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float previousMagnitude = rb.velocity.magnitude;
         Vector2 previousVelocity = rb.velocity;
         rb.velocity = new Vector2(previousVelocity.x * 1.1f, previousVelocity.y * 0.9f);
-        rb.drag = gs;
-
-        Debug.Log("Drag " + rb.drag);
-
     }
     private void Update()
     {

@@ -27,18 +27,23 @@ public class Ship : MonoBehaviour
 
     List<Vector2> logList = new List<Vector2>();
 
+    subLocator subloc;
+
 
     private void Awake()
     {
-        currentBearing = GetCurrentBearing();
+    currentBearing = GetCurrentBearing();
        //  captain = new Captain();
+       subloc = gameObject.GetComponentInChildren<subLocator>();
     }
 
 
     private void FixedUpdate()
     {            
         PowerEngine();
-        TurnShip();   
+        TurnShip();
+        SetDrag();
+
     }
 
     public void ToggleTargetMovement(Vector3 target)
@@ -354,5 +359,14 @@ public class Ship : MonoBehaviour
     private void OnMouseDown()
     {
         GameController.Instance.SetSelectedShip(this);
+    }
+
+    public void SetDrag(){
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        //get gs from locator
+        float gs = subloc.gs;
+        Debug.Log("Drag: " + rb.drag);
+        rb.drag = gs;
+        Debug.Log("Drag: " + rb.drag);
     }
 }

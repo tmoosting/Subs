@@ -3,7 +3,7 @@ behaviors: !!python/object/apply:mlagents.trainers.settings.DefaultTrainerDict
   args:
   - !!python/name:mlagents.trainers.settings.TrainerSettings ''
   dictitems:
-    NAMEOFBEHAVIOR:
+    ChaserAgent:
       trainer_type: ppo
       hyperparameters:
         batch_size: 10
@@ -58,7 +58,7 @@ checkpoint_settings:
   run_id: chaserAgent26
   initialize_from: null
   load_model: false
-  resume: false
+  resume: true
   force: false
   train_model: false
   inference: false

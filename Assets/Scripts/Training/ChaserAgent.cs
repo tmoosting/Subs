@@ -23,6 +23,7 @@ public class ChaserAgent : Agent
     [Tooltip("space: 1")] public bool useEnemyDistance; // float
     [Tooltip("space: 1")] public bool useAgentAngle; // angle agentship is facing  
     [Tooltip("space: 2")] public bool useGeospatial; // send cos, sin
+    [Tooltip("space: 3")] public bool useEnemyLocation; // send vector3
 //    [Tooltip("space: 1")] public bool useEnemyDirectionAngle; // enemylocationbearingangle
 //    [Tooltip("space: 1")] public bool useEnemyDirectionRelativeToCurrentBearingAngle; // difference in own angle and enemy's
 
@@ -179,6 +180,10 @@ public class ChaserAgent : Agent
             sensor.AddObservation(enemyDirection);
         if (useEnemyDistance == true)
             sensor.AddObservation(distanceNormalized);
+        if (useEnemyLocation == true)
+        {
+            sensor.AddObservation(chaserBox.enemyShip.transform.position);
+        }
         //  if (useEnemyDirectionAngle == true)
         //      sensor.AddObservation(enemyAtAngleNormalized);       
         //if (useEnemyDirectionRelativeToCurrentBearingAngle == true)

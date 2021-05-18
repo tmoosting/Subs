@@ -15,16 +15,17 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 2200
+  MaxStep: 2000
   chaserBox: {fileID: 5803286017547254720}
   stationaryAgent: 0
   startEngine: 3
-  uboatMaxPlacementRange: 8
-  uboatBoxSize: 2.2
+  uboatMaxPlacementRange: 10
+  uboatBoxSize: 1.4
   useEnemyDirectionVector: 1
   useEnemyDistance: 1
   useAgentAngle: 1
   useGeospatial: 1
+  useEnemyLocation: 0
   useSpecificBearing: 0
   useAdjustmentBearing: 1
   setEngineSpeed: 0
@@ -35,7 +36,7 @@ MonoBehaviour:
   distanceRewardMultiplier: 5
   penalizeIncreasedAngle: 1
   rewardDecreasedAngle: 0
-  angleRewardMultiplier: 5
+  angleRewardMultiplier: 1
 --- !u!114 &3931347583152755736
 MonoBehaviour:
   m_ObjectHideFlags: 0

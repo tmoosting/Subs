@@ -28,7 +28,7 @@ public class Ship : MonoBehaviour
     List<Vector2> logList = new List<Vector2>();
 
     subLocator subloc;
-
+    public float greyscale;
 
     private void Awake()
     {
@@ -366,5 +366,6 @@ public class Ship : MonoBehaviour
         //get gs from locator
         float gs = subloc.gs;
         rb.drag = gs;
+        greyscale = gs;
     }
 }

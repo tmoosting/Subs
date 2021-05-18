@@ -253,16 +253,16 @@ public class ChaserAgent : Agent
         { 
             if (prevDistanceNormalized < currentDistanceNormalized)
             {
-                distanceReward = baseReward * distanceRewardMultiplier; // for debug
-                AddReward(baseReward * distanceRewardMultiplier);
+                distanceReward = baseReward * distanceRewardMultiplier * -1;// for debug
+                AddReward((baseReward * distanceRewardMultiplier) * -1);
             }
         }
         if (rewardDecreasedDistance == true)
         {
             if (prevDistanceNormalized > currentDistanceNormalized)
             {
-                distanceReward = baseReward * distanceRewardMultiplier * -1;// for debug
-                AddReward((baseReward * distanceRewardMultiplier)*-1);
+                distanceReward = baseReward * distanceRewardMultiplier ;// for debug
+                AddReward((baseReward * distanceRewardMultiplier));
             }
         }
 
@@ -270,16 +270,16 @@ public class ChaserAgent : Agent
         {
             if (prevBearingDifference  < GetDifferenceInBearingAbsolute())
             {
-                angleReward = baseReward * angleRewardMultiplier;// for debug
-                AddReward(baseReward * angleRewardMultiplier);
+                angleReward = baseReward * angleRewardMultiplier * -1;// for debug
+                AddReward((baseReward * angleRewardMultiplier) * -1);
             }
         }
         if (rewardDecreasedAngle == true)
         {
             if (prevBearingDifference > GetDifferenceInBearingAbsolute())
             {
-                angleReward = baseReward * angleRewardMultiplier *-1 ;// for debug
-                AddReward((baseReward * angleRewardMultiplier) *-1 );
+                angleReward = baseReward * angleRewardMultiplier;// for debug
+                AddReward((baseReward * angleRewardMultiplier) );
             }
         }
 

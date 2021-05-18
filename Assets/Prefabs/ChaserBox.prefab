@@ -29,7 +29,7 @@ MonoBehaviour:
   useSpecificBearing: 0
   useAdjustmentBearing: 1
   setEngineSpeed: 0
-  baseReward: -0.01
+  baseReward: 0.01
   baseNegativeTick: 0
   penalizeIncreasedDistance: 1
   rewardDecreasedDistance: 0

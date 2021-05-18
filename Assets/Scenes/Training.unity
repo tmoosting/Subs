@@ -23620,7 +23620,7 @@ MonoBehaviour:
   trainerBoxTransformParent: {fileID: 2034673026}
   trainerBoxBearingParent: {fileID: 563980041}
   trainerBoxBearingNoWallsParent: {fileID: 872737894}
-  numberOfAttempts: 1000
+  numberOfAttempts: 2500
   enableTrainingMode: 1
   destroyerStartSpeed: 0
   successColor: {r: 0.078431375, g: 0.7254902, b: 0, a: 1}

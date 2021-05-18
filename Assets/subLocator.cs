@@ -8,6 +8,7 @@ public class subLocator : MonoBehaviour
 {
     [SerializeField] RawImage image;
     [SerializeField] Camera cam;
+    [SerializeField] Canvas canvas;
 
     public float gs;
 
@@ -24,9 +25,9 @@ public class subLocator : MonoBehaviour
     }
 
     void FindHeightMapValue(){
-        Vector3 screenPos = cam.WorldToScreenPoint(transform.position);
-        int x = (int) screenPos.x;
-        int y = (int) screenPos.y;
+        Vector3 canvasPos = canvas.transform.position;
+        int x = (int) canvasPos.x;
+        int y = (int) canvasPos.y;
 
         Texture2D tex2d = (Texture2D)image.texture;
         Color c = tex2d.GetPixel(x,y);

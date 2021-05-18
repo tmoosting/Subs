@@ -278,8 +278,8 @@ public class ChaserAgent : Agent
         {
             if (prevBearingDifference > GetDifferenceInBearingAbsolute())
             {
-                angleReward = baseReward * angleRewardMultiplier ;// for debug
-                AddReward((baseReward * angleRewardMultiplier) );
+                angleReward = baseReward * angleRewardMultiplier *-1 ;// for debug
+                AddReward((baseReward * angleRewardMultiplier) *-1 );
             }
         }
 

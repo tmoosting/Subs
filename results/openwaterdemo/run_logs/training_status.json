@@ -1,0 +1,29 @@
+{
+    "BearingAgentRandomX": {
+        "checkpoints": [
+            {
+                "steps": 1697,
+                "file_path": "results\\openwaterdemo\\BearingAgentRandomX\\BearingAgentRandomX-1697.onnx",
+                "reward": -26057.725158691406,
+                "creation_time": 1621018357.2957757
+            },
+            {
+                "steps": 0,
+                "file_path": "results\\openwaterdemo\\BearingAgentRandomX\\BearingAgentRandomX-0.onnx",
+                "reward": null,
+                "creation_time": 1621020976.1883037
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\openwaterdemo\\BearingAgentRandomX.onnx",
+            "reward": null,
+            "creation_time": 1621020976.1883037
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

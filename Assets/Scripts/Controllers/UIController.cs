@@ -21,10 +21,14 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI targetBearingText;
     public GameObject followIcon;
     public TMP_InputField bearingInputField;
+    public TMP_InputField trainingEngineInputField;
     public GameObject shipCardPrefab;
     public GameObject shipCardParent; 
     public GameObject moveToMarker; 
-    public GameObject setBearingButton; 
+    public GameObject setBearingButton;
+    public TextMeshProUGUI trainingCounter;
+    public Slider speedSlider;
+    public TextMeshProUGUI speedText;
 
 
     public List<ShipBar> shipBarList = new List<ShipBar>();
@@ -42,22 +46,31 @@ public class UIController : MonoBehaviour
         bearingInputField.onValueChanged.AddListener(delegate { BearingInputValueChanged(); });
     }
     private void Update()
-    {
+    { 
         LeftRightSelection(); 
         UpdateShipWindow();
         CheckForStrategyView();
 
         if (Input.GetMouseButtonDown(2))
         {
-            GameController.Instance.selectedShip.ToggleTargetMovement(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (GameController.Instance.selectedShip.movingToTarget)
+            if (TrainingController.Instance.enableTrainingMode == false)
             {
-                moveToMarker.SetActive(true);
-                Vector3 markerPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-                moveToMarker.transform.position = markerPos;
+                // toggle-type middle mouse click
+                GameController.Instance.selectedShip.ToggleTargetMovement(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if (GameController.Instance.selectedShip.movingToTarget)
+                {
+                    moveToMarker.SetActive(true);
+                    Vector3 markerPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+                    moveToMarker.transform.position = markerPos;
+                }
+                else
+                    moveToMarker.SetActive(false);
             }
             else
-                moveToMarker.SetActive(false);
+            {
+                // do this in openagent heuristic
+            }
+
         }
 
 
@@ -75,7 +88,27 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
             if (GameController.Instance.selectedShip.shipType == Ship.ShipType.DESTROYER)
                 GameController.Instance.selectedShip.GetComponent<Destroyer>().TestFireDepthCharges();
+
+        if (Input.GetKeyDown(KeyCode.O))
+            if (GameController.Instance.selectedShip.shipType == Ship.ShipType.DESTROYER)
+                LogOngoingObservations();
+
+        if (Input.GetKeyDown(KeyCode.B))
+            if (GameController.Instance.selectedShip.shipType == Ship.ShipType.UBOAT)
+                GameController.Instance.selectedShip.GetComponent<Uboat>().ThrowPillenwerfer();
     } 
+    void LogOngoingObservations()
+    {
+        Debug.Log("Obs ");
+        if (GameController.Instance.selectedShip.GetComponent<Captain>() != null)
+        {
+            foreach (Observation obs in GameController.Instance.selectedShip.GetComponent<Captain>().ongoingObservations)
+            {
+          
+            }
+        }
+     
+    }
     void CheckForStrategyView()
     {
         if (shipCardList.Count > 0)
@@ -120,26 +153,33 @@ public class UIController : MonoBehaviour
         UpdateShipWindow();
     }
     void UpdateShipWindow()
-    { 
+    {
         // for continuous updates
+
         Ship selectedShip = GameController.Instance.selectedShip;
-        currentEngineSpeedText.text = selectedShip.GetspeedInKnots().ToString("F1") + " knots";        
-        currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
-        targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
-        if (selectedShip.movingToTarget == true)
+        if (selectedShip != null)
         {
-            targetBearingText.fontStyle = FontStyles.Underline | FontStyles.Bold;
-            setBearingButton.gameObject.SetActive(false);
-            bearingInputField.gameObject.SetActive(false);
+            currentEngineSpeedText.text = selectedShip.GetspeedInKnots().ToString("F1") + " knots";
+            currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
+            targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
+            if (selectedShip.movingToTarget == true)
+            {
+                targetBearingText.fontStyle = FontStyles.Underline | FontStyles.Bold;
+                setBearingButton.gameObject.SetActive(false);
+                bearingInputField.gameObject.SetActive(false);
+            }
+            else
+            {
+                //    targetBearingText.fontStyle ^= FontStyles.Bold;
+                //  targetBearingText.fontStyle ^= FontStyles.Underline;            
+                targetBearingText.fontStyle = FontStyles.Normal;
+                setBearingButton.gameObject.SetActive(true);
+                bearingInputField.gameObject.SetActive(true);
+            }
         }
-        else
-        {
-            //    targetBearingText.fontStyle ^= FontStyles.Bold;
-            //  targetBearingText.fontStyle ^= FontStyles.Underline;            
-            targetBearingText.fontStyle = FontStyles.Normal;
-            setBearingButton.gameObject.SetActive(true);
-            bearingInputField.gameObject.SetActive(true);
-        }
+         
+         
+      
            
     }
 
@@ -199,7 +239,8 @@ public class UIController : MonoBehaviour
 
     }
     public void SetBearing()
-    {
+    {  
+        if (GameController.Instance.selectedShip != null)
         GameController.Instance.selectedShip.SetCourse(int.Parse(bearingInputField.text));
     }
 
@@ -251,5 +292,14 @@ public class UIController : MonoBehaviour
                     break;
                 }
 
+    }
+
+    public void UpdateTrainingResults (int successes, int fails)
+    {
+        trainingCounter.text = "Success: " + successes + "\nAttempts: " + fails;
+    }
+    public void SetSpeedText (float speed)
+    {
+        speedText.text = speed.ToString("F1");
     }
 }

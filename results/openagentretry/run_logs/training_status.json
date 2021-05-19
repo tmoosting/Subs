@@ -1,0 +1,23 @@
+{
+    "OpenAgent": {
+        "checkpoints": [
+            {
+                "steps": 103026,
+                "file_path": "results\\openagentretry\\OpenAgent\\OpenAgent-103026.onnx",
+                "reward": null,
+                "creation_time": 1621083736.4647708
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 103026,
+            "file_path": "results\\openagentretry\\OpenAgent.onnx",
+            "reward": null,
+            "creation_time": 1621083736.4647708
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

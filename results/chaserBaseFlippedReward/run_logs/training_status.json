@@ -1,0 +1,35 @@
+{
+    "ChaserAgent": {
+        "checkpoints": [
+            {
+                "steps": 499995,
+                "file_path": "results\\chaserBaseFlippedReward\\ChaserAgent\\ChaserAgent-499995.onnx",
+                "reward": -3.178333173195521,
+                "creation_time": 1621340479.9424286
+            },
+            {
+                "steps": 638520,
+                "file_path": "results\\chaserBaseFlippedReward\\ChaserAgent\\ChaserAgent-638520.onnx",
+                "reward": null,
+                "creation_time": 1621341329.9797435
+            },
+            {
+                "steps": 659936,
+                "file_path": "results\\chaserBaseFlippedReward\\ChaserAgent\\ChaserAgent-659936.onnx",
+                "reward": null,
+                "creation_time": 1621341587.996549
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 659936,
+            "file_path": "results\\chaserBaseFlippedReward\\ChaserAgent.onnx",
+            "reward": null,
+            "creation_time": 1621341587.996549
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

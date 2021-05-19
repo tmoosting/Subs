@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
+using UnityEngine; 
 
 
 
@@ -13,28 +12,37 @@ public class Ship : MonoBehaviour
     public enum Engine { Still, Third, Half, Standard, Flank  }
     
 
-    [SerializeField]
-    public ShipType shipType;
-  
+    [SerializeField] public ShipType shipType;
+    protected Captain captain;
+   
     public Engine currentEngine;
     public int currentBearing;
     public int targetBearing;
     bool engineReverse;
 
     protected Vector3 targetLocation;
-    [HideInInspector]
-    public bool movingToTarget;
+    [HideInInspector]     public bool movingToTarget; 
 
     List<Vector2> logList = new List<Vector2>();
 
+
     subLocator subloc;
     public float greyscale;
+    protected Lookout lookout;
 
+
+    protected List<Ship> ignoreCollisionList = new List<Ship>(); // to avoid double collide on ram
     private void Awake()
     {
+
     currentBearing = GetCurrentBearing();
        //  captain = new Captain();
        subloc = gameObject.GetComponentInChildren<subLocator>();
+
+        captain = GetComponent<Captain>();
+        lookout = GetComponent<Lookout>();
+        currentBearing = GetCurrentBearing(); 
+
     }
 
 
@@ -58,23 +66,57 @@ public class Ship : MonoBehaviour
     }
 
     public void EatTorpedo()
-    {
-        StartCoroutine(DestroyAfterDelay(0.3f));
+    { 
+        StartCoroutine(ExplodeAfterDelay(GameController.Instance.torpedoImpactDelay));
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
     public void EatDepthCharge()
-    {
-        StartCoroutine(DestroyAfterDelay(5f));
+    { 
+        StartCoroutine(ImplodeAfterDelay(GameController.Instance.depthChargeExplodeDelay));
+        StartCoroutine(SinkSoundAfterDelay(GameController.Instance.depthChargeExplodeDelay/2));
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
-    public IEnumerator DestroyAfterDelay(float time)
+    public void GetRammed()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = 0;
+        SoundController.Instance.PlayRammed();
+        StartCoroutine(Sink(3));
+        StartCoroutine(DestroyerAfterDelay(1f));
+    }
+    public IEnumerator ExplodeAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameController.Instance.TorpedoImpactAt(transform.position);
+        GameController.Instance.DestroyShip(this); 
+    }
+    public IEnumerator ImplodeAfterDelay(float time)
     {
         yield return new WaitForSeconds(time);
         GameController.Instance.TorpedoImpactAt(transform.position);
         GameController.Instance.DestroyShip(this);
-        
     }
-
+ 
+    public IEnumerator Sink(float time)
+    {
+         
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / time)
+        {
+            transform.Rotate(new Vector3(t, t, 0));
+            yield return null;
+        } 
+    }
+    public IEnumerator DestroyerAfterDelay(float time)
+    { 
+        yield return new WaitForSeconds(time); 
+        GameController.Instance.DestroyShip(this);
+    }
+    public IEnumerator SinkSoundAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SoundController.Instance.PlayChargeSink();
+    }
     public void LogPosition()
     {
         logList.Add(new Vector2(transform.position.x, transform.position.y));
@@ -278,6 +320,7 @@ public class Ship : MonoBehaviour
     }
     public void SetEngineSpeed(Engine engine)
     {
+
         currentEngine = engine;
     }
     public void SetReverse (bool reversed)
@@ -300,14 +343,14 @@ public class Ship : MonoBehaviour
     {
 
     }
-    public void SetCourseToLocation(Vector3 targetLocation)
+    public double obtainLocationBearing(Vector3 location) 
     {
         Vector3 ownPosition = transform.position;
 
         // Normalize vectors and treat own position as the origin.
         // The target position is then at a normalized location from own position.
-        double deltaX = targetLocation.x - ownPosition.x;
-        double deltaY = targetLocation.y - ownPosition.y;
+        double deltaX = location.x - ownPosition.x;
+        double deltaY = location.y - ownPosition.y;
 
         // Use the 2D arc-tan to convert normalized point from origin into a radian angle.
         double angleToTargetRadian = Math.Atan2(deltaY, deltaX);
@@ -315,12 +358,13 @@ public class Ship : MonoBehaviour
         double angleToTargetDegree = angleToTargetRadian * (180 / Math.PI);
         // In game target bearing is working with a 90 deg offset and a negative transformation
         // as compared to the standard radian degree circle.
-        double angleToIngameTarget = MakeAnglePositive(90 - angleToTargetDegree);
-
-        // Round and cast to int and set course to target location
-        SetCourse((int)Math.Round(angleToIngameTarget));
+        return MakeAnglePositive(90 - angleToTargetDegree);
     }
-
+    public void SetCourseToLocation(Vector3 targetLocation)
+    {
+        // Round and cast to int and set course to target location
+        SetCourse((int)Math.Round(obtainLocationBearing(targetLocation)));
+    }
 
     public float GetspeedInKnots()
     {
@@ -361,6 +405,7 @@ public class Ship : MonoBehaviour
         GameController.Instance.SetSelectedShip(this);
     }
 
+
     public void SetDrag(){
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         //get gs from locator
@@ -368,4 +413,5 @@ public class Ship : MonoBehaviour
         rb.drag = gs;
         greyscale = gs;
     }
+
 }

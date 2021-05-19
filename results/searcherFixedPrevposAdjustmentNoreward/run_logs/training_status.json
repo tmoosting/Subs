@@ -1,0 +1,29 @@
+{
+    "SearcherAgent": {
+        "checkpoints": [
+            {
+                "steps": 499939,
+                "file_path": "results\\searcherFixedPrevposAdjustmentNoreward\\SearcherAgent\\SearcherAgent-499939.onnx",
+                "reward": 1.0,
+                "creation_time": 1621423742.8509314
+            },
+            {
+                "steps": 550493,
+                "file_path": "results\\searcherFixedPrevposAdjustmentNoreward\\SearcherAgent\\SearcherAgent-550493.onnx",
+                "reward": null,
+                "creation_time": 1621423950.7305064
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 550493,
+            "file_path": "results\\searcherFixedPrevposAdjustmentNoreward\\SearcherAgent.onnx",
+            "reward": null,
+            "creation_time": 1621423950.7305064
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

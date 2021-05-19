@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2377188582835012909}
   - component: {fileID: 3905979899949940040}
   - component: {fileID: 4283830765150041256}
-  - component: {fileID: 1844589960}
+  - component: {fileID: 8143313332475019528}
   m_Layer: 7
   m_Name: U-boat
   m_TagString: Untagged
@@ -105,7 +105,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -675928817
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9251ebdecd4fe544197befec5ba84ffa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -135,6 +135,7 @@ MonoBehaviour:
   currentBearing: 0
   targetBearing: 0
   movingToTarget: 0
+  machineBearingSet: 0
   torpedoTube: {fileID: 1937385746}
   gunSprite: {fileID: 7442552096842995475}
   submerged: 0
@@ -185,7 +186,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.19828433, y: 0.8023777}
   m_EdgeRadius: 0
---- !u!114 &1844589960
+--- !u!114 &8143313332475019528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2377188582835012911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69dca0e73d74a324881f5948ded3cd23, type: 3}
+  m_Script: {fileID: 11500000, guid: b68a95f2b237c2a419286b7c51832d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7442552096842995475
@@ -266,7 +267,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1214572787
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ad33ff75310f0b04a81865e2b51c704f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

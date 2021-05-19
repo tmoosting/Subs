@@ -1,0 +1,23 @@
+{
+    "BearingAgentRandomX": {
+        "checkpoints": [
+            {
+                "steps": 30966,
+                "file_path": "results\\openwaterplusrelbearing\\BearingAgentRandomX\\BearingAgentRandomX-30966.onnx",
+                "reward": null,
+                "creation_time": 1621021435.4179063
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 30966,
+            "file_path": "results\\openwaterplusrelbearing\\BearingAgentRandomX.onnx",
+            "reward": null,
+            "creation_time": 1621021435.4179063
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

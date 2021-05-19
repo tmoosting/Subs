@@ -22,9 +22,10 @@ public class GameController : MonoBehaviour
     public GameObject torpedoPrefab;
     public GameObject explosionPrefab;
     public GameObject depthChargesPrefab;
+    public GameObject pillenwerferPrefab;
 
-    [Header("General Settings")]
-    public float gameSpeed;
+    [Header("General Settings")] 
+    [Range(0.1f,10)] public float gameSpeed;
     public float knotsPerMagnitude;
     public float loggingInterval; // in seconds
 
@@ -39,48 +40,75 @@ public class GameController : MonoBehaviour
     public float destroyerTurnSpeed;
     public float depthChargeTriggerRange;
     public float depthChargeCooldown;
-     
+    public float depthChargeExplodeDelay; // keep higher than cooldown value for sound effect
 
+    [Header("Merchant Settings")] 
+    public float merchantAcceleration;
+    public float merchantStandardSpeed;
+    public float merchantTurnSpeed;
 
     [Header("Uboat Settings")]
-    public float uboatStandardSpeedAbove;
-    public float uboatStandardSpeedBelow;
-    public float uboatAccelerationAbove;
-    public float uboatAccelerationBelow;
-    public float uboatTurnSpeedAbove;
-    public float uboatTurnSpeedBelow;
-    public float torpedoInitialForce;
-    public float torpedoMaxSpeed;
-    public float torpedoAccelerationRate;
-    public float maxSearchRange = 75.0f;
-    public float restartSearch = 2.5f;
+    public float uboatStandardSpeedAbove = 18f;
+    public float uboatStandardSpeedBelow = 8f;
+    public float uboatAccelerationAbove = 8f;
+    public float uboatAccelerationBelow = 5f;
+    public float uboatTurnSpeedAbove = 1.4f;
+    public float uboatTurnSpeedBelow = 0.6f;
+    public float torpedoInitialForce = 60f;
+    public float torpedoMaxSpeed = 140f;
+    public float torpedoAccelerationRate = 110f;
+    public float torpedoImpactDelay = 0.12f; 
+
+    public float maxSearchRange = 50.0f;
+    public float restartSearchRange = 9.0f;
+
+    public float maxRoamRange = 40.0f;
+    public float restartRoam = 2.5f;
+
+    public float engagementDistance = 8.0f;
+
+    public float torpedoCooldown = 5.0f;
+
+    public float uboatFleeDistance = 6.0f;
+    public float uboatAssistDistance = 12.0f;
+
+    public bool enablePillenwerfers;
+    public float pillenwerferDuration = 30.0f;
+    public float pillenwerferCooldown = 75.0f;
+    public float pillenwerferInitialForce = 30.0f;
 
     private void Awake()
     {
         Instance = this;
     }
     private void Start()
+    { 
+            InitializeProgram();
+    }
+    private void Update()
+    { 
+        Time.timeScale = gameSpeed*0.75f;
+    }
+    public void SetGameSpeed(float speed)
     {
-        InitializeProgram();
+        gameSpeed = speed;
     }
     void InitializeProgram()
     {
-        FindShips();
+            FindShips();
+            // select a ship and highlight it
+            SetSelectedShip(destroyerList[0]);
+            foreach (ShipBar bar in UIController.Instance.shipBarList)
+                if (bar.containedShip == GameController.Instance.selectedShip)
+                    bar.SetSprite(3);
 
+            // set ship engines, bearings, specifics
+            InitializeShips();
+
+            UIController.Instance.LoadShipsIntoShipBars();
+            UIController.Instance.CreateShipCards();
+            UpdateHighlights();
         
-
-        // select a ship and highlight it
-        SetSelectedShip(destroyerList[0]); 
-        foreach (ShipBar bar in UIController.Instance.shipBarList)        
-            if (bar.containedShip == GameController.Instance.selectedShip)
-                bar.SetSprite(3);
-
-        // set ship engines, bearings, specifics
-        InitializeShips();
-
-        UIController.Instance.LoadShipsIntoShipBars();
-        UIController.Instance.CreateShipCards();
-        UpdateHighlights();
     }
     void FindShips()
     {
@@ -112,7 +140,7 @@ public class GameController : MonoBehaviour
         foreach (Ship ship in merchantList)
         {
             ship.SetCourse(999); // its current bearing becomes its targert
-        //    ship.SetEngineSpeed(Ship.Engine.Half);
+            ship.SetEngineSpeed(Ship.Engine.Standard);
         }
 
         StartCoroutine(ShipLogging(loggingInterval));
@@ -134,6 +162,7 @@ public class GameController : MonoBehaviour
             CameraController.Instance.ZoomToShip(ship);
         UpdateHighlights(); 
     }
+   
 
     void UpdateHighlights()
     {
@@ -171,6 +200,19 @@ public class GameController : MonoBehaviour
 
     public void DestroyShip (Ship ship)
     {
+        if (selectedShip == ship)
+        {
+            int index = GetAllShips().IndexOf(selectedShip);
+            if (index + 1 != GetAllShips().Count)
+                SetSelectedShip(GetAllShips()[index + 1]);
+            else
+                SetSelectedShip(GetAllShips()[0]);
+        }
+        foreach (ShipBar shipBar in UIController.Instance.shipBarList)
+        {
+            if (shipBar.containedShip == ship)
+                shipBar.ShipDestroyed();
+        }
         shipList.Remove(ship);
         if (ship.shipType == Ship.ShipType.DESTROYER)
             destroyerList.Remove(ship.GetComponent<Destroyer>());
@@ -185,7 +227,7 @@ public class GameController : MonoBehaviour
 
     public void TorpedoImpactAt(Vector3 position)
     {
-        SoundController.Instance.PlayTorpedoHitSound();
+        SoundController.Instance.PlayTorpedoHit();
         GameObject explosion = Instantiate(explosionPrefab);
         explosion.transform.position = position;
         ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
@@ -196,7 +238,7 @@ public class GameController : MonoBehaviour
     {
       // Debug.Log("direction x: " + direction.x + " direction y: " + direction.y + "  direction z: " + direction.z);
 
-        SoundController.Instance.PlayDepthChargesSound(); 
+        SoundController.Instance.PlayChargeSplash(); 
         GameObject explosion1 = Instantiate(depthChargesPrefab);
         explosion1.transform.position = position;
         ParticleSystem explosionParticles1 = explosion1.GetComponent<ParticleSystem>();
@@ -204,9 +246,6 @@ public class GameController : MonoBehaviour
         explosionParticles1.Play(); 
 
     }
-    public void DepthChargeHitAt(Vector3 position)
-    {
-        // spawn particle and sound
+ 
 
-    }
 }

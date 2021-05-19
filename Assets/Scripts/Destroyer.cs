@@ -6,11 +6,7 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "New Destroyer", menuName = "Destroyer", order = 51)]
 public class Destroyer : Ship
 {
-
-    Lookout lookout;
-    Radar radar;
-    Sonar sonar;
-
+     
     int depthChargesremaining = 66;
     bool depthChargeCooldownActive = false;
 
@@ -47,7 +43,7 @@ public class Destroyer : Ship
         {
             SetCourseToLocation(targetLocation);
         }
-
+        
         if (depthChargeCooldownActive == false)
         {
             foreach (Uboat uboat in GameController.Instance.GetUboats())
@@ -55,6 +51,7 @@ public class Destroyer : Ship
                 if (Vector3.Distance(uboat.gameObject.transform.position, transform.position) < GameController.Instance.depthChargeTriggerRange)
                 {
                     FireDepthCharges(uboat);
+
                 }
             }
         }
@@ -85,7 +82,39 @@ public class Destroyer : Ship
     
     IEnumerator DepthChargeCooldownReset()
     {
-        yield return new WaitForSeconds(GameController.Instance.depthChargeCooldown);
+        yield return new WaitForSeconds(GameController.Instance.depthChargeCooldown); 
         depthChargeCooldownActive = false;
     }
+
+    // collision: sinks uboats and merchants, weakest destroyer sinks
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Ship>() != null)
+        {
+            Ship hitShip = collision.gameObject.GetComponent<Ship>();
+            if (ignoreCollisionList.Contains(hitShip) == false)
+            {
+                ignoreCollisionList.Add(hitShip);
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                Rigidbody2D rbHit = hitShip.GetComponent<Rigidbody2D>();
+
+                if (hitShip.shipType == ShipType.UBOAT || hitShip.shipType == ShipType.MERCHANT)
+                {
+                    hitShip.GetRammed();
+                }
+                else if (hitShip.shipType == ShipType.DESTROYER)
+                {
+                    if (rb.velocity.magnitude >= rbHit.velocity.magnitude)
+                        hitShip.GetRammed();
+                    else
+                        GetRammed();
+                }
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = 0;
+            }
+           
+        }
+    }
+
+
 }

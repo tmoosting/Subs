@@ -68,7 +68,7 @@ public class Skipper : Agent
         {
             SetReward(-1f);
 
-            SoundController.Instance.PlayTorpedoHitSound();
+            SoundController.Instance.PlayTorpedoHit ();
             GameObject explosion = Instantiate(GameController.Instance.explosionPrefab);
             explosion.transform.position = transform.position;
             ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();

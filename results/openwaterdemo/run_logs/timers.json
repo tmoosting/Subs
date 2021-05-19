@@ -1,0 +1,49 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1621020968",
+        "python_version": "3.9.2 (tags/v3.9.2:1a79785, Feb 19 2021, 13:44:55) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\tmoos\\AppData\\Local\\Programs\\Python\\Python39\\Scripts\\mlagents-learn config/openAgent.yaml --run-id=openwaterdemo --resume",
+        "mlagents_version": "0.25.0",
+        "mlagents_envs_version": "0.25.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.20.1",
+        "end_time_seconds": "1621020976"
+    },
+    "total": 8.0544637,
+    "count": 1,
+    "self": 0.00903039999999855,
+    "children": {
+        "run_training.setup": {
+            "total": 0.11218890000000004,
+            "count": 1,
+            "self": 0.11218890000000004
+        },
+        "TrainerController.start_learning": {
+            "total": 7.9332444,
+            "count": 1,
+            "self": 0.00010830000000172646,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 7.3510618,
+                    "count": 1,
+                    "self": 7.3510618
+                },
+                "TrainerController._save_models": {
+                    "total": 0.5820742999999986,
+                    "count": 1,
+                    "self": 0.0018303999999975673,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.580243900000001,
+                            "count": 1,
+                            "self": 0.580243900000001
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

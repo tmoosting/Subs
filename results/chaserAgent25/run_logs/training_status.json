@@ -1,0 +1,63 @@
+{
+    "Chaser": {
+        "checkpoints": [
+            {
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294291.9915583
+            },
+            {
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294407.8338501
+            },
+            {
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294458.752835
+            },
+            {
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294570.6688707
+            },
+            {
+                "steps": 500018,
+                "file_path": "results\\chaserAgent25\\Chaser\\Chaser-500018.onnx",
+                "reward": null,
+                "creation_time": 1621294657.0274038
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500018,
+            "file_path": "results\\chaserAgent25\\Chaser.onnx",
+            "reward": null,
+            "creation_time": 1621294657.0274038
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    },
+    "ChaserAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\chaserAgent25\\ChaserAgent\\ChaserAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1621294570.7348857
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\chaserAgent25\\ChaserAgent.onnx",
+            "reward": null,
+            "creation_time": 1621294570.7348857
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "My Behavior": {
+        "checkpoints": [
+            {
+                "steps": 243323,
+                "file_path": "results\\nickagent\\My Behavior\\My Behavior-243323.onnx",
+                "reward": -6.411429314840851,
+                "creation_time": 1621180939.165982
+            },
+            {
+                "steps": 288214,
+                "file_path": "results\\nickagent\\My Behavior\\My Behavior-288214.onnx",
+                "reward": -6.871000939887017,
+                "creation_time": 1621181095.5355508
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 288214,
+            "file_path": "results\\nickagent\\My Behavior.onnx",
+            "reward": -6.871000939887017,
+            "creation_time": 1621181095.5355508
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

@@ -53,7 +53,11 @@ public class ShipCard : MonoBehaviour
         }
 
     }
-
+    public void ShipDestroyed()
+    {
+        UIController.Instance.shipCardList.Remove(this);
+        Destroy(gameObject);
+    }
     public void SetSprite(int mode)
     {
 

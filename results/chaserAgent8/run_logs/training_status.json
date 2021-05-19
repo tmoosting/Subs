@@ -1,0 +1,29 @@
+{
+    "Chaser": {
+        "checkpoints": [
+            {
+                "steps": 499940,
+                "file_path": "results\\chaserAgent8\\Chaser\\Chaser-499940.onnx",
+                "reward": -196.27498595416546,
+                "creation_time": 1621207786.1263263
+            },
+            {
+                "steps": 500004,
+                "file_path": "results\\chaserAgent8\\Chaser\\Chaser-500004.onnx",
+                "reward": -196.27498595416546,
+                "creation_time": 1621207786.200632
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500004,
+            "file_path": "results\\chaserAgent8\\Chaser.onnx",
+            "reward": -196.27498595416546,
+            "creation_time": 1621207786.200632
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

@@ -3534,6 +3534,7 @@ MonoBehaviour:
   trainerBoxTransformParent: {fileID: 0}
   trainerBoxBearingParent: {fileID: 0}
   trainerBoxBearingNoWallsParent: {fileID: 0}
+  numberOfAttempts: 0
   enableTrainingMode: 0
   destroyerStartSpeed: 0
   successColor: {r: 0, g: 0, b: 0, a: 0}
@@ -4389,7 +4390,7 @@ MonoBehaviour:
   steeringCorrectionMultiplier: 2.4
   speedRemnantRemoveAmount: 0.8
   destroyerAcceleration: 10
-  destroyerStandardSpeed: 30
+  destroyerStandardSpeed: 24
   destroyerTurnSpeed: 1
   depthChargeTriggerRange: 1
   depthChargeCooldown: 5
@@ -4397,7 +4398,7 @@ MonoBehaviour:
   merchantAcceleration: 6
   merchantStandardSpeed: 12
   merchantTurnSpeed: 0.8
-  uboatStandardSpeedAbove: 18
+  uboatStandardSpeedAbove: 16
   uboatStandardSpeedBelow: 8
   uboatAccelerationAbove: 8
   uboatAccelerationBelow: 5

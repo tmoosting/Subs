@@ -1,0 +1,23 @@
+{
+    "SearcherAgent": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\searcherAgentEngineDemo2\\SearcherAgent\\SearcherAgent-0.onnx",
+                "reward": null,
+                "creation_time": 1621413971.2622063
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\searcherAgentEngineDemo2\\SearcherAgent.onnx",
+            "reward": null,
+            "creation_time": 1621413971.2622063
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

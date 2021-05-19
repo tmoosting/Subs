@@ -25,8 +25,9 @@ public class Ship : MonoBehaviour
 
     List<Vector2> logList = new List<Vector2>();
 
-    private Lookout lookout;
+    protected Lookout lookout;
 
+    protected List<Ship> ignoreCollisionList = new List<Ship>(); // to avoid double collide on ram
     private void Awake()
     {
         captain = GetComponent<Captain>();
@@ -53,21 +54,51 @@ public class Ship : MonoBehaviour
     }
 
     public void EatTorpedo()
-    {
-        StartCoroutine(DestroyAfterDelay(GameController.Instance.torpedoImpactDelay));
+    { 
+        StartCoroutine(ExplodeAfterDelay(GameController.Instance.torpedoImpactDelay));
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
     public void EatDepthCharge()
-    {
-        StartCoroutine(DestroyAfterDelay(GameController.Instance.depthChargeExplodeDelay));
+    { 
+        StartCoroutine(ImplodeAfterDelay(GameController.Instance.depthChargeExplodeDelay));
         StartCoroutine(SinkSoundAfterDelay(GameController.Instance.depthChargeExplodeDelay/2));
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
-    public IEnumerator DestroyAfterDelay(float time)
+    public void GetRammed()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = 0;
+        SoundController.Instance.PlayRammed();
+        StartCoroutine(Sink(3));
+        StartCoroutine(DestroyerAfterDelay(1f));
+    }
+    public IEnumerator ExplodeAfterDelay(float time)
     {
         yield return new WaitForSeconds(time);
         GameController.Instance.TorpedoImpactAt(transform.position);
         GameController.Instance.DestroyShip(this); 
+    }
+    public IEnumerator ImplodeAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameController.Instance.TorpedoImpactAt(transform.position);
+        GameController.Instance.DestroyShip(this);
+    }
+ 
+    public IEnumerator Sink(float time)
+    {
+         
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / time)
+        {
+            transform.Rotate(new Vector3(t, t, 0));
+            yield return null;
+        } 
+    }
+    public IEnumerator DestroyerAfterDelay(float time)
+    { 
+        yield return new WaitForSeconds(time); 
+        GameController.Instance.DestroyShip(this);
     }
     public IEnumerator SinkSoundAfterDelay(float time)
     {
@@ -361,4 +392,5 @@ public class Ship : MonoBehaviour
     {
         GameController.Instance.SetSelectedShip(this);
     }
+
 }

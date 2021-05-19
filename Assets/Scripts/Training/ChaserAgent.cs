@@ -24,8 +24,10 @@ public class ChaserAgent : Agent
     [Tooltip("space: 1")] public bool useAgentAngle; // angle agentship is facing  
     [Tooltip("space: 2")] public bool useGeospatial; // send cos, sin
     [Tooltip("space: 3")] public bool useEnemyLocation; // send vector3
-//    [Tooltip("space: 1")] public bool useEnemyDirectionAngle; // enemylocationbearingangle
-//    [Tooltip("space: 1")] public bool useEnemyDirectionRelativeToCurrentBearingAngle; // difference in own angle and enemy's
+    [Tooltip("space: 3")] public bool useAgentLocation; // vector3
+
+    //    [Tooltip("space: 1")] public bool useEnemyDirectionAngle; // enemylocationbearingangle
+    //    [Tooltip("space: 1")] public bool useEnemyDirectionRelativeToCurrentBearingAngle; // difference in own angle and enemy's
 
     [Header("Actions")]
     public bool useSpecificBearing;
@@ -72,6 +74,7 @@ public class ChaserAgent : Agent
         if (previousCounter >= 2)
         {
             previousCounter = 0;
+            prevPos = transform.position;
             prevBearingDifference = GetDifferenceInBearingAbsolute();
         }
         UIController.Instance.bearingInputField.text = ((int)GetComponent<Ship>().obtainLocationBearing(chaserBox.enemyShip.transform.position)).ToString();
@@ -184,6 +187,10 @@ public class ChaserAgent : Agent
         {
             sensor.AddObservation(chaserBox.enemyShip.transform.position);
         }
+        if (useAgentLocation == true)
+        {
+            sensor.AddObservation(transform.position); 
+        }
         //  if (useEnemyDirectionAngle == true)
         //      sensor.AddObservation(enemyAtAngleNormalized);       
         //if (useEnemyDirectionRelativeToCurrentBearingAngle == true)
@@ -246,7 +253,7 @@ public class ChaserAgent : Agent
 
         if (baseNegativeTick == true)
         {
-            AddReward(baseReward );
+            AddReward(-baseReward );
 
         }
         if (penalizeIncreasedDistance == true)

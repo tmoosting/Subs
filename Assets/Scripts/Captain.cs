@@ -41,6 +41,7 @@ public class Captain : MonoBehaviour
 
     public void DetectLookout(Ship ship)
     {
+        Debug.Log("LOOKOUT: " + ship.name);
         spottedLookoutsThisCycle.Add(ship);
 
         // check that it's not already being observed
@@ -70,6 +71,7 @@ public class Captain : MonoBehaviour
     }
     public void DetectSonar(GameObject obj)
     {
+ 
 
         if (obj.GetComponent<Pillenwerfer>() != null)
         {

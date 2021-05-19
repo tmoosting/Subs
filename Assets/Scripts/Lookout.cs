@@ -70,7 +70,8 @@ public class Lookout : MonoBehaviour
         {
             if (raycastHit2D.collider != null)
             {
-                // Hit something
+                // Hit something 
+
                 if (!alreadyPingedColliderList.Contains(raycastHit2D.collider))
                 {
                     alreadyPingedColliderList.Add(raycastHit2D.collider);

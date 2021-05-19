@@ -72,6 +72,7 @@ public class GameController : MonoBehaviour
     public float uboatFleeDistance = 6.0f;
     public float uboatAssistDistance = 12.0f;
 
+    public bool enablePillenwerfers;
     public float pillenwerferDuration = 30.0f;
     public float pillenwerferCooldown = 75.0f;
     public float pillenwerferInitialForce = 30.0f;
@@ -81,8 +82,7 @@ public class GameController : MonoBehaviour
         Instance = this;
     }
     private void Start()
-    {
-        if (TrainingController.Instance.enableTrainingMode == false)
+    { 
             InitializeProgram();
     }
     private void Update()
@@ -162,6 +162,7 @@ public class GameController : MonoBehaviour
             CameraController.Instance.ZoomToShip(ship);
         UpdateHighlights(); 
     }
+   
 
     void UpdateHighlights()
     {
@@ -199,6 +200,19 @@ public class GameController : MonoBehaviour
 
     public void DestroyShip (Ship ship)
     {
+        if (selectedShip == ship)
+        {
+            int index = GetAllShips().IndexOf(selectedShip);
+            if (index + 1 != GetAllShips().Count)
+                SetSelectedShip(GetAllShips()[index + 1]);
+            else
+                SetSelectedShip(GetAllShips()[0]);
+        }
+        foreach (ShipBar shipBar in UIController.Instance.shipBarList)
+        {
+            if (shipBar.containedShip == ship)
+                shipBar.ShipDestroyed();
+        }
         shipList.Remove(ship);
         if (ship.shipType == Ship.ShipType.DESTROYER)
             destroyerList.Remove(ship.GetComponent<Destroyer>());

@@ -1,0 +1,29 @@
+{
+    "ChaserAgent": {
+        "checkpoints": [
+            {
+                "steps": 333403,
+                "file_path": "results\\chaserBaseUntickGeoPosRewardNegativeTick\\ChaserAgent\\ChaserAgent-333403.onnx",
+                "reward": null,
+                "creation_time": 1621355861.3853457
+            },
+            {
+                "steps": 342107,
+                "file_path": "results\\chaserBaseUntickGeoPosRewardNegativeTick\\ChaserAgent\\ChaserAgent-342107.onnx",
+                "reward": null,
+                "creation_time": 1621355954.7318997
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 342107,
+            "file_path": "results\\chaserBaseUntickGeoPosRewardNegativeTick\\ChaserAgent.onnx",
+            "reward": null,
+            "creation_time": 1621355954.7318997
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

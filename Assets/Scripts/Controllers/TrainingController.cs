@@ -16,17 +16,12 @@ public class TrainingController : MonoBehaviour
     // CONTSIMPLE: obs: 4, cont 2
     // DISCBEARING: obs 4, disc 1/360
 
-    [Header("Assigns")]
-    public GameObject trainerBoxTransformParent; 
-    public GameObject trainerBoxBearingParent; 
-    public GameObject trainerBoxBearingNoWallsParent;
-
     [Header("Relevant Settings")]
     public int numberOfAttempts;
     
     [Header("General Settings")]
-    public bool enableTrainingMode;
-    private TrainingMode trainingMode; // private now because not used anymore
+    public bool enableTrainingMode; // disables sonar ping. disable middlemousemove
+    private TrainingMode trainingMode; //   not used anymore
     public Ship.Engine destroyerStartSpeed;
     public Color successColor;
     public Color failColor;
@@ -49,16 +44,16 @@ public class TrainingController : MonoBehaviour
         Instance = this;
 
         //adds this class's envreset function to the existing one
-  
 
-        if (enableTrainingMode == true)
-        {
-            Academy.Instance.OnEnvironmentReset += EnvironmentReset;
 
-            FindTrainerBoxes();
-            FindShips();
-            InitializeShips();
-        }
+        //if (enableTrainingMode == true)
+        //{
+        //    Academy.Instance.OnEnvironmentReset += EnvironmentReset;
+
+        //    FindTrainerBoxes();
+        //    FindShips();
+        //    InitializeShips();
+        //}
     }
     private void Start()
     {
@@ -108,33 +103,33 @@ public class TrainingController : MonoBehaviour
 
 
 
-    void FindTrainerBoxes()
-    {
-        if (trainerBoxTransformParent.activeSelf == true)
-        {
-            foreach (Transform child in trainerBoxTransformParent.transform)
-            {
-                if (child.gameObject.GetComponent<TrainerBox>() != null)
-                    trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
-            }
-        }
-        if (trainerBoxBearingParent.activeSelf == true)
-        {
-            foreach (Transform child in trainerBoxBearingParent.transform)
-            {
-                if (child.gameObject.GetComponent<TrainerBox>() != null)
-                    trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
-            }
-        }
-        if (trainerBoxBearingNoWallsParent.activeSelf == true)
-        {
-            foreach (Transform child in trainerBoxBearingNoWallsParent.transform)
-            {
-                if (child.gameObject.GetComponent<TrainerBox>() != null)
-                    trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
-            }
-        }
-    }
+    //void FindTrainerBoxes()
+    //{
+    //    if (trainerBoxTransformParent.activeSelf == true)
+    //    {
+    //        foreach (Transform child in trainerBoxTransformParent.transform)
+    //        {
+    //            if (child.gameObject.GetComponent<TrainerBox>() != null)
+    //                trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
+    //        }
+    //    }
+    //    if (trainerBoxBearingParent.activeSelf == true)
+    //    {
+    //        foreach (Transform child in trainerBoxBearingParent.transform)
+    //        {
+    //            if (child.gameObject.GetComponent<TrainerBox>() != null)
+    //                trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
+    //        }
+    //    }
+    //    if (trainerBoxBearingNoWallsParent.activeSelf == true)
+    //    {
+    //        foreach (Transform child in trainerBoxBearingNoWallsParent.transform)
+    //        {
+    //            if (child.gameObject.GetComponent<TrainerBox>() != null)
+    //                trainerBoxes.Add(child.gameObject.GetComponent<TrainerBox>());
+    //        }
+    //    }
+    //}
     void FindShips()
     {
         // loop through trainer boxes to find ships within them

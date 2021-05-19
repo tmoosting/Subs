@@ -42,8 +42,7 @@ public class UboatsController : MonoBehaviour
 
     private void setUboatActions()
     {
-        if (TrainingController.Instance.enableTrainingMode == false)
-        { 
+      
             List<Uboat> uboatList = GameController.Instance.GetUboats();
 
             Dictionary<Uboat, SortedList<float, Ship>> uboatObservations = new Dictionary<Uboat, SortedList<float, Ship>>(new Uboat.UboatEqualityComparer());
@@ -117,6 +116,6 @@ public class UboatsController : MonoBehaviour
                 // Remove all observations of current uboat which were better for another uboats.
                 uboatObservations[uboat_key] = new SortedList<float, Ship>(uboatObservations[uboat_key].Where(val => !removeObservations.Contains(val.Key)).ToDictionary(x => x.Key, x => x.Value));
             }
-        }
+        
     }
 }

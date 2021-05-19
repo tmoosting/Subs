@@ -24,17 +24,18 @@ MonoBehaviour:
   useEnemyDirectionVector: 1
   useEnemyDistance: 1
   useAgentAngle: 1
-  useGeospatial: 1
+  useGeospatial: 0
   useEnemyLocation: 0
-  useSpecificBearing: 0
-  useAdjustmentBearing: 1
-  setEngineSpeed: 0
+  useAgentLocation: 0
+  useSpecificBearing: 1
+  useAdjustmentBearing: 0
+  setEngineSpeed: 1
   baseReward: 0.01
   baseNegativeTick: 0
   penalizeIncreasedDistance: 1
   rewardDecreasedDistance: 0
-  distanceRewardMultiplier: 5
-  penalizeIncreasedAngle: 1
+  distanceRewardMultiplier: 1
+  penalizeIncreasedAngle: 0
   rewardDecreasedAngle: 0
   angleRewardMultiplier: 1
 --- !u!114 &3931347583152755736
@@ -64,12 +65,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 7
+    VectorObservationSize: 5
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 0300000005000000
-    VectorActionSize: 0300000005000000
+      BranchSizes: 6801000005000000
+    VectorActionSize: 6801000005000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1

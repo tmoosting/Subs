@@ -273,7 +273,6 @@ MonoBehaviour:
   currentBearing: 0
   targetBearing: 0
   movingToTarget: 0
-  machineBearingSet: 0
 --- !u!50 &1650352488456659023
 Rigidbody2D:
   serializedVersion: 4
@@ -332,7 +331,7 @@ MonoBehaviour:
   pfRadarPing: {fileID: 6020893437317719541, guid: 870a7f70cb5cfee4db492d9ca672a06e, type: 3}
   radarLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   enableLookout: 1
   rangeMax: 12
   rangeResetFactor: 0.75

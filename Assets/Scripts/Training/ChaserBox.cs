@@ -37,9 +37,9 @@ public class ChaserBox : MonoBehaviour
 
         float xPos = Random.Range(-agent.uboatMaxPlacementRange, agent.uboatMaxPlacementRange);
         float yPos = Random.Range(-agent.uboatMaxPlacementRange, agent.uboatMaxPlacementRange);
-        if (xPos < 1 & xPos > -1)
+        if (xPos < 1 && xPos > -1)
             xPos *= 4;
-        if (yPos < 1 & yPos > -1)
+        if (yPos < 1 && yPos > -1)
             yPos *= 4;
         enemyShip.transform.localPosition = new Vector3(xPos, yPos, enemyShip.transform.localPosition.z);
         if (Random.Range(0, 2) == 0)

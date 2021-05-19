@@ -32,8 +32,7 @@ public class Uboat : Ship
 
     private void Update()
     {
-        if (TrainingController.Instance.enableTrainingMode == false)
-        {
+         
             // Manually set target to go to.
             if (movingToTarget)
             {
@@ -222,7 +221,7 @@ public class Uboat : Ship
                     currentEngine = Engine.Still;
                 }
             }
-        }
+         
        
     }
 
@@ -247,29 +246,32 @@ public class Uboat : Ship
 
     public void ThrowPillenwerfer()
     {
-        // Enable cooldown on pillenwerfer.
-        pillenwerferCooldownActive = true;
-        StartCoroutine(PillenwerferCooldownReset());
+        if (GameController.Instance.enablePillenwerfers == true)
+        {
+            // Enable cooldown on pillenwerfer.
+            pillenwerferCooldownActive = true;
+            StartCoroutine(PillenwerferCooldownReset());
 
-        // Create new pillenwerfer object.
-        GameObject pw1 = Instantiate(GameController.Instance.pillenwerferPrefab);
-        GameObject pw2 = Instantiate(GameController.Instance.pillenwerferPrefab);
+            // Create new pillenwerfer object.
+            GameObject pw1 = Instantiate(GameController.Instance.pillenwerferPrefab);
+            GameObject pw2 = Instantiate(GameController.Instance.pillenwerferPrefab);
 
-        // Set postion and rotation.
-        pw1.transform.position = transform.position - transform.up * 0.5f;
-        pw1.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 225);
-        pw2.transform.position = transform.position - transform.up * 0.5f;
-        pw2.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 135);
+            // Set postion and rotation.
+            pw1.transform.position = transform.position - transform.up * 0.5f;
+            pw1.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 225);
+            pw2.transform.position = transform.position - transform.up * 0.5f;
+            pw2.transform.rotation = transform.rotation * Quaternion.Euler(0, 0, 135);
 
-        // Add force to pillenwerfers.
-        pw1.GetComponent<Rigidbody2D>().AddForce(pw1.transform.up * GameController.Instance.pillenwerferInitialForce);
-        pw2.GetComponent<Rigidbody2D>().AddForce(pw2.transform.up * GameController.Instance.pillenwerferInitialForce);
+            // Add force to pillenwerfers.
+            pw1.GetComponent<Rigidbody2D>().AddForce(pw1.transform.up * GameController.Instance.pillenwerferInitialForce);
+            pw2.GetComponent<Rigidbody2D>().AddForce(pw2.transform.up * GameController.Instance.pillenwerferInitialForce);
 
-        // Destroy after duration time.
-        StartCoroutine(DestroyAfterDelay(GameController.Instance.pillenwerferDuration, pw1));
-        StartCoroutine(DestroyAfterDelay(GameController.Instance.pillenwerferDuration, pw2));
+            // Destroy after duration time.
+            StartCoroutine(DestroyAfterDelay(GameController.Instance.pillenwerferDuration, pw1));
+            StartCoroutine(DestroyAfterDelay(GameController.Instance.pillenwerferDuration, pw2));
 
-        SoundController.Instance.PlayBubble();
+            SoundController.Instance.PlayBubble();
+        } 
     }
 
     IEnumerator DestroyAfterDelay(float delay, GameObject obj)
@@ -499,5 +501,30 @@ public class Uboat : Ship
             return false;
 
         return (this == (Uboat)obj);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Ship>() != null)
+        {
+            Ship hitShip = collision.gameObject.GetComponent<Ship>();
+            if (ignoreCollisionList.Contains(hitShip) == false)
+            {
+                ignoreCollisionList.Add(hitShip);
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                Rigidbody2D rbHit = hitShip.GetComponent<Rigidbody2D>();
+
+                if (hitShip.shipType == ShipType.UBOAT)
+                {
+                    if (rb.velocity.magnitude >= rbHit.velocity.magnitude)
+                        hitShip.GetRammed();
+                    else
+                        GetRammed();
+                }
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = 0;
+            }
+     
+        }
     }
 }

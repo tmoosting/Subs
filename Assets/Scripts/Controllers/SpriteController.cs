@@ -13,12 +13,15 @@ public class SpriteController : MonoBehaviour
 
 
     public Sprite iconDestroyer;
+    public Sprite iconDestroyerRed;
     public Sprite iconDestroyerGreen;
     public Sprite iconDestroyerGreener;
     public Sprite iconMerchant;
+    public Sprite iconMerchantRed;
     public Sprite iconMerchantGreen;
     public Sprite iconMerchantGreener;
     public Sprite iconUboat;
+    public Sprite iconUboatRed;
     public Sprite iconUboatGreen;
     public Sprite iconUboatGreener;
 

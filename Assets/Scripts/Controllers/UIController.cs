@@ -153,10 +153,12 @@ public class UIController : MonoBehaviour
         UpdateShipWindow();
     }
     void UpdateShipWindow()
-    { 
-        if (TrainingController.Instance.enableTrainingMode == false)
+    {
+        // for continuous updates
+
+        Ship selectedShip = GameController.Instance.selectedShip;
+        if (selectedShip != null)
         {
-            Ship selectedShip = GameController.Instance.selectedShip;
             currentEngineSpeedText.text = selectedShip.GetspeedInKnots().ToString("F1") + " knots";
             currentBearingText.text = selectedShip.GetCurrentBearing().ToString();
             targetBearingText.text = "Target: " + selectedShip.GetTargetBearing().ToString();
@@ -175,8 +177,9 @@ public class UIController : MonoBehaviour
                 bearingInputField.gameObject.SetActive(true);
             }
         }
-        // for continuous updates
-  
+         
+         
+      
            
     }
 

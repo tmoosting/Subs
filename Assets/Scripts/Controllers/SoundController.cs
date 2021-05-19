@@ -14,6 +14,7 @@ public class SoundController : MonoBehaviour
     public AudioClip chargeSink;
     public AudioClip cannonFire;
     public AudioClip bubble;
+    public AudioClip rammed;
     
     
 
@@ -47,5 +48,9 @@ public class SoundController : MonoBehaviour
     public void PlayBubble()
     {
         audioSource.PlayOneShot(bubble);
+    }
+    public void PlayRammed()
+    {
+        audioSource.PlayOneShot(rammed);
     }
 }

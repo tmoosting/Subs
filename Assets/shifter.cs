@@ -9,7 +9,7 @@ public class shifter : MonoBehaviour
     void Update()
     {
         frames++;
-        if (frames % 100 == 0) {
+        if (frames % 10 == 0) {
             int xshift = Random.Range(-2,2);
             int yshift = Random.Range(-2,2);
             transform.position = transform.position + new Vector3(xshift, yshift, 0);

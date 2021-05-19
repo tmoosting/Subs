@@ -180,12 +180,18 @@ public class ConvoyAgent : Agent
         }
        else
         {
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
-            sensor.AddObservation(0);
+            if (sendAgentAngle == true)
+                sensor.AddObservation(0);
+            if (sendPanicMode == true)
+                sensor.AddObservation(0);
+            if (sendTargetDirectionVector == true)
+            {
+                sensor.AddObservation(0);
+                sensor.AddObservation(0);
+                sensor.AddObservation(0);
+            } 
+            if (sendTargetDistance == true)
+                sensor.AddObservation(0); 
 
         }
 

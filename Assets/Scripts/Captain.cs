@@ -148,9 +148,15 @@ public class Captain : MonoBehaviour
         foreach (Observation obs in ongoingObservations)
         {
             if (obs.ongoing == true)
+            {
                 if (obs.type == Observation.Type.LOOKOUT)
                     if (spottedLookoutsThisCycle.Contains(obs.observedShip) == false)
                         obs.FinishObservation();
+
+               
+
+            }
+         
         }
         // clear the cycle list 
         spottedLookoutsThisCycle = new List<Ship>();

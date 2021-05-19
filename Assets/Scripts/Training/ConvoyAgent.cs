@@ -31,7 +31,9 @@ public class ConvoyAgent : Agent
     public float baseReward;
     public bool penalizeIncreasedDistance;
     public bool rewardDecreasedDistance;
-    public float distanceRewardMultiplier; 
+    public float distanceRewardMultiplier;  
+    public float minMerchantRewardRange; 
+    public float maxMerchantRewardRange; 
 
     Vector3 prevPos; 
     int previousCounter = 0;
@@ -40,6 +42,7 @@ public class ConvoyAgent : Agent
     Ship nearestMerchant;
     Ship nearestUboat;
     bool uboatSpotted = false;
+    bool merchantRangeSet = false;
 
     // for debug 
     float agentAngle;
@@ -48,9 +51,8 @@ public class ConvoyAgent : Agent
     float angleReward = 0f;
     float locBearing = 0f;
     float prevDistanceNormalized = 0f;
-    float currentDistanceNormalized = 0f;
+    float currentDistanceNormalized = 0f; 
 
-     
 
     private void Awake()
     {
@@ -109,63 +111,84 @@ public class ConvoyAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-      
-        Vector3 targetDirection = new Vector3(0, 0, 0);
-        float targetDistance = 0;
-
-        if (panicMode == false)
+       if (GameController.Instance.GetAlliedOngoingObservations().Count != 0)
         {
-            // find nearest merchant
-            float minDistance = 999999f;
-            foreach (Observation obs in GameController.Instance.GetAlliedOngoingObservations())
+            Vector3 targetDirection = new Vector3(0, 0, 0);
+            float targetDistance = 0;
+
+            if (panicMode == false)
             {
-                if (obs.observedShip.shipType == Ship.ShipType.MERCHANT)
+                // find nearest merchant
+                float minDistance = 999999f;
+                foreach (Observation obs in GameController.Instance.GetAlliedOngoingObservations())
                 {
-                    if (Vector3.Distance(transform.position, obs.observedShip.transform.position) < minDistance)
+                    if (obs.observedShip.shipType == Ship.ShipType.MERCHANT)
                     {
-                        minDistance = Vector3.Distance(transform.position, obs.observedShip.transform.position);
-                        nearestMerchant = obs.observedShip;
+                        if (Vector3.Distance(transform.position, obs.observedShip.transform.position) < minDistance)
+                        {
+                            minDistance = Vector3.Distance(transform.position, obs.observedShip.transform.position);
+                            nearestMerchant = obs.observedShip;
+                        }
                     }
                 }
-            } 
-            targetDirection = (nearestMerchant.transform.position - transform.position).normalized;
-            targetDistance = Vector3.Distance(nearestMerchant.transform.position, transform.position) / maxDistance; 
-        }
-        else if (panicMode == true)
-        {
-            uboatSpotted = false;
-            float minDistance = 999999f;
-            foreach (Observation obs in GameController.Instance.GetAlliedOngoingObservations())
-            {
-                if (obs.observedShip.shipType == Ship.ShipType.UBOAT)
-                {
-                    uboatSpotted = true;
-                    if (Vector3.Distance(transform.position, obs.observedShip.transform.position) < minDistance)
-                    {
-                        minDistance = Vector3.Distance(transform.position, obs.observedShip.transform.position);
-                        nearestUboat = obs.observedShip;
-                    }
-                }  
+                targetDirection = (nearestMerchant.transform.position - transform.position).normalized;
+                targetDistance = Vector3.Distance(nearestMerchant.transform.position, transform.position) / maxDistance;
             }
-            if (uboatSpotted == true)
+            else if (panicMode == true)
             {
-                targetDirection = (nearestUboat.transform.position - transform.position).normalized;
-                targetDistance = Vector3.Distance(nearestUboat.transform.position, transform.position) / maxDistance;
-            } 
+                uboatSpotted = false;
+                float minDistance = 999999f;
+                foreach (Observation obs in GameController.Instance.GetAlliedOngoingObservations())
+                {
+                    if (obs.observedShip.shipType == Ship.ShipType.UBOAT)
+                    {
+                        uboatSpotted = true;
+                        if (Vector3.Distance(transform.position, obs.observedShip.transform.position) < minDistance)
+                        {
+                            minDistance = Vector3.Distance(transform.position, obs.observedShip.transform.position);
+                            nearestUboat = obs.observedShip;
+                        }
+                    }
+                }
+                if (uboatSpotted == true)
+                {
+                    targetDirection = (nearestUboat.transform.position - transform.position).normalized;
+                    targetDistance = Vector3.Distance(nearestUboat.transform.position, transform.position) / maxDistance;
+                }
+            }
+
+            float agentAngleNormalized = (float)((ship.GetCurrentBearing() % 360) / 360f);
+            agentAngle = agentAngleNormalized; // for debug
+
+            if (sendAgentAngle == true)
+                sensor.AddObservation(agentAngleNormalized);
+            if (sendPanicMode == true)
+                sensor.AddObservation(panicMode);
+            if (sendTargetDirectionVector == true)
+                sensor.AddObservation(targetDirection);
+            if (sendTargetDistance == true)
+                sensor.AddObservation(targetDistance);
+
+            if (merchantRangeSet == false)
+            {
+
+                merchantRangeSet = true;
+                float distance = Vector3.Distance(nearestMerchant.transform.position, transform.position);
+                minMerchantRewardRange = distance - (distance * 0.1f);
+                maxMerchantRewardRange = distance + (distance * 0.1f); 
+            }
+        }
+       else
+        {
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+            sensor.AddObservation(0);
+
         }
 
-        float agentAngleNormalized = (float)((ship.GetCurrentBearing() % 360) / 360f);
-        agentAngle = agentAngleNormalized; // for debug
-
-        if (sendAgentAngle == true)
-            sensor.AddObservation(agentAngleNormalized);
-        if (sendPanicMode == true)
-            sensor.AddObservation(panicMode);  
-        if (sendTargetDirectionVector == true)
-            sensor.AddObservation(targetDirection);
-        if (sendTargetDistance == true)
-            sensor.AddObservation(targetDistance);
-         
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -218,6 +241,33 @@ public class ConvoyAgent : Agent
     void AddStepRewards()
     {
         
+        if (panicMode == false)
+        {
+            float distance = Vector3.Distance(nearestMerchant.transform.position, transform.position);
+
+            if (distance > minMerchantRewardRange && distance < maxMerchantRewardRange)            
+                AddReward(baseReward);            
+            else
+                AddReward(-baseReward);
+             
+
+            if (ship.GetCurrentBearing() == nearestMerchant.GetCurrentBearing())
+                AddReward(baseReward);
+            else
+                AddReward(-baseReward);
+
+
+        }
+
+        else if (panicMode == true)
+        {
+            if (uboatSpotted == true)
+            {
+                prevDistanceNormalized = (nearestUboat.transform.position - prevPos).magnitude / maxDistance;
+                currentDistanceNormalized = (nearestUboat.transform.position - transform.position).magnitude / maxDistance;
+            }
+        
+        }
       //  prevDistanceNormalized = (chaserBox.enemyShip.transform.position - prevPos).magnitude / maxDistance;
     //    currentDistanceNormalized = (chaserBox.enemyShip.transform.position - transform.position).magnitude / maxDistance;
 
@@ -263,23 +313,24 @@ public class ConvoyAgent : Agent
         //} 
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.TryGetComponent<Uboat>(out Uboat uboat))
-        {
-            if (collision.gameObject.GetComponent<Ship>().shipType == Ship.ShipType.UBOAT)
-            {
-                SetReward(+1f);
-                TrainingController.Instance.LogTrainingSuccess();
-                EndEpisode();
-            }
-
-        }
-
-    }
+  
      
+    public void DepthChargesThrown()
+    {
+        if (panicMode== true)
+        {
+             SetReward(+1f);
+            TrainingController.Instance.LogTrainingSuccess();
+            EndEpisode();
+        }
+    }
     public void TimeToPanic()
     {
         panicMode = true;
+    }
+    public void TimeToChill()
+    { 
+        panicMode = false;
+
     }
 }

@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 103087657132174261}
   - component: {fileID: 6083889108234053309}
   - component: {fileID: 6083889108234053300}
+  - component: {fileID: 3197540314754239868}
   m_Layer: 10
   m_Name: SmartDestroyer
   m_TagString: Untagged
@@ -498,7 +499,7 @@ MonoBehaviour:
   pfRadarPing: {fileID: 6020893437317719541, guid: 870a7f70cb5cfee4db492d9ca672a06e, type: 3}
   radarLayerMask:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1216
   enableLookout: 1
   rangeMax: 12
   rangeResetFactor: 0.75
@@ -604,3 +605,19 @@ MonoBehaviour:
   penalizeIncreasedDistance: 1
   rewardDecreasedDistance: 0
   distanceRewardMultiplier: 1
+  minMerchantRewardRange: 0
+  maxMerchantRewardRange: 0
+--- !u!114 &3197540314754239868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7021613621063961721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1

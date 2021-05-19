@@ -117,15 +117,20 @@ public class UIController : MonoBehaviour
             {
                 foreach (ShipCard card in shipCardList)
                 {
-                    card.gameObject.SetActive(true);
-                    card.transform.position = card.containedShip.transform.position;
+                    if (card.gameObject != null)
+                    {
+                        card.gameObject.SetActive(true);
+                        card.transform.position = card.containedShip.transform.position;
+                    }
+                   
                 }
             }
             else
             {
                 foreach (ShipCard card in shipCardList)
                 {
-                    card.gameObject.SetActive(false);
+                    if (card.gameObject != null)
+                        card.gameObject.SetActive(false);
                 }
             }
         }

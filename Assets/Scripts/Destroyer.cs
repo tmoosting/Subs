@@ -76,6 +76,10 @@ public class Destroyer : Ship
         Vector3 direction = (transform.position - uboat.transform.position).normalized;
         GameController.Instance.DepthChargesAt(transform.position, direction);
         uboat.EatDepthCharge();
+        if (GetComponent<ConvoyAgent>() != null)
+        {
+            GetComponent<ConvoyAgent>().DepthChargesThrown();
+        }
 
         // sink subs in a specific direction. extra explosion on hit
     }

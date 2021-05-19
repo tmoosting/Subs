@@ -180,7 +180,7 @@ MonoBehaviour:
   pfRadarPing: {fileID: 6020893437317719541, guid: 870a7f70cb5cfee4db492d9ca672a06e, type: 3}
   radarLayerMask:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1216
   enableLookout: 1
   rangeMax: 15
   rangeResetFactor: 0.75

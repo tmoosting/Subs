@@ -44,6 +44,8 @@ public class GameController : MonoBehaviour
     public float depthChargeTriggerRange;
     public float depthChargeCooldown;
     public float depthChargeExplodeDelay; // keep higher than cooldown value for sound effect
+    public float panicModeCooldownTime; // if no uboats and torpedoes spotted for this time, disable panicmode on all destroyers
+    
 
     [Header("Merchant Settings")] 
     public float merchantAcceleration;
@@ -88,9 +90,29 @@ public class GameController : MonoBehaviour
     { 
             InitializeProgram();
     }
+    float timeTracker; 
+
     private void Update()
     { 
         Time.timeScale = gameSpeed*0.75f;
+        timeTracker += Time.deltaTime;
+        foreach (Observation obs in GetAlliedOngoingObservations())        
+            if (obs.observedShip.shipType == Ship.ShipType.UBOAT)
+            { 
+                timeTracker = 0;
+            }
+
+        if (timeTracker >= panicModeCooldownTime)
+        {
+            timeTracker = 0;
+            foreach (Destroyer destroyer in destroyerList)
+            { 
+                if (destroyer.GetComponent<ConvoyAgent>() != null)
+                { 
+                    destroyer.GetComponent<ConvoyAgent>().TimeToChill();
+                }
+            }
+        }
     }
     public void SetGameSpeed(float speed)
     {

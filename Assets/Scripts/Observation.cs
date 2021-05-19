@@ -26,7 +26,7 @@ public class Observation
         firstSpottedTime = Time.time; 
         lastSpottedTime = Time.time; 
         positionLog.Add(observedShip.transform.position, Time.time);
-        ongoing = true;
+        ongoing = true;  
     }
 
     public void RegisterObservation()
@@ -36,7 +36,8 @@ public class Observation
     }
 
     public void FinishObservation()
-    { 
+    {
+    //    Debug.Log("finishing: " + observerShip.name + "  who observed: " + observedShip.name);
        if (type != Type.COMMS)
                 ongoing = false; 
          

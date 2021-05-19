@@ -107,9 +107,7 @@ public class BearingAgent : Agent
     {
 
         // AddReward(-0.01f);
-        if (TrainingController.Instance.doneInitializing == true)
-        {
-
+     
           //  Debug.Log("getting bearing: " + actions.DiscreteActions[0]);
             int bearing = actions.DiscreteActions[0];
            // int engineInt = actions.DiscreteActions[1]; 
@@ -119,7 +117,7 @@ public class BearingAgent : Agent
           //  GetComponent<Ship>().SetEngineSpeed((Ship.Engine)engineInt + 1);
 
 
-        }
+     
 
 
     }
@@ -136,7 +134,7 @@ public class BearingAgent : Agent
         SetReward(+1f);
       //  Debug.Log("succes!---------------------------------------------------------");
         TrainingController.Instance.LogTrainingSuccess();
-        captainBox.ColorSuccess();
+     //   captainBox.ColorSuccess();
         EndEpisode();
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -148,7 +146,7 @@ public class BearingAgent : Agent
             SetReward(+1f);
             //     Debug.Log("succes!---------------------------------------------------------");
             TrainingController.Instance.LogTrainingSuccess();
-            captainBox.ColorSuccess();
+        //    captainBox.ColorSuccess();
             EndEpisode();
         }
         if (collision.gameObject.TryGetComponent<Wall>(out Wall wall))
@@ -162,8 +160,7 @@ public class BearingAgent : Agent
             //   GameObject explosion = Instantiate(GameController.Instance.explosionPrefab);
             //   explosion.transform.position = transform.position;
             //   ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
-            //   explosionParticles.Play();
-            captainBox.ColorFail();
+            //   explosionParticles.Play(); 
 
             EndEpisode();
         }

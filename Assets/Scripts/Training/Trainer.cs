@@ -50,8 +50,7 @@ public class Trainer : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     { 
-            if (TrainingController.Instance.doneInitializing == true)
-            {
+           
             //    if (TrainingController.Instance.trainingMode == TrainingController.TrainingMode.CONTSIMPLE)
             //    {
             //        float moveX = actions.ContinuousActions[0];
@@ -76,8 +75,7 @@ public class Trainer : Agent
 
 
             //}
-        }
-
+        
 
     }
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -98,7 +96,7 @@ public class Trainer : Agent
             SetReward(+1f);
             //     Debug.Log("succes!---------------------------------------------------------");
             TrainingController.Instance.LogTrainingSuccess();
-            captainBox.ColorSuccess();
+           // captainBox.ColorSuccess();
             EndEpisode();
         }
         if (collision.gameObject.TryGetComponent<Wall>(out Wall wall))
@@ -112,8 +110,7 @@ public class Trainer : Agent
             //   GameObject explosion = Instantiate(GameController.Instance.explosionPrefab);
             //   explosion.transform.position = transform.position;
             //   ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
-            //   explosionParticles.Play();
-            captainBox.ColorFail();
+            //   explosionParticles.Play(); 
 
             EndEpisode();
         }

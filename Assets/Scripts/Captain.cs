@@ -37,11 +37,26 @@ public class Captain : MonoBehaviour
     }
 
 
+    public void GatherComms()
+    {
+        foreach (Ship ship in GameController.Instance.GetAllShips())
+        {
+            if (ship != GetComponent<Ship>())
+            {
+                if (ship.shipType != Ship.ShipType.UBOAT)
+                {
+                    Observation obs = new Observation(GetComponent<Ship>(), ship, Observation.Type.COMMS);
+                    if (shipObservations.ContainsKey(ship) == false)
+                        shipObservations.Add(ship, new List<Observation>());
+                    shipObservations[ship].Add(obs);
+                }
+            }
+        }
+    }
 
 
     public void DetectLookout(Ship ship)
-    {
-        Debug.Log("LOOKOUT: " + ship.name);
+    { 
         spottedLookoutsThisCycle.Add(ship);
 
         // check that it's not already being observed
@@ -59,6 +74,10 @@ public class Captain : MonoBehaviour
             if (shipObservations.ContainsKey(ship) == false)
                 shipObservations.Add(ship, new List<Observation>());
             shipObservations[ship].Add(obs);
+
+            if (ship.shipType == Ship.ShipType.UBOAT)
+                foreach (Destroyer destroyer in GameController.Instance.GetDestroyers())
+                    destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
         }
         else
         {
@@ -95,10 +114,15 @@ public class Captain : MonoBehaviour
                 // make a new observation, passing the observant ship and the observed ship 
                 Observation obs = new Observation(GetComponent<Ship>(), ship, Observation.Type.SONAR);
 
+           
                 // check if it already has an Obs list for the ship, then add the observation
                 if (shipObservations.ContainsKey(ship) == false)
                     shipObservations.Add(ship, new List<Observation>());
                 shipObservations[ship].Add(obs);
+
+                if (ship.shipType == Ship.ShipType.UBOAT)
+                    foreach (Destroyer destroyer in GameController.Instance.GetDestroyers())
+                        destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
             }
             else
             {
@@ -113,8 +137,10 @@ public class Captain : MonoBehaviour
 
     }
     public void SightATorpedo(Torpedo torpedo)
-    {
-        // panic!!
+    { 
+        foreach (Destroyer destroyer in GameController.Instance.GetDestroyers())        
+            destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
+        
     }
     public void LookoutCycle()
     {
@@ -150,5 +176,7 @@ public class Captain : MonoBehaviour
         shipObservations = new Dictionary<Ship, List<Observation>>();
         spottedSonarsThisCycle = new List<Ship>();
         spottedLookoutsThisCycle = new List<Ship>();
+
+        
     }
 }

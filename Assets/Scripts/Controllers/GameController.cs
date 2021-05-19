@@ -16,7 +16,10 @@ public class GameController : MonoBehaviour
 
     [HideInInspector]
     public Ship selectedShip { get; private set; }
-    
+    [HideInInspector] Dictionary<Ship, Vector3> shipStartingPositions = new Dictionary<Ship, Vector3>();
+    [HideInInspector] Dictionary<Ship, Quaternion> shipStartingRotations = new Dictionary<Ship, Quaternion>();
+
+
     [Header("Assign Objects")]
     public GameObject shipHolder;
     public GameObject torpedoPrefab;
@@ -135,6 +138,8 @@ public class GameController : MonoBehaviour
     {
         foreach (Ship ship in shipList)
         {
+            shipStartingPositions.Add(ship, ship.transform.position);
+            shipStartingRotations.Add(ship, ship.transform.rotation);
             ship.SetCourse(ship.GetCurrentBearing()); // same as 999
         }
         foreach (Ship ship in merchantList)
@@ -144,7 +149,10 @@ public class GameController : MonoBehaviour
         }
 
         StartCoroutine(ShipLogging(loggingInterval));
-      
+
+        // destroyers always have all allied ships observed  
+        foreach (Destroyer destroyer in destroyerList) 
+            destroyer.GetComponent<Captain>().GatherComms(); 
     }
     IEnumerator ShipLogging(float time)
     {
@@ -196,7 +204,21 @@ public class GameController : MonoBehaviour
     {
         return shipList;
     }
+    public List<Observation> GetAlliedOngoingObservations()
+    {
+        List<Observation> returnList = new List<Observation>();
 
+        foreach (Destroyer destroyer in destroyerList)        
+            foreach (Observation obs in destroyer.GetComponent<Captain>().ongoingObservations)            
+                if (returnList.Contains(obs) == false)
+                    returnList.Add(obs);
+        foreach (Merchant merchant in merchantList)
+            foreach (Observation obs in merchant.GetComponent<Captain>().ongoingObservations)
+                if (returnList.Contains(obs) == false)
+                    returnList.Add(obs); 
+
+        return returnList;
+    }
 
     public void DestroyShip (Ship ship)
     {
@@ -247,5 +269,19 @@ public class GameController : MonoBehaviour
 
     }
  
-
+    public void ResetStartSituation()
+    {
+        foreach (Ship ship in shipStartingPositions.Keys)        
+            ship.transform.position = shipStartingPositions[ship];
+        foreach (Ship ship in shipStartingRotations.Keys)
+            ship.transform.rotation = shipStartingRotations[ship];
+        foreach (Ship ship in shipList)
+        {
+            Rigidbody2D rb = ship.GetComponent<Rigidbody2D>();
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = 0;
+        }
+        UIController.Instance.bearingInputField.text = "0";
+        UIController.Instance.trainingEngineInputField.text = "0";
+    }
 }

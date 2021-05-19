@@ -121,7 +121,7 @@ public class TransformAgent : Agent
         SetReward(+1f);
       //    Debug.Log("succes!---------------------------------------------------------");
         TrainingController.Instance.LogTrainingSuccess();
-        captainBox.ColorSuccess();
+     //   captainBox.ColorSuccess();
         EndEpisode();
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -133,7 +133,7 @@ public class TransformAgent : Agent
             SetReward(+1f);
             //     Debug.Log("succes!---------------------------------------------------------");
             TrainingController.Instance.LogTrainingSuccess();
-            captainBox.ColorSuccess();
+         //   captainBox.ColorSuccess();
             EndEpisode();
         }
         if (collision.gameObject.TryGetComponent<Wall>(out Wall wall))
@@ -148,7 +148,7 @@ public class TransformAgent : Agent
             //   explosion.transform.position = transform.position;
             //   ParticleSystem explosionParticles = explosion.GetComponent<ParticleSystem>();
             //   explosionParticles.Play();
-            captainBox.ColorFail();
+        //    captainBox.ColorFail();
 
             EndEpisode();
         }

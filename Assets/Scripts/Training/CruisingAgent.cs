@@ -136,8 +136,7 @@ public class CruisingAgent : Agent
         //int difference = Mathf.Abs(actions.DiscreteActions[0] - (int)GetComponent<Ship>().obtainLocationBearing(targetTransform.position));
         //AddReward(-0.1f * difference);
 
-        if (TrainingController.Instance.doneInitializing == true)
-        {
+      
             int actionValue = actions.DiscreteActions[0];
             int currentBearing = GetComponent<Ship>().GetCurrentBearing();
             int newBearing = currentBearing;
@@ -194,7 +193,7 @@ public class CruisingAgent : Agent
                 AddReward(rewardFactor * 5f);
             //if (normalized_prev_distance < normalized_distance)
             //    AddReward(-rewardFactor * 5f);
-        }
+        
 
 
     }

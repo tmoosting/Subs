@@ -5,19 +5,20 @@ using UnityEngine;
 public class Observation 
 {
    
-    public enum Type {SONAR, LOOKOUT  }
+    public enum Type {SONAR, LOOKOUT, COMMS  }
 
     public bool ongoing;
     public Type type;
     public Ship observerShip;
     public Ship observedShip;
+     
 
     public float firstSpottedTime;
     public float lastSpottedTime; 
     public Dictionary<Vector3, float> positionLog = new Dictionary<Vector3, float>(); // holds positions and time at which it was recorded
 
 
-    public Observation(Ship observer, Ship observed, Type givenType )
+    public Observation(Ship observer, Ship observed, Type givenType  )
     { 
         type = givenType;
         observerShip = observer;
@@ -36,7 +37,9 @@ public class Observation
 
     public void FinishObservation()
     { 
-        ongoing = false; 
+       if (type != Type.COMMS)
+                ongoing = false; 
+         
     }
 
 }

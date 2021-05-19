@@ -4581,6 +4581,7 @@ MonoBehaviour:
   depthChargeTriggerRange: 1
   depthChargeCooldown: 5
   depthChargeExplodeDelay: 0
+  panicModeCooldownTime: 0
   merchantAcceleration: 0
   merchantStandardSpeed: 0
   merchantTurnSpeed: 0
@@ -13224,7 +13225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &682655294
 Transform:
   m_ObjectHideFlags: 0
@@ -20058,7 +20059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1005280747
 Transform:
   m_ObjectHideFlags: 0
@@ -24048,7 +24049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03090c5353182684ca53e3c3789b74ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentShip: {fileID: 0}
   enableTrainingMode: 1
   numberOfAttempts: 2500
   doneInitializing: 0

@@ -1,0 +1,23 @@
+{
+    "ConvoyAgent": {
+        "checkpoints": [
+            {
+                "steps": 22192,
+                "file_path": "results\\convoyAgentSingleSpecific\\ConvoyAgent\\ConvoyAgent-22192.onnx",
+                "reward": null,
+                "creation_time": 1621451817.225152
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 22192,
+            "file_path": "results\\convoyAgentSingleSpecific\\ConvoyAgent.onnx",
+            "reward": null,
+            "creation_time": 1621451817.225152
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

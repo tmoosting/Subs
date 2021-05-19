@@ -27,9 +27,9 @@ MonoBehaviour:
   useGeospatial: 0
   useEnemyLocation: 0
   useAgentLocation: 0
-  useSpecificBearing: 1
-  useAdjustmentBearing: 0
-  setEngineSpeed: 1
+  useSpecificBearing: 0
+  useAdjustmentBearing: 1
+  setEngineSpeed: 0
   baseReward: 0.01
   baseNegativeTick: 0
   penalizeIncreasedDistance: 1
@@ -69,8 +69,8 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 6801000005000000
-    VectorActionSize: 6801000005000000
+      BranchSizes: 0300000005000000
+    VectorActionSize: 0300000005000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1

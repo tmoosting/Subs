@@ -77,7 +77,8 @@ public class Captain : MonoBehaviour
 
             if (ship.shipType == Ship.ShipType.UBOAT)
                 foreach (Destroyer destroyer in GameController.Instance.GetDestroyers())
-                    destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
+                    if (destroyer.GetComponent<ConvoyAgent>() != null)
+                        destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
         }
         else
         {
@@ -120,9 +121,10 @@ public class Captain : MonoBehaviour
                     shipObservations.Add(ship, new List<Observation>());
                 shipObservations[ship].Add(obs);
 
-                if (ship.shipType == Ship.ShipType.UBOAT)
-                    foreach (Destroyer destroyer in GameController.Instance.GetDestroyers())
-                        destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
+                //if (ship.shipType == Ship.ShipType.UBOAT)
+                //    foreach (Destroyer destroyer in GameController.Instance.GetDestroyers())
+                //        if (destroyer.GetComponent<ConvoyAgent>() != null)
+                //        destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
             }
             else
             {
@@ -139,7 +141,8 @@ public class Captain : MonoBehaviour
     public void SightATorpedo(Torpedo torpedo)
     { 
         foreach (Destroyer destroyer in GameController.Instance.GetDestroyers())        
-            destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
+            if (destroyer.GetComponent<ConvoyAgent>() != null)
+                 destroyer.GetComponent<ConvoyAgent>().TimeToPanic();
         
     }
     public void LookoutCycle()

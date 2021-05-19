@@ -29,6 +29,7 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI trainingCounter;
     public Slider speedSlider;
     public TextMeshProUGUI speedText;
+    public TextMeshProUGUI resultText;
 
 
     public List<ShipBar> shipBarList = new List<ShipBar>();
@@ -42,6 +43,7 @@ public class UIController : MonoBehaviour
         Instance = this;
         nameText.gameObject.SetActive(false);
         followIcon.gameObject.SetActive(false);
+        resultText.gameObject.SetActive(false);
         moveToMarker.SetActive(false); 
         bearingInputField.onValueChanged.AddListener(delegate { BearingInputValueChanged(); });
     }
@@ -306,5 +308,15 @@ public class UIController : MonoBehaviour
     public void SetSpeedText (float speed)
     {
         speedText.text = speed.ToString("F1");
+    }
+    public void UboatsGone()
+    {
+        resultText.gameObject.SetActive(true);
+        resultText.text = "Convoy is Safe!";
+    }
+    public void Merchantsgone()
+    {
+        resultText.gameObject.SetActive(true);
+        resultText.text = "Convoy is Destroyed!";
     }
 }

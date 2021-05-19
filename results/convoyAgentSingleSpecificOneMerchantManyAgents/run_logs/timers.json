@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1621453183",
+        "python_version": "3.9.2 (tags/v3.9.2:1a79785, Feb 19 2021, 13:44:55) [MSC v.1928 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\tmoos\\AppData\\Local\\Programs\\Python\\Python39\\Scripts\\mlagents-learn config/standardConfig.yaml --run-id=convoyAgentSingleSpecificOneMerchantManyAgents --resume",
+        "mlagents_version": "0.25.0",
+        "mlagents_envs_version": "0.25.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.20.1",
+        "end_time_seconds": "1621453244"
+    },
+    "total": 61.3068103,
+    "count": 1,
+    "self": 0.005930900000002737,
+    "children": {
+        "run_training.setup": {
+            "total": 0.11485579999999995,
+            "count": 1,
+            "self": 0.11485579999999995
+        },
+        "TrainerController.start_learning": {
+            "total": 61.1860236,
+            "count": 1,
+            "self": 0.00011640000000312511,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 61.1856021,
+                    "count": 1,
+                    "self": 61.1856021
+                },
+                "TrainerController._save_models": {
+                    "total": 0.0003050999999985038,
+                    "count": 1,
+                    "self": 0.0003050999999985038
+                }
+            }
+        }
+    }
+}

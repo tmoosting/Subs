@@ -1,5 +1,5 @@
 behaviors:
-  ConvoyAgent:
+  ChaserAgent:
     trainer_type: ppo
     hyperparameters:
       batch_size: 10

@@ -17,7 +17,7 @@ public class ChaserBox : MonoBehaviour
 
     }
     public void ResetScene()
-    {
+    { 
         TrainingController.Instance.LogTrainingAttempt();
         agentShip.transform.position = agentStartPos;
         agentShip.transform.rotation = Quaternion.identity;

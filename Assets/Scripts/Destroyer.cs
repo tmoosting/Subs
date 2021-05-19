@@ -47,7 +47,7 @@ public class Destroyer : Ship
         if (depthChargeCooldownActive == false)
         {
             foreach (Uboat uboat in GameController.Instance.GetUboats())
-            {
+            { 
                 if (Vector3.Distance(uboat.gameObject.transform.position, transform.position) < GameController.Instance.depthChargeTriggerRange)
                 {
                     FireDepthCharges(uboat);
@@ -104,14 +104,14 @@ public class Destroyer : Ship
 
                 if (hitShip.shipType == ShipType.UBOAT || hitShip.shipType == ShipType.MERCHANT)
                 {
-                    hitShip.GetRammed();
+                  //  hitShip.GetRammed();
                 }
                 else if (hitShip.shipType == ShipType.DESTROYER)
                 {
-                    if (rb.velocity.magnitude >= rbHit.velocity.magnitude)
-                        hitShip.GetRammed();
-                    else
-                        GetRammed();
+                    //if (rb.velocity.magnitude >= rbHit.velocity.magnitude)
+                    //    hitShip.GetRammed();
+                    //else
+                    //    GetRammed();
                 }
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = 0;

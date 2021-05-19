@@ -88,12 +88,18 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     { 
-            InitializeProgram();
+           InitializeProgram();
+       
     }
     float timeTracker; 
 
     private void Update()
     { 
+            
+        if (uboatList.Count == 0)
+            UIController.Instance.UboatsGone();
+        if (merchantList.Count == 0)
+            UIController.Instance.Merchantsgone();
         Time.timeScale = gameSpeed*0.75f;
         timeTracker += Time.deltaTime;
         foreach (Observation obs in GetAlliedOngoingObservations())        
@@ -120,20 +126,24 @@ public class GameController : MonoBehaviour
     }
     void InitializeProgram()
     {
+         
             FindShips();
-            // select a ship and highlight it
+            
+            InitializeShips();
+
             SetSelectedShip(destroyerList[0]);
             foreach (ShipBar bar in UIController.Instance.shipBarList)
                 if (bar.containedShip == GameController.Instance.selectedShip)
                     bar.SetSprite(3);
-
-            // set ship engines, bearings, specifics
-            InitializeShips();
+             
 
             UIController.Instance.LoadShipsIntoShipBars();
             UIController.Instance.CreateShipCards();
             UpdateHighlights();
-        
+
+
+
+        SetSelectedShip(destroyerList[0]);
     }
     void FindShips()
     {
@@ -169,7 +179,12 @@ public class GameController : MonoBehaviour
             ship.SetCourse(999); // its current bearing becomes its targert
             ship.SetEngineSpeed(Ship.Engine.Standard);
         }
-
+        foreach (Ship ship in destroyerList)
+        {
+            ship.SetCourse(999); // its current bearing becomes its targert
+            ship.SetEngineSpeed(Ship.Engine.Half);
+        }
+        destroyerList[0].SetEngineSpeed(Ship.Engine.Still);
         StartCoroutine(ShipLogging(loggingInterval));
 
         // destroyers always have all allied ships observed  
@@ -185,7 +200,7 @@ public class GameController : MonoBehaviour
     }
 
     public void SetSelectedShip(Ship ship)
-    {
+    { 
         selectedShip = ship;
         UIController.Instance.LoadShipInShipWindow(selectedShip);
         if (CameraController.Instance.followMode == true)

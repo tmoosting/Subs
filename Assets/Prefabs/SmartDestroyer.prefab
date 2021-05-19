@@ -590,7 +590,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 2500
   panicMode: 0
   startEngine: 2
   sendAgentAngle: 1

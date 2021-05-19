@@ -6,13 +6,19 @@
                 "file_path": "results\\convoyAgent1\\ConvoyAgent\\ConvoyAgent-2368.onnx",
                 "reward": null,
                 "creation_time": 1621446487.4833226
+            },
+            {
+                "steps": 9152,
+                "file_path": "results\\convoyAgent1\\ConvoyAgent\\ConvoyAgent-9152.onnx",
+                "reward": null,
+                "creation_time": 1621446627.5482748
             }
         ],
         "final_checkpoint": {
-            "steps": 2368,
+            "steps": 9152,
             "file_path": "results\\convoyAgent1\\ConvoyAgent.onnx",
             "reward": null,
-            "creation_time": 1621446487.4833226
+            "creation_time": 1621446627.5482748
         }
     },
     "metadata": {

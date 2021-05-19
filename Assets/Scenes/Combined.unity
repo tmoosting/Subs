@@ -6233,7 +6233,7 @@ RectTransform:
   m_GameObject: {fileID: 358693389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1855722716}
   - {fileID: 1740337657}
@@ -6292,7 +6292,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1512352418}
   m_Direction: 0
   m_MinValue: 0.1
-  m_MaxValue: 10
+  m_MaxValue: 30
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
@@ -22849,14 +22849,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 740880982}
     m_Modifications:
-    - target: {fileID: 6083889108234053300, guid: 7212d1e91629297459f77488917c6444, type: 3}
-      propertyPath: maxMerchantRewardRange
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6083889108234053300, guid: 7212d1e91629297459f77488917c6444, type: 3}
-      propertyPath: minMerchantRewardRange
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 7021613621063961720, guid: 7212d1e91629297459f77488917c6444, type: 3}
       propertyPath: m_RootOrder
       value: 0

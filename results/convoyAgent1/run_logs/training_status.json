@@ -1,18 +1,18 @@
 {
-    "SearcherAgent": {
+    "ConvoyAgent": {
         "checkpoints": [
             {
-                "steps": 192,
-                "file_path": "results\\convoyAgent1\\SearcherAgent\\SearcherAgent-192.onnx",
+                "steps": 2368,
+                "file_path": "results\\convoyAgent1\\ConvoyAgent\\ConvoyAgent-2368.onnx",
                 "reward": null,
-                "creation_time": 1621446373.7712722
+                "creation_time": 1621446487.4833226
             }
         ],
         "final_checkpoint": {
-            "steps": 192,
-            "file_path": "results\\convoyAgent1\\SearcherAgent.onnx",
+            "steps": 2368,
+            "file_path": "results\\convoyAgent1\\ConvoyAgent.onnx",
             "reward": null,
-            "creation_time": 1621446373.7712722
+            "creation_time": 1621446487.4833226
         }
     },
     "metadata": {

@@ -763,6 +763,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmartDestroyer (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7021613621063961721, guid: 7212d1e91629297459f77488917c6444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7212d1e91629297459f77488917c6444, type: 3}
 --- !u!4 &23512747 stripped
@@ -3779,7 +3783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03090c5353182684ca53e3c3789b74ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableTrainingMode: 0
+  enableTrainingMode: 1
   numberOfAttempts: 2000
   doneInitializing: 0
 --- !u!1 &245839574
@@ -18111,6 +18115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmartDestroyer (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7021613621063961721, guid: 7212d1e91629297459f77488917c6444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7212d1e91629297459f77488917c6444, type: 3}
 --- !u!4 &960617068 stripped
@@ -22841,17 +22849,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 740880982}
     m_Modifications:
+    - target: {fileID: 6083889108234053300, guid: 7212d1e91629297459f77488917c6444, type: 3}
+      propertyPath: maxMerchantRewardRange
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083889108234053300, guid: 7212d1e91629297459f77488917c6444, type: 3}
+      propertyPath: minMerchantRewardRange
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7021613621063961720, guid: 7212d1e91629297459f77488917c6444, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7021613621063961720, guid: 7212d1e91629297459f77488917c6444, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -59.63
+      value: -61.08
       objectReference: {fileID: 0}
     - target: {fileID: 7021613621063961720, guid: 7212d1e91629297459f77488917c6444, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.15
+      value: -28.15
       objectReference: {fileID: 0}
     - target: {fileID: 7021613621063961720, guid: 7212d1e91629297459f77488917c6444, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24140,6 +24156,10 @@ PrefabInstance:
     - target: {fileID: 7021613621063961721, guid: 7212d1e91629297459f77488917c6444, type: 3}
       propertyPath: m_Name
       value: SmartDestroyer (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021613621063961721, guid: 7212d1e91629297459f77488917c6444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7212d1e91629297459f77488917c6444, type: 3}
@@ -26642,6 +26662,10 @@ PrefabInstance:
     - target: {fileID: 7021613621063961721, guid: 7212d1e91629297459f77488917c6444, type: 3}
       propertyPath: m_Name
       value: SmartDestroyer (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7021613621063961721, guid: 7212d1e91629297459f77488917c6444, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7212d1e91629297459f77488917c6444, type: 3}

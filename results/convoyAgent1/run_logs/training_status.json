@@ -2,17 +2,17 @@
     "SearcherAgent": {
         "checkpoints": [
             {
-                "steps": 0,
-                "file_path": "results\\convoyAgent1\\SearcherAgent\\SearcherAgent-0.onnx",
+                "steps": 320,
+                "file_path": "results\\convoyAgent1\\SearcherAgent\\SearcherAgent-320.onnx",
                 "reward": null,
-                "creation_time": 1621446231.4785268
+                "creation_time": 1621446324.5676398
             }
         ],
         "final_checkpoint": {
-            "steps": 0,
+            "steps": 320,
             "file_path": "results\\convoyAgent1\\SearcherAgent.onnx",
             "reward": null,
-            "creation_time": 1621446231.4785268
+            "creation_time": 1621446324.5676398
         }
     },
     "metadata": {

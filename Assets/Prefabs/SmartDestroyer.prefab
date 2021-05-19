@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 2
   m_BehaviorType: 0
-  m_BehaviorName: SearcherAgent
+  m_BehaviorName: ConvoyAgent
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -605,8 +605,8 @@ MonoBehaviour:
   penalizeIncreasedDistance: 1
   rewardDecreasedDistance: 0
   distanceRewardMultiplier: 1
-  minMerchantRewardRange: 0
-  maxMerchantRewardRange: 0
+  minMerchantRewardRange: 8
+  maxMerchantRewardRange: 9
 --- !u!114 &3197540314754239868
 MonoBehaviour:
   m_ObjectHideFlags: 0

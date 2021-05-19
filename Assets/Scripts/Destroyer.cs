@@ -10,17 +10,13 @@ public class Destroyer : Ship
     int depthChargesremaining = 66;
     bool depthChargeCooldownActive = false;
 
-
     void RedistributeVelocity()
     {
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         float previousMagnitude = rb.velocity.magnitude;
         Vector2 previousVelocity = rb.velocity;
-        rb.velocity = new Vector2(previousVelocity.x * 1.1f, previousVelocity.y * 0.9f); 
-
-
-
+        rb.velocity = new Vector2(previousVelocity.x * 1.1f, previousVelocity.y * 0.9f);
     }
     private void Update()
     {

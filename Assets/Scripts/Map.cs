@@ -50,8 +50,5 @@ public class Map : MonoBehaviour
         tex.Apply();
 
         debugImage.texture = tex;
-
-
-
     }
 }

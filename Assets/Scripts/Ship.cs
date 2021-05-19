@@ -25,21 +25,33 @@ public class Ship : MonoBehaviour
 
     List<Vector2> logList = new List<Vector2>();
 
+
+    subLocator subloc;
+    public float greyscale;
     protected Lookout lookout;
+
 
     protected List<Ship> ignoreCollisionList = new List<Ship>(); // to avoid double collide on ram
     private void Awake()
     {
+
+    currentBearing = GetCurrentBearing();
+       //  captain = new Captain();
+       subloc = gameObject.GetComponentInChildren<subLocator>();
+
         captain = GetComponent<Captain>();
         lookout = GetComponent<Lookout>();
         currentBearing = GetCurrentBearing(); 
+
     }
 
 
     private void FixedUpdate()
     {            
         PowerEngine();
-        TurnShip();   
+        TurnShip();
+        SetDrag();
+
     }
 
     public void ToggleTargetMovement(Vector3 target)
@@ -391,6 +403,15 @@ public class Ship : MonoBehaviour
     private void OnMouseDown()
     {
         GameController.Instance.SetSelectedShip(this);
+    }
+
+
+    public void SetDrag(){
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        //get gs from locator
+        float gs = subloc.gs;
+        rb.drag = gs;
+        greyscale = gs;
     }
 
 }

@@ -558,7 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 6
+    VectorObservationSize: 5
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -596,7 +596,7 @@ MonoBehaviour:
   sendAgentAngle: 1
   sendTargetDirectionVector: 1
   sendTargetDistance: 1
-  sendPanicMode: 1
+  sendPanicMode: 0
   useSpecificBearing: 0
   useAdjustmentBearing: 1
   setEngineSpeed: 0

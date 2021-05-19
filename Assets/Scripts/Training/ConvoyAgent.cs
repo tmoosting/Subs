@@ -241,7 +241,6 @@ public class ConvoyAgent : Agent
             }
          
 
-        if (panicMode == true)
             AddStepRewards();
     }
     void AddStepRewards()

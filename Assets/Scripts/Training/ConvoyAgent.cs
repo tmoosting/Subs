@@ -171,11 +171,11 @@ public class ConvoyAgent : Agent
 
             if (merchantRangeSet == false)
             {
-
-                merchantRangeSet = true;
-                float distance = Vector3.Distance(nearestMerchant.transform.position, transform.position);
-                minMerchantRewardRange = distance - (distance * 0.1f);
-                maxMerchantRewardRange = distance + (distance * 0.1f); 
+                // manually set 
+                //merchantRangeSet = true;
+                //float distance = Vector3.Distance(nearestMerchant.transform.position, transform.position);
+                //minMerchantRewardRange = distance - (distance * 0.1f);
+                //maxMerchantRewardRange = distance + (distance * 0.1f); 
             }
         }
        else

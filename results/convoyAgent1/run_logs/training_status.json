@@ -5,14 +5,14 @@
                 "steps": 0,
                 "file_path": "results\\convoyAgent1\\SearcherAgent\\SearcherAgent-0.onnx",
                 "reward": null,
-                "creation_time": 1621446088.9528868
+                "creation_time": 1621446231.4785268
             }
         ],
         "final_checkpoint": {
             "steps": 0,
             "file_path": "results\\convoyAgent1\\SearcherAgent.onnx",
             "reward": null,
-            "creation_time": 1621446088.9528868
+            "creation_time": 1621446231.4785268
         }
     },
     "metadata": {

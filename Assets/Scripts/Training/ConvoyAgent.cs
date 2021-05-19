@@ -245,23 +245,24 @@ public class ConvoyAgent : Agent
     }
     void AddStepRewards()
     {
-        
+      
         if (panicMode == false)
         {
-            float distance = Vector3.Distance(nearestMerchant.transform.position, transform.position);
+            if (nearestMerchant != null)
+            {
+                float distance = Vector3.Distance(nearestMerchant.transform.position, transform.position);
 
-            if (distance > minMerchantRewardRange && distance < maxMerchantRewardRange)            
-                AddReward(baseReward);            
-            else
-                AddReward(-baseReward);
-             
-
-            if (ship.GetCurrentBearing() == nearestMerchant.GetCurrentBearing())
-                AddReward(baseReward);
-            else
-                AddReward(-baseReward);
+                if (distance > minMerchantRewardRange && distance < maxMerchantRewardRange)
+                    AddReward(baseReward);
+                else
+                    AddReward(-baseReward);
 
 
+                if (ship.GetCurrentBearing() == nearestMerchant.GetCurrentBearing())
+                    AddReward(baseReward);
+                else
+                    AddReward(-baseReward);
+            } 
         }
 
         else if (panicMode == true)

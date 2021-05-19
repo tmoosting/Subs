@@ -2,17 +2,17 @@
     "ConvoyAgent": {
         "checkpoints": [
             {
-                "steps": 35000,
-                "file_path": "results\\convoyAgentSingle1\\ConvoyAgent\\ConvoyAgent-35000.onnx",
+                "steps": 64,
+                "file_path": "results\\convoyAgentSingle1\\ConvoyAgent\\ConvoyAgent-64.onnx",
                 "reward": null,
-                "creation_time": 1621447789.9852538
+                "creation_time": 1621447841.911664
             }
         ],
         "final_checkpoint": {
-            "steps": 35000,
+            "steps": 64,
             "file_path": "results\\convoyAgentSingle1\\ConvoyAgent.onnx",
             "reward": null,
-            "creation_time": 1621447789.9852538
+            "creation_time": 1621447841.911664
         }
     },
     "metadata": {

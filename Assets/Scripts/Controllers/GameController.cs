@@ -82,53 +82,58 @@ public class GameController : MonoBehaviour
     public float pillenwerferCooldown = 75.0f;
     public float pillenwerferInitialForce = 30.0f;
 
-    //bool speedSet = false;
-    //int counter = 0;
+    bool speedSet = false;
+    int counter = 0;
     private void Awake()
     {
         Instance = this;
     }
     private void Start()
     { 
-      //     InitializeProgram();
+        if (TrainingController.Instance.enableTrainingMode == false)
+            InitializeProgram();
        
     }
     float timeTracker; 
 
     private void Update()
     {
-        //if (speedSet == false)
-        //{
-        //    counter++;
-        //    if (counter > 20)
-        //    {
-        //        speedSet = true;
-        //        SetSelectedShip(destroyerList[0]);
-        //    }
-        //}
-        //if (uboatList.Count == 0)
-        //    UIController.Instance.UboatsGone();
-        //if (merchantList.Count == 0)
-        //    UIController.Instance.Merchantsgone();
-        //Time.timeScale = gameSpeed * 0.75f;
-        //timeTracker += Time.deltaTime;
-        //foreach (Observation obs in GetAlliedOngoingObservations())
-        //    if (obs.observedShip.shipType == Ship.ShipType.UBOAT)
-        //    {
-        //        timeTracker = 0;
-        //    }
+        if (TrainingController.Instance.enableTrainingMode == false)
+        {
+            if (speedSet == false)
+            {
+                counter++;
+                if (counter > 20)
+                {
+                    speedSet = true;
+                    SetSelectedShip(destroyerList[0]);
+                }
+            }
+            if (uboatList.Count == 0)
+                UIController.Instance.UboatsGone();
+            if (merchantList.Count == 0)
+                UIController.Instance.Merchantsgone();
+            Time.timeScale = gameSpeed * 0.75f;
+            timeTracker += Time.deltaTime;
+            foreach (Observation obs in GetAlliedOngoingObservations())
+                if (obs.observedShip.shipType == Ship.ShipType.UBOAT)
+                {
+                    timeTracker = 0;
+                }
 
-        //if (timeTracker >= panicModeCooldownTime)
-        //{
-        //    timeTracker = 0;
-        //    foreach (Destroyer destroyer in destroyerList)
-        //    {
-        //        if (destroyer.GetComponent<ConvoyAgent>() != null)
-        //        {
-        //            destroyer.GetComponent<ConvoyAgent>().TimeToChill();
-        //        }
-        //    }
-        //}
+            if (timeTracker >= panicModeCooldownTime)
+            {
+                timeTracker = 0;
+                foreach (Destroyer destroyer in destroyerList)
+                {
+                    if (destroyer.GetComponent<ConvoyAgent>() != null)
+                    {
+                        destroyer.GetComponent<ConvoyAgent>().TimeToChill();
+                    }
+                }
+            }
+        }
+         
     }
     public void SetGameSpeed(float speed)
     {

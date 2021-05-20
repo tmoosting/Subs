@@ -18,7 +18,7 @@ public class TrainingController : MonoBehaviour
      
     
     [Header("Settings")]
-    public bool enableTrainingMode; // disables sonar ping. disable middlemousemove 
+    public bool enableTrainingMode; // disables sonar ping. disable middlemousemove, disable some gamecontroller stuff
     public int numberOfAttempts;
 
 

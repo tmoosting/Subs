@@ -15951,8 +15951,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Middlemouse: Toggle target target location\nRightmouse: Pan camera,  
     Scroll: zoom in/out\nLeft/Right arrows: Select next ship\nF: Follow selected
-    ship \nP: Toggle physics correction\nT: Fire torpedo (Uboat selected)\nX: Throw
-    depth charges (Destroyer selected)\nC: Toggle strategy view\n\n"
+    ship \nP: Toggle physics correction (default: ON)\nT: Fire torpedo (Uboat selected)\nX:
+    Throw depth charges (Destroyer selected)\nC: Toggle strategy view\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab875dfec5bb4db468b82428d9e65a90, type: 2}
   m_sharedMaterial: {fileID: 7182682087135130042, guid: ab875dfec5bb4db468b82428d9e65a90, type: 2}

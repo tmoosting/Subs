@@ -70,15 +70,15 @@ public class CameraController : MonoBehaviour
             }
         }
         // ZOOM TO SHIP
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Camera.main.orthographicSize = 5;
-            followCam.m_Lens.OrthographicSize = 5;
-            if (followMode == false)
-            {
-               ZoomToShip(GameController.Instance.selectedShip);
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    Camera.main.orthographicSize = 5;
+        //    followCam.m_Lens.OrthographicSize = 5;
+        //    if (followMode == false)
+        //    {
+        //       ZoomToShip(GameController.Instance.selectedShip);
+        //    }
+        //}
 
         // Check for strategy view
         if (automaticStrategyView == true)

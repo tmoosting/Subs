@@ -309,7 +309,7 @@ public class Uboat : Ship
 
         // Change color of submerged uboat.
         Color tempColor = gunSprite.GetComponent<SpriteRenderer>().color;
-        tempColor.a = 0.4f;
+        tempColor.a = 0.01f;
         gunSprite.GetComponent<SpriteRenderer>().color = tempColor;
         GetComponent<SpriteRenderer>().color = tempColor;
     }
@@ -505,26 +505,26 @@ public class Uboat : Ship
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Ship>() != null)
-        {
-            Ship hitShip = collision.gameObject.GetComponent<Ship>();
-            if (ignoreCollisionList.Contains(hitShip) == false)
-            {
-                ignoreCollisionList.Add(hitShip);
-                Rigidbody2D rb = GetComponent<Rigidbody2D>();
-                Rigidbody2D rbHit = hitShip.GetComponent<Rigidbody2D>();
+        //if (collision.gameObject.GetComponent<Ship>() != null)
+        //{
+        //    Ship hitShip = collision.gameObject.GetComponent<Ship>();
+        //    if (ignoreCollisionList.Contains(hitShip) == false)
+        //    {
+        //        ignoreCollisionList.Add(hitShip);
+        //        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        //        Rigidbody2D rbHit = hitShip.GetComponent<Rigidbody2D>();
 
-                if (hitShip.shipType == ShipType.UBOAT)
-                {
-                    if (rb.velocity.magnitude >= rbHit.velocity.magnitude)
-                        hitShip.GetRammed();
-                    else
-                        GetRammed();
-                }
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = 0;
-            }
+        //        if (hitShip.shipType == ShipType.UBOAT)
+        //        {
+        //            if (rb.velocity.magnitude >= rbHit.velocity.magnitude)
+        //                hitShip.GetRammed();
+        //            else
+        //                GetRammed();
+        //        }
+        //        rb.velocity = Vector3.zero;
+        //        rb.angularVelocity = 0;
+        //    }
      
-        }
+        //}
     }
 }

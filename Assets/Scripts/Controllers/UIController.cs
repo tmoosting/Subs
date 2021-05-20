@@ -43,7 +43,7 @@ public class UIController : MonoBehaviour
         Instance = this;
         nameText.gameObject.SetActive(false);
         followIcon.gameObject.SetActive(false);
-        resultText.gameObject.SetActive(false);
+     //   resultText.gameObject.SetActive(false);
         moveToMarker.SetActive(false); 
         bearingInputField.onValueChanged.AddListener(delegate { BearingInputValueChanged(); });
     }

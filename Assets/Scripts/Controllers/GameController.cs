@@ -82,43 +82,53 @@ public class GameController : MonoBehaviour
     public float pillenwerferCooldown = 75.0f;
     public float pillenwerferInitialForce = 30.0f;
 
+    //bool speedSet = false;
+    //int counter = 0;
     private void Awake()
     {
         Instance = this;
     }
     private void Start()
     { 
-           InitializeProgram();
+      //     InitializeProgram();
        
     }
     float timeTracker; 
 
     private void Update()
-    { 
-            
-        if (uboatList.Count == 0)
-            UIController.Instance.UboatsGone();
-        if (merchantList.Count == 0)
-            UIController.Instance.Merchantsgone();
-        Time.timeScale = gameSpeed*0.75f;
-        timeTracker += Time.deltaTime;
-        foreach (Observation obs in GetAlliedOngoingObservations())        
-            if (obs.observedShip.shipType == Ship.ShipType.UBOAT)
-            { 
-                timeTracker = 0;
-            }
+    {
+        //if (speedSet == false)
+        //{
+        //    counter++;
+        //    if (counter > 20)
+        //    {
+        //        speedSet = true;
+        //        SetSelectedShip(destroyerList[0]);
+        //    }
+        //}
+        //if (uboatList.Count == 0)
+        //    UIController.Instance.UboatsGone();
+        //if (merchantList.Count == 0)
+        //    UIController.Instance.Merchantsgone();
+        //Time.timeScale = gameSpeed * 0.75f;
+        //timeTracker += Time.deltaTime;
+        //foreach (Observation obs in GetAlliedOngoingObservations())
+        //    if (obs.observedShip.shipType == Ship.ShipType.UBOAT)
+        //    {
+        //        timeTracker = 0;
+        //    }
 
-        if (timeTracker >= panicModeCooldownTime)
-        {
-            timeTracker = 0;
-            foreach (Destroyer destroyer in destroyerList)
-            { 
-                if (destroyer.GetComponent<ConvoyAgent>() != null)
-                { 
-                    destroyer.GetComponent<ConvoyAgent>().TimeToChill();
-                }
-            }
-        }
+        //if (timeTracker >= panicModeCooldownTime)
+        //{
+        //    timeTracker = 0;
+        //    foreach (Destroyer destroyer in destroyerList)
+        //    {
+        //        if (destroyer.GetComponent<ConvoyAgent>() != null)
+        //        {
+        //            destroyer.GetComponent<ConvoyAgent>().TimeToChill();
+        //        }
+        //    }
+        //}
     }
     public void SetGameSpeed(float speed)
     {
@@ -184,7 +194,7 @@ public class GameController : MonoBehaviour
             ship.SetCourse(999); // its current bearing becomes its targert
             ship.SetEngineSpeed(Ship.Engine.Half);
         }
-        destroyerList[0].SetEngineSpeed(Ship.Engine.Still);
+     //   destroyerList[0].SetEngineSpeed(Ship.Engine.Still);
         StartCoroutine(ShipLogging(loggingInterval));
 
         // destroyers always have all allied ships observed  

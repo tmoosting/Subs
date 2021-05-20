@@ -31,7 +31,7 @@ public class Ship : MonoBehaviour
     protected Lookout lookout;
 
 
-    protected List<Ship> ignoreCollisionList = new List<Ship>(); // to avoid double collide on ram
+ //   protected List<Ship> ignoreCollisionList = new List<Ship>(); // to avoid double collide on ram
     private void Awake()
     {
 
@@ -129,9 +129,13 @@ public class Ship : MonoBehaviour
         float maxMagnitude = 0f;
        
 
-        if (shipType == ShipType.DESTROYER || shipType == ShipType.MERCHANT)
+        if (shipType == ShipType.DESTROYER)
         {
             maxMagnitude = GameController.Instance.destroyerStandardSpeed / GameController.Instance.knotsPerMagnitude;
+        }
+        else if (   shipType == ShipType.MERCHANT)
+        {
+            maxMagnitude = GameController.Instance.merchantStandardSpeed / GameController.Instance.knotsPerMagnitude;
         }
         else if (shipType == ShipType.UBOAT)
         {

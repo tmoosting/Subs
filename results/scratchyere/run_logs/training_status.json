@@ -1,0 +1,23 @@
+{
+    "ChaserAgent": {
+        "checkpoints": [
+            {
+                "steps": 1408,
+                "file_path": "results\\scratchyere\\ChaserAgent\\ChaserAgent-1408.onnx",
+                "reward": 1.0,
+                "creation_time": 1621504732.4675648
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1408,
+            "file_path": "results\\scratchyere\\ChaserAgent.onnx",
+            "reward": 1.0,
+            "creation_time": 1621504732.4675648
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.2.0",
+        "mlagents_version": "0.25.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

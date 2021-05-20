@@ -315,8 +315,7 @@ public class ChaserAgent : Agent
         if (collision.gameObject.TryGetComponent<Uboat>(out Uboat uboat))
         {
             if (collision.gameObject.GetComponent<Ship>() == chaserBox.enemyShip)
-            {
-                Debug.Log("hit");
+            { 
                 SetReward(+1f);
                 TrainingController.Instance.LogTrainingSuccess();
                 EndEpisode();

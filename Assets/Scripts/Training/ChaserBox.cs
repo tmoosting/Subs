@@ -45,7 +45,7 @@ public class ChaserBox : MonoBehaviour
         if (Random.Range(0, 2) == 0)
             enemyShip.transform.GetComponent<Uboat>().Resurface();
         else
-            enemyShip.transform.GetComponent<Uboat>().Submerge();
+            enemyShip.transform.GetComponent<Uboat>().Resurface();
     }
     public void CircleUboat()
     {

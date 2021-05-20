@@ -411,11 +411,15 @@ public class Ship : MonoBehaviour
 
 
     public void SetDrag(){
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        //get gs from locator
-        //float gs = subloc.gs;
-        //rb.drag = gs;
-        //greyscale = gs;
+        if (GameController.Instance.enablePCG == true)
+        {
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+         //   get gs from locator
+            float gs = subloc.gs;
+            rb.drag = gs;
+            greyscale = gs;
+        }
+
     }
 
 }

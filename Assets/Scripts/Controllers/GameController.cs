@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
     [Range(0.1f,10)] public float gameSpeed;
     public float knotsPerMagnitude;
     public float loggingInterval; // in seconds
+    public bool enablePCG;
 
     [Header("Turn Correction")]
     public bool useTurnCorrection;

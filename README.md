@@ -18,10 +18,12 @@ Find and open the three different Scenes in the Assets/Scenes folder.
 
 ### Play
 The game has a battle-ready scenario with player input and deadly Uboats.
-1. Click on any ship, or their icon at the top of the screen, to select it
-2. Use the Engine selector to set the ship’s engine
-3. Use the bearing-field, or middle mouse button, to set the ship’s target bearing
-4. Note the controls as indicated in the movable Ship Window:<ul>
+<ul>
+ <li>1. Click on any ship, or their icon at the top of the screen, to select it</li>
+ <li>2. Use the Engine selector to set the ship’s engine</li>
+ <li>3. Use the bearing-field, or middle mouse button, to set the ship’s target bearing</li>
+ <li>4. Note the controls as indicated in the movable Ship Window:</li>
+  <ul>
  <li>Middle Mouse: Toggle target target location</li>
 <li> Rightmouse: Pan camera, Scroll: zoom in/out</li>
 ..* Left/Right arrows: Select next ship
@@ -30,6 +32,8 @@ The game has a battle-ready scenario with player input and deadly Uboats.
 ..* T: Fire torpedo (Uboat selected)
 ..* X: Throw depth charges (Destroyer selected)
 ..* C: Toggle strategy view
+  </ul>
+ </ul>
  
 ### PCG
 

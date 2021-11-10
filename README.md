@@ -6,7 +6,8 @@ Unity version: 2020.3.f1
 
 [MLAgents](https://github.com/Unity-Technologies/ml-agents) version: 1.9.1
 
-[Project Report](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)
+### Project Report
+[Link](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)
 
 ### Unity WebGL
 
@@ -36,7 +37,7 @@ The game has a battle-ready scenario with player input and deadly Uboats.
   </ul>
  </ul>
  
-### PCG
+### Procedural Generation: Weather System
 <ul>
 <li>The Perlin noise generation is tunable by altering the Width, Height and Scale
 parameters in the _Generation object.</li>

@@ -9,7 +9,7 @@ MLAgents version: 1.9.1
 ### WebGL
 
 ### Project Report
-[Link] (https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)
+[Link](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)
 
 ### Install
 Unzip the Unity Source file and open the folder through Unity Hub.

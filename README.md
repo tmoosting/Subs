@@ -7,7 +7,7 @@ Unity version: 2020.3.f1
 [MLAgents](https://github.com/Unity-Technologies/ml-agents) version: 1.9.1
 
 ### Summary
-Subs is a Unity-MLAgents project for training WWII Destroyers to protect their precious convoys from vicious, decision-tree Uboat AI.  
+Subs is a Unity-MLAgents project for training WWII Destroyers to protect their precious convoys from vicious, decision-tree AI Uboats.  
 
 ### Project Report
 [Link](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)

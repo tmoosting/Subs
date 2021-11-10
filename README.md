@@ -18,25 +18,19 @@ Find and open the three different Scenes in the Assets/Scenes folder.
 
 ### Play
 The game has a battle-ready scenario with player input and deadly Uboats.
-..* Click on any ship, or their icon at the top of the screen, to select it
-..* Use the Engine selector to set the ship’s engine
-..* Use the bearing-field, or middle mouse button, to set the ship’s target bearing
-..* Note the controls as indicated in the movable Ship Window:
-○ Middle Mouse: Toggle target target location
-○ Rightmouse: Pan camera, Scroll: zoom in/out
-○ Left/Right arrows: Select next ship
-○ F: Follow selected ship
-○ P: Toggle physics correction (default: ON)
-○ T: Fire torpedo (Uboat selected)
-○ X: Throw depth charges (Destroyer selected)
-○ C: Toggle strategy view
-
-1. First ordered list item
-2. Another item
-⋅⋅* Unordered sub-list. 
-1. Actual numbers don't matter, just that it's a number
-⋅⋅1. Ordered sub-list
-4. And another item.
+1. Click on any ship, or their icon at the top of the screen, to select it
+2. Use the Engine selector to set the ship’s engine
+3. Use the bearing-field, or middle mouse button, to set the ship’s target bearing
+4. Note the controls as indicated in the movable Ship Window:
+..* Middle Mouse: Toggle target target location
+..* Rightmouse: Pan camera, Scroll: zoom in/out
+..* Left/Right arrows: Select next ship
+..* F: Follow selected ship
+..* P: Toggle physics correction (default: ON)
+..* T: Fire torpedo (Uboat selected)
+..* X: Throw depth charges (Destroyer selected)
+..* C: Toggle strategy view
+ 
 ### PCG
 
 ● The Perlin noise generation is tunable by altering the Width, Height and Scale

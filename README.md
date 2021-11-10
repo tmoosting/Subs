@@ -12,18 +12,18 @@ Subs is a Unity-MLAgents project for training WWII Destroyers to protect their p
 ### Project Report
 [Link](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)
 
-### Unity WebGL
-
+### Executable (Windows)
+[Link](https://drive.google.com/file/d/1qn-W27A65L_a5ssikh2dlm2BI7_G0VKo/view?usp=sharing)
 
 
 ### Install
-Unzip the Unity Source file and open the folder through Unity Hub.
-Find and open the three different Scenes in the Assets/Scenes folder.
+Unzip the Unity Source file and open the folder through Unity Hub. 
 
 
 ### Play
 The game has a battle-ready scenario with player input and deadly Uboats.
 <ul>
+ <li>Open the Game scene in Assets/Scenes </li>
  <li>Click on any ship, or their icon at the top of the screen, to select it</li>
  <li>Use the Engine selector to set the ship’s engine</li>
  <li>Use the bearing-field, or middle mouse button, to set the ship’s target bearing</li>
@@ -42,6 +42,7 @@ The game has a battle-ready scenario with player input and deadly Uboats.
  
 ### Procedural Generation: Weather System
 <ul>
+  <li>Open the PCG scene in Assets/Scenes </li>
 <li>The Perlin noise generation is tunable by altering the Width, Height and Scale
 parameters in the _Generation object.</li>
 <li>The Locator object in each ship finds the dynamic greyscale on the map which can
@@ -51,7 +52,7 @@ be seen in the “Gs” variable.</li>
  
 ### Training
 <ul>
-<li>Open the Training scene in Unity</li>
+<li>Open the Training scene in Assets/Scenes</li>
 <li>Open the ChaserParent object in Hierarchy, and its first ChaserBox</li>
  <li>Note the Behaviour Parameters script in the Inspector. It will have a pre-trained model assigned by default. </li>
  <li>To start a new training run:</li>

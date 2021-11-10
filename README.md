@@ -1,6 +1,6 @@
 # Subs
 
-Final Assignment for Masters course: [Modern Game AI Algorithms](https://studiegids.universiteitleiden.nl/courses/98799/modern-game-ai-algorithms)
+Final Assignment for Masters course: [Modern Game AI Algorithms](https://studiegids.universiteitleiden.nl/courses/98799/modern-game-ai-algorithms) at Leiden University
 
 Unity version: 2020.3.f1
 

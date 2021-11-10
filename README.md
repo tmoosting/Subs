@@ -5,11 +5,11 @@ Final Assignment for Masters course: [Modern Game AI Algorithms](https://studieg
 Unity version: 2020.3.f1
 MLAgents version: 1.9.1
 
+[Project Report](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)
 
-### WebGL
+### Unity WebGL
 
-### Project Report
-[Link](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)
+
 
 ### Install
 Unzip the Unity Source file and open the folder through Unity Hub.
@@ -31,7 +31,12 @@ The game has a battle-ready scenario with player input and deadly Uboats.
 ○ X: Throw depth charges (Destroyer selected)
 ○ C: Toggle strategy view
 
-
+1. First ordered list item
+2. Another item
+⋅⋅* Unordered sub-list. 
+1. Actual numbers don't matter, just that it's a number
+⋅⋅1. Ordered sub-list
+4. And another item.
 ### PCG
 
 ● The Perlin noise generation is tunable by altering the Width, Height and Scale

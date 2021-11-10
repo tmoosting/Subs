@@ -22,8 +22,9 @@ The game has a battle-ready scenario with player input and deadly Uboats.
 2. Use the Engine selector to set the ship’s engine
 3. Use the bearing-field, or middle mouse button, to set the ship’s target bearing
 4. Note the controls as indicated in the movable Ship Window:
-..* Middle Mouse: Toggle target target location
-..* Rightmouse: Pan camera, Scroll: zoom in/out
+5. <ul>
+ <li>Middle Mouse: Toggle target target location</li>
+<li> Rightmouse: Pan camera, Scroll: zoom in/out</li>
 ..* Left/Right arrows: Select next ship
 ..* F: Follow selected ship
 ..* P: Toggle physics correction (default: ON)

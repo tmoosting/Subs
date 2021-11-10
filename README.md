@@ -3,6 +3,7 @@
 Final Assignment for Masters course: [Modern Game AI Algorithms](https://studiegids.universiteitleiden.nl/courses/98799/modern-game-ai-algorithms)
 
 Unity version: 2020.3.f1
+
 [MLAgents](https://github.com/Unity-Technologies/ml-agents) version: 1.9.1
 
 [Project Report](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)

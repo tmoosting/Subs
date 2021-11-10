@@ -12,8 +12,12 @@ Subs is a Unity-MLAgents project for training WWII Destroyers to protect their p
 ### Project Report
 [Link](https://drive.google.com/file/d/1ayQ4Lkly29q4ofP5zjz57u9UhYBNetSD/view?usp=sharing)
 
+### Demo (.mp4)
+[Link](https://drive.google.com/file/d/1iy4SkoOeKJQPYtY_UoVT50k5dEFxXJ0T/view)
+
 ### Executable (Windows)
 [Link](https://drive.google.com/file/d/1qn-W27A65L_a5ssikh2dlm2BI7_G0VKo/view?usp=sharing)
+
 
 
 ### Install
